@@ -1,0 +1,44 @@
+name: Deploy Python Backend
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up SSH for deployment
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      # Step 3: Deploy to server
+      - name: Deploy to Oracle VM
+        run: |
+          # Sync files to the server, excluding unnecessary files
+          rsync -avz --exclude '__pycache__' --exclude '.env' --exclude '.git' ./ ubuntu@150.136.107.196:/home/ubuntu/website-backend-api/
+
+      # Step 4: Restart the Python application
+      - name: Restart Python Backend
+        run: |
+          ssh ubuntu@150.136.107.196 << 'EOF'
+          cd /home/ubuntu/website-backend-api
+          # Optional: Create a virtual environment if not already created
+          if [ ! -d "venv" ]; then
+              python3 -m venv venv
+          fi
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          deactivate
+          # Restart the application using systemd
+          sudo systemctl restart backend-api
+          EOF
