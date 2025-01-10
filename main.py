@@ -49,6 +49,9 @@ class ChatRequest(BaseModel):
     session_id: str
     prompt: str
 
+@app.get("/")
+async def read_root():
+    return {"message": "Hello, World!"}
 
 @app.post("/api/llm/chat")
 async def chat(request: ChatRequest):
