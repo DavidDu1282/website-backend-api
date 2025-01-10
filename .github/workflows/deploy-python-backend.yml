@@ -21,14 +21,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      # Step 3: Sync files to the server
+      # Step 3: Add host key to known hosts
+      - name: Add host key to known hosts
+          run: |
+            ssh-keyscan -H 150.136.107.196 >> ~/.ssh/known_hosts
+
+      # Step 4: Sync files to the server
       - name: Deploy to Oracle VM
         env:
           RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }} # Optional: If you use rsync with a password
         run: |
           rsync -avz --exclude '__pycache__' --exclude '.env' --exclude '.git' ./ ubuntu@150.136.107.196:/home/ubuntu/website-backend-api/
 
-      # Step 4: Set up Python environment and restart backend
+      # Step 5: Set up Python environment and restart backend
       - name: Set up and Restart Backend
         run: |
           ssh ubuntu@150.136.107.196 << 'EOF'
@@ -50,7 +55,7 @@ jobs:
           sudo systemctl restart backend-api
           EOF
 
-      # Step 5: Verify Deployment
+      # Step 6: Verify Deployment
       - name: Verify Deployment
         run: |
           ssh ubuntu@150.136.107.196 << 'EOF'
