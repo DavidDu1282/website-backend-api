@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import vertexai
 from vertexai.generative_models import GenerativeModel, ChatSession
@@ -7,6 +8,16 @@ import uuid
 from datetime import datetime, timedelta
 
 app = FastAPI()
+
+
+# Add CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Update with your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Environment Variables
 PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID")
