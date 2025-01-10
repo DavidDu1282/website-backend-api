@@ -23,8 +23,8 @@ jobs:
 
       # Step 3: Add host key to known hosts
       - name: Add host key to known hosts
-          run: |
-            ssh-keyscan -H 150.136.107.196 >> ~/.ssh/known_hosts
+        run: |
+          ssh-keyscan -H 150.136.107.196 >> ~/.ssh/known_hosts
 
       # Step 4: Sync files to the server
       - name: Deploy to Oracle VM
