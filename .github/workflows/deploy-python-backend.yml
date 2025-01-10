@@ -20,25 +20,39 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      # Step 3: Deploy to server
+      # Step 3: Sync files to the server
       - name: Deploy to Oracle VM
+        env:
+          RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }} # Optional: If you use rsync with a password
         run: |
-          # Sync files to the server, excluding unnecessary files
           rsync -avz --exclude '__pycache__' --exclude '.env' --exclude '.git' ./ ubuntu@150.136.107.196:/home/ubuntu/website-backend-api/
 
-      # Step 4: Restart the Python application
-      - name: Restart Python Backend
+      # Step 4: Set up Python environment and restart backend
+      - name: Set up and Restart Backend
         run: |
           ssh ubuntu@150.136.107.196 << 'EOF'
+          echo "Navigating to backend directory..."
           cd /home/ubuntu/website-backend-api
-          # Optional: Create a virtual environment if not already created
+
+          echo "Setting up Python environment..."
           if [ ! -d "venv" ]; then
               python3 -m venv venv
           fi
+
+          echo "Activating virtual environment..."
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
           deactivate
-          # Restart the application using systemd
+
+          echo "Restarting FastAPI application with systemd..."
           sudo systemctl restart backend-api
+          EOF
+
+      # Step 5: Verify Deployment
+      - name: Verify Deployment
+        run: |
+          ssh ubuntu@150.136.107.196 << 'EOF'
+          echo "Checking application status..."
+          sudo systemctl status backend-api
           EOF
