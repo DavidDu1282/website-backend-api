@@ -1,6 +1,7 @@
 # Standard Library Imports
 import os
 import json
+import logging
 from datetime import datetime, timedelta
 
 # Third-Party Library Imports
@@ -9,13 +10,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 from annoy import AnnoyIndex
+import pandas as pd
 
 # Vertex AI Imports
 import vertexai
 from vertexai.generative_models import GenerativeModel, ChatSession
 
 
-app = FastAPI()
+app = FastAPI(debug = True)
 
 # Add CORS Middleware
 app.add_middleware(
@@ -44,6 +46,7 @@ embedding_model = None
 chat_sessions = {}
 session_expiry_time = timedelta(hours=1)  # Session expiry time
 
+logging.basicConfig(level=logging.DEBUG)
 
 @app.on_event("startup")
 async def startup_event():
@@ -63,9 +66,14 @@ async def startup_event():
     annoy_index = AnnoyIndex(384, "angular")
     annoy_index.load(INDEX_FILE)
 
-    # Load the chunks mapping
-    with open(CSV_FILE, "r") as f:
-        chunks = {int(line.split(",")[0]): ",".join(line.split(",")[1:]).strip() for line in f}
+    # Load the chunks mapping using pandas
+    try:
+        df = pd.read_csv(CSV_FILE, encoding="utf-8")
+        # Convert the DataFrame to a dictionary
+        chunks = df.set_index("Index")["Chunk"].to_dict()
+    except Exception as e:
+        print(f"Error loading chunks.csv: {e}")
+        raise RuntimeError("Failed to load chunks.csv")
 
     # Load the embedding model
     embedding_model = SentenceTransformer(MODEL_NAME)
@@ -105,14 +113,18 @@ async def query_and_chat(request: ChatRequest, k: int = 5):
     prompt = request.prompt
 
     try:
+        logging.info("Received request: %s", request.dict())
         # Generate the embedding for the query
         query_embedding = embedding_model.encode(prompt)
+        # print("Generated embedding:", query_embedding)
 
-        # Retrieve top-k nearest neighbors
+        # # Retrieve top-k nearest neighbors
         indices = annoy_index.get_nns_by_vector(query_embedding, k, include_distances=False)
+        # print("Retrieved indices:", indices)
 
         # Retrieve corresponding text chunks
         relevant_chunks = "\n".join([chunks[idx] for idx in indices])
+        # print("Relevant chunks:", relevant_chunks)
 
         # Check if the session already exists
         if session_id in chat_sessions:
@@ -142,6 +154,7 @@ async def query_and_chat(request: ChatRequest, k: int = 5):
         return {"response": "".join(text_response)}
 
     except Exception as e:
+        logging.error("Error occurred: %s", e)
         raise HTTPException(status_code=500, detail=f"Failed to process query and chat: {str(e)}")
 
 
