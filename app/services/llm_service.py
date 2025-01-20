@@ -3,7 +3,7 @@ from vertexai.generative_models import GenerativeModel, ChatSession
 from datetime import datetime, timedelta
 
 # Constants
-MODEL_NAME = "gemini-2.0-flash-thinking-exp-1219"
+MODEL_NAME = "gemini-2.0-flash-exp"#"gemini-2.0-flash-thinking-exp-1219"
 SESSION_EXPIRY_TIME = timedelta(hours=1)  # Expire sessions after 1 hour
 
 def chat_logic(request):

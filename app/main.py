@@ -9,7 +9,10 @@ from app.core.startup import startup_event
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] # to generalize, update list with allowed origins
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Include API Routes
