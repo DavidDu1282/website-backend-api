@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.routes import tarot, llm
+from app.api.routes import tarot, llm, root
 from app.config import settings
 from app.core.startup import startup_event
 
@@ -16,6 +16,7 @@ app.add_middleware(
 )
 
 # Include API Routes
+app.include_router(root.router)
 app.include_router(tarot.router, prefix="/api/tarot", tags=["Tarot"])
 app.include_router(llm.router, prefix="/api/llm", tags=["LLM"])
 
