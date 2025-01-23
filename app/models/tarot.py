@@ -7,5 +7,7 @@ class TarotCard(BaseModel):
 
 class TarotAnalysisRequest(BaseModel):
     session_id: str
+    spread: str
     tarot_cards: List[TarotCard]
     user_context: str
+    # test_constant: str
