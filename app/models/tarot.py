@@ -10,4 +10,5 @@ class TarotAnalysisRequest(BaseModel):
     spread: str
     tarot_cards: List[TarotCard]
     user_context: str
+    language: str
     # test_constant: str

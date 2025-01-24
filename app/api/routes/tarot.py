@@ -10,6 +10,7 @@ async def analyze_tarot(request: TarotAnalysisRequest):
     Analyze the tarot draw results in the context of the user's query.
     """
     try:
+        print(request)
         return analyze_tarot_logic(request)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
