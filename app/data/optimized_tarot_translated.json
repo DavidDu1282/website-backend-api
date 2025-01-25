@@ -1,0 +1,4602 @@
+{
+    "cards": [
+        {
+            "name": "The Fool",
+            "number": "0",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m00.jpg",
+            "fortune_telling": [
+                "Watch for new projects and new beginnings",
+                "Prepare to take something on faith",
+                "Something new comes your way; go for it"
+            ],
+            "keywords": [
+                "freedom",
+                "faith",
+                "inexperience",
+                "innocence"
+            ],
+            "meanings": {
+                "light": [
+                    "Freeing yourself from limitation",
+                    "Expressing joy and youthful vigor",
+                    "Being open-minded",
+                    "Taking a leap of faith",
+                    "Attuning yourself to your instincts",
+                    "Being eager or curious",
+                    "Exploring your potential",
+                    "Embracing innovation and change"
+                ],
+                "shadow": [
+                    "Being gullible and naive",
+                    "Taking unnecessary risks",
+                    "Failing to be serious when required",
+                    "Being silly or distracted",
+                    "Lacking experience",
+                    "Failing to honor well-established traditions and limits",
+                    "Behaving inappropriately"
+                ],
+                "lightZh": [
+                    "摆脱限制",
+                    "表达喜悦和青春活力",
+                    "心胸开阔",
+                    "迈出信念的一步",
+                    "顺应你的直觉",
+                    "热切或好奇",
+                    "发掘你的潜力",
+                    "拥抱创新和变革"
+                ],
+                "shadowZh": [
+                    "容易受骗和天真",
+                    "承担不必要的风险",
+                    "需要认真对待时却没有做到",
+                    "愚蠢或分心",
+                    "缺乏经验",
+                    "未能尊重既定的传统和限制",
+                    "行为不当"
+                ]
+            },
+            "archetype": "The Divine Madman",
+            "questions_to_ask": [
+                "What would I do if I felt free to take a leap?",
+                "How willing am I to be vulnerable and open?",
+                "How might past experiences help in this new situation?"
+            ],
+            "affirmation": "",
+            "nameZh": "愚人"
+        },
+        {
+            "name": "The Magician",
+            "number": "1",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m01.jpg",
+            "fortune_telling": [
+                "A powerful man may play a role in your day",
+                "Your current situation must be seen as one element of a much larger plan"
+            ],
+            "keywords": [
+                "capability",
+                "empowerment",
+                "activity"
+            ],
+            "meanings": {
+                "light": [
+                    "Taking appropriate action",
+                    "Receiving guidance from a higher power",
+                    "Becoming a channel of divine will",
+                    "Expressing masculine energy in appropriate and constructive ways",
+                    "Being yourself in every way"
+                ],
+                "shadow": [
+                    "Inflating your own ego",
+                    "Abusing talents",
+                    "Manipulating or deceiving others",
+                    "Being too aggressive",
+                    "Using cheap illusions to dazzle others",
+                    "Refusing to invest the time and effort needed to master your craft",
+                    "Taking shortcuts"
+                ],
+                "lightZh": [
+                    "采取适当行动",
+                    "接受更高力量的指导",
+                    "成为神圣意志的渠道",
+                    "以适当和建设性的方式表达男性能量",
+                    "做你自己"
+                ],
+                "shadowZh": [
+                    "自我膨胀",
+                    "滥用人才",
+                    "操纵或欺骗他人",
+                    "过于激进",
+                    "用廉价的幻术迷惑他人",
+                    "拒绝投入掌握技能所需的时间和精力",
+                    "走捷径"
+                ]
+            },
+            "archetype": "The Ego/The Self",
+            "questions_to_ask": [
+                "What am I empowered to do?",
+                "How might my abilities come into play?",
+                "To what extent am I making the most of my talents?"
+            ],
+            "affirmation": "",
+            "nameZh": "魔术师"
+        },
+        {
+            "name": "The High Priestess",
+            "number": "2",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m02.jpg",
+            "fortune_telling": [
+                "A mysterious woman arrives",
+                "A sexual secret may surface",
+                "Someone knows more than he or she will reveal"
+            ],
+            "keywords": [
+                "intuition",
+                "reflection",
+                "purity",
+                "initiation"
+            ],
+            "meanings": {
+                "light": [
+                    "Listening to your feelings and intuitions",
+                    "Exploring unconventional spirituality",
+                    "Keeping secrets",
+                    "Being receptive",
+                    "Reflecting instead of acting",
+                    "Observing others",
+                    "Preserving purity"
+                ],
+                "shadow": [
+                    "Being aloof",
+                    "Obsessing on secrets and conspiracies",
+                    "Rejecting guidance from spirit or intuition",
+                    "Revealing all",
+                    "Ignoring gut feelings",
+                    "Refusing to become involved, even when involvement is appropriate"
+                ],
+                "lightZh": [
+                    "倾听你的感受和直觉",
+                    "探索非传统的灵性",
+                    "保守秘密",
+                    "乐于接受",
+                    "反思而不是行动",
+                    "观察他人",
+                    "保持纯度"
+                ],
+                "shadowZh": [
+                    "疏离",
+                    "沉迷于秘密和阴谋",
+                    "拒绝精神或直觉的指导",
+                    "揭露一切",
+                    "忽视直觉",
+                    "拒绝参与，即使参与是适当的"
+                ]
+            },
+            "archetype": "The Virgin/The Maiden",
+            "questions_to_ask": [
+                "What might a rebel against tradition do?",
+                "What isn't being said or revealed?",
+                "What could be achieved by observing and reflecting?"
+            ],
+            "affirmation": "",
+            "nameZh": "女祭司"
+        },
+        {
+            "name": "The Empress",
+            "number": "3",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m03.jpg",
+            "fortune_telling": [
+                "Pregnancy is in the cards",
+                "An opportunity to be involved in luxurious sexuality is coming",
+                "Beware a tendency toward addiction"
+            ],
+            "keywords": [
+                "fertility",
+                "productivity",
+                "ripeness",
+                "nurturing"
+            ],
+            "meanings": {
+                "light": [
+                    "Nurturing yourself and others",
+                    "Bearing fruit",
+                    "Celebrating your body",
+                    "Bearing (literal or figurative) children",
+                    "Reveling in luxury",
+                    "Mothering those around you in positive ways",
+                    "Enjoying your sexuality",
+                    "Getting things done"
+                ],
+                "shadow": [
+                    "Overindulging",
+                    "Being greedy",
+                    "Smothering someone with attention",
+                    "Debilitating someone by being overprotective",
+                    "Inhibiting productivity by obsessing on productivity",
+                    "Being overcome by addictive behavior"
+                ],
+                "lightZh": [
+                    "培育自己和他人",
+                    "结出硕果",
+                    "庆祝你的身体",
+                    "生儿育女（无论是字面意义上的还是比喻意义上的）",
+                    "尽享奢华",
+                    "以积极的方式照顾你周围的人",
+                    "享受性生活",
+                    "完成任务"
+                ],
+                "shadowZh": [
+                    "过度放纵",
+                    "贪婪",
+                    "用关注扼杀某人",
+                    "过度保护导致他人衰弱",
+                    "过分追求生产力会抑制生产力",
+                    "被上瘾行为所困扰"
+                ]
+            },
+            "archetype": "The Mother",
+            "questions_to_ask": [
+                "What would a concerned and capable mother do?",
+                "What can I do that would emphasize growth?",
+                "How can I celebrate my own sensuality and sexuality?"
+            ],
+            "affirmation": "",
+            "nameZh": "皇后"
+        },
+        {
+            "name": "The Emperor",
+            "number": "4",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m04.jpg",
+            "fortune_telling": [
+                "A father figure arrives",
+                "A new employer or authority figure will give you orders",
+                "Expect discipline or correction in the near future"
+            ],
+            "keywords": [
+                "authority",
+                "regulation",
+                "direction",
+                "structure"
+            ],
+            "meanings": {
+                "light": [
+                    "Exercising authority",
+                    "Defining limits",
+                    "Directing the flow of work",
+                    "Communicating clear guidelines",
+                    "Being in control of yourself and others",
+                    "Tempering aggressive masculinity with wisdom and experience"
+                ],
+                "shadow": [
+                    "Micromanaging",
+                    "Crushing the creativity of others with a rigid, iron-fisted approach",
+                    "Insisting on getting your own way",
+                    "Assuming a dictatorial mindset",
+                    "Using overt force to achieve your goals and maintain order"
+                ],
+                "lightZh": [
+                    "行使权力",
+                    "定义限制",
+                    "指导工作流程",
+                    "传达明确的指导方针",
+                    "控制自己和他人",
+                    "用智慧和经验磨练攻击性的男子气概"
+                ],
+                "shadowZh": [
+                    "微观管理",
+                    "用僵硬、铁腕的方式扼杀他人的创造力",
+                    "坚持按照自己的方式做事",
+                    "假设独裁心态",
+                    "使用公开的武力来实现你的目标并维持秩序"
+                ]
+            },
+            "archetype": "The Father",
+            "questions_to_ask": [
+                "How does the issue of control or regulation impact this situation?",
+                "What would a compassionate but strict father do?",
+                "What needs more control?"
+            ],
+            "affirmation": "",
+            "nameZh": "皇帝"
+        },
+        {
+            "name": "The Hierophant",
+            "number": "5",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m05.jpg",
+            "fortune_telling": [
+                "Expect to be caught in a misdeed and punished accordingly",
+                "Pray for forgiveness and confess wrongdoings",
+                "A more experienced man, spiritual leader, or father figure will come into your life"
+            ],
+            "keywords": [
+                "guidance",
+                "knowledge",
+                "revelation",
+                "belief"
+            ],
+            "meanings": {
+                "light": [
+                    "Teaching or guiding others",
+                    "Searching for the truth",
+                    "Asking for guidance from a higher power",
+                    "Acknowledging the wisdom and experience of others",
+                    "Taking vows",
+                    "Engaging in heartfelt rituals",
+                    "Volunteering"
+                ],
+                "shadow": [
+                    "Using experience as a means of manipulating or misguiding others",
+                    "Being dogmatic",
+                    "Favoring tradition over what is expedient or necessary",
+                    "Going through the motions of empty rituals",
+                    "Concealing wisdom",
+                    "Restricting access to spiritual truths or the gods"
+                ],
+                "lightZh": [
+                    "教导或指导他人",
+                    "寻找真相",
+                    "寻求更高力量的指导",
+                    "承认他人的智慧和经验",
+                    "宣誓",
+                    "参与发自内心的仪式",
+                    "志愿服务"
+                ],
+                "shadowZh": [
+                    "利用经验来操纵或误导他人",
+                    "教条主义",
+                    "崇尚传统，而非权宜之计或必要之举",
+                    "做一些空洞的仪式",
+                    "隐藏智慧",
+                    "限制接触精神真理或神灵"
+                ]
+            },
+            "archetype": "The Guardian/The Church/Faith",
+            "questions_to_ask": [
+                "What role might tradition or religion play in this situation?",
+                "Who authored the rules? Who enforces them? Why?",
+                "How might an experienced guide impact this situation?"
+            ],
+            "affirmation": "",
+            "nameZh": "教皇"
+        },
+        {
+            "name": "The Lovers",
+            "number": "6",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m06.jpg",
+            "fortune_telling": [
+                "A new personal or professional relationship blossoms",
+                "Sexual opportunities abound",
+                "Unexpectedly, a friend becomes a lover"
+            ],
+            "keywords": [
+                "love",
+                "passion",
+                "unity",
+                "choice"
+            ],
+            "meanings": {
+                "light": [
+                    "Being in love",
+                    "Showing your love to others",
+                    "Expressing passion or romantic feelings",
+                    "Aligning yourself with groups or like-minded others",
+                    "Bringing people together",
+                    "Making well-informed decisions"
+                ],
+                "shadow": [
+                    "Debilitating passion",
+                    "Allowing an unhealthy desire for love to motivate destructive behavior",
+                    "Disrupting unity",
+                    "Working against the best interests of those who care about you",
+                    "Ill-informed decisions"
+                ],
+                "lightZh": [
+                    "恋爱",
+                    "向他人表达你的爱",
+                    "表达激情或浪漫情怀",
+                    "与团体或志同道合的人保持一致",
+                    "团结人们",
+                    "做出明智的决定"
+                ],
+                "shadowZh": [
+                    "使人衰弱的激情",
+                    "让不健康的爱的欲望激发破坏性行为",
+                    "破坏团结",
+                    "损害那些关心你的人的最大利益",
+                    "不明智的决定"
+                ]
+            },
+            "archetype": "The Lover/Sexual Awakening",
+            "questions_to_ask": [
+                "What guides my choices?",
+                "What is my heart leading me to do?",
+                "How might this decision transform me as a person?"
+            ],
+            "affirmation": "",
+            "nameZh": "恋人"
+        },
+        {
+            "name": "The Chariot",
+            "number": "7",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m07.jpg",
+            "fortune_telling": [
+                "Victory is a certainty",
+                "Move ahead with all plans",
+                "Beware the jealousy of others"
+            ],
+            "keywords": [
+                "advancement",
+                "victory",
+                "triumph",
+                "success"
+            ],
+            "meanings": {
+                "light": [
+                    "Breaking through barriers",
+                    "Moving forward with confidence and authority",
+                    "Reaching the pinnacle of success",
+                    "Basking in the glory of achievement",
+                    "Guiding an effort to total victory",
+                    "Establishing yourself as a worthy leader"
+                ],
+                "shadow": [
+                    "Resting on laurels",
+                    "Riding roughshod over the feelings or expectations of others",
+                    "Focusing more on past successes than future opportunities",
+                    "Failing to rein in impulsive behavior"
+                ],
+                "lightZh": [
+                    "突破障碍",
+                    "充满信心和权威地前进",
+                    "达到成功的顶峰",
+                    "享受成就的荣耀",
+                    "引领努力走向全面胜利",
+                    "树立自己作为优秀领导者的形象"
+                ],
+                "shadowZh": [
+                    "固步自封",
+                    "粗暴对待他人的感受或期望",
+                    "更关注过去的成功而不是未来的机会",
+                    "无法控制冲动行为"
+                ]
+            },
+            "archetype": "The Victorious Hero",
+            "questions_to_ask": [
+                "To what extent have I arrived? What will my next challenge be?",
+                "How can I use past achievements to their best advantage?",
+                "What would the criteria for real and meaningful success be?"
+            ],
+            "affirmation": "",
+            "nameZh": "战车"
+        },
+        {
+            "name": "Strength",
+            "number": "8",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m08.jpg",
+            "fortune_telling": [
+                "Your self-control will be tested",
+                "A woman will seek to change her partner or lover",
+                "You are a strong, capable person"
+            ],
+            "keywords": [
+                "discipline",
+                "boldness",
+                "self-discipline",
+                "power",
+                "vitality"
+            ],
+            "meanings": {
+                "light": [
+                    "Imposing restrictions on yourself for your own benefit",
+                    "Bringing your passions under the control of reason",
+                    "Resisting impulses that work against your best interests",
+                    "Taking bold action"
+                ],
+                "shadow": [
+                    "Indulging weakness, even when you know it will damage your health and happiness",
+                    "Languishing in addiction",
+                    "Allowing your instincts to tame and conquer you",
+                    "Failing to take a stand when necessary"
+                ],
+                "lightZh": [
+                    "为了自己的利益而对自己施加限制",
+                    "让激情受理性控制",
+                    "抵制那些违背你最佳利益的冲动",
+                    "采取大胆行动"
+                ],
+                "shadowZh": [
+                    "纵容弱点，即使你知道这会损害你的健康和幸福",
+                    "沉迷于毒瘾",
+                    "让你的本能驯服和征服你",
+                    "在必要时未能表明立场"
+                ]
+            },
+            "archetype": "The Law",
+            "questions_to_ask": [
+                "To what extent is your life (or work) balanced?",
+                "How can you achieve greater objectivity?",
+                "What course of action would be fair to everyone concerned?"
+            ],
+            "affirmation": "",
+            "nameZh": "力量"
+        },
+        {
+            "name": "The Hermit",
+            "number": "9",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m09.jpg",
+            "fortune_telling": [
+                "A period of loneliness begins",
+                "One partner in a relationship departs",
+                "A search for love or money proves fruitless"
+            ],
+            "keywords": [
+                "solitude",
+                "experience",
+                "stillness",
+                "withdrawal"
+            ],
+            "meanings": {
+                "light": [
+                    "Becoming or seeking out a guru",
+                    "Going on a retreat",
+                    "Recharging spiritual or creative batteries",
+                    "Lighting the way for those with less experience",
+                    "Stepping back to gain perspective"
+                ],
+                "shadow": [
+                    "Being a loner",
+                    "Fearing contact with others",
+                    "Becoming a know-it-all",
+                    "Inflating claims of expertise",
+                    "Hiding your skills and talents out of fear of unworthiness"
+                ],
+                "lightZh": [
+                    "成为或寻找大师",
+                    "去静修",
+                    "为精神或创意充电",
+                    "为经验不足的人照亮道路",
+                    "退一步看清形势"
+                ],
+                "shadowZh": [
+                    "独来独往",
+                    "害怕与他人接触",
+                    "成为万事通",
+                    "夸大专业知识",
+                    "因害怕不值得而隐藏自己的技能和才能"
+                ]
+            },
+            "archetype": "The Holy Man",
+            "questions_to_ask": [
+                "What would happen if I simply withdrew and took no action?",
+                "How can I get some perspective on the situation?",
+                "Who has walked this path before me? How can I enlist his or her help?"
+            ],
+            "affirmation": "",
+            "nameZh": "隐士"
+        },
+        {
+            "name": "Wheel of Fortune",
+            "number": "10",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m10.jpg",
+            "fortune_telling": [
+                "Some events are in the hands of heaven",
+                "You've lived through this before",
+                "What happened then?"
+            ],
+            "keywords": [
+                "luck",
+                "randomness",
+                "cycles",
+                "karma",
+                "fate",
+                "revolution"
+            ],
+            "meanings": {
+                "light": [
+                    "Allowing events to unfold",
+                    "Seeing the larger pattern in everyday events",
+                    "Trusting your luck",
+                    "Watching for cycles",
+                    "Believing that \"what goes around, comes around\""
+                ],
+                "shadow": [
+                    "Losing money gambling",
+                    "Refusing to do your part to bring a plan to fruition",
+                    "Taking a fatalistic approach to life",
+                    "Fighting the natural course of events"
+                ],
+                "lightZh": [
+                    "让事件自然展开",
+                    "在日常事件中看到更大的规律",
+                    "相信你的运气",
+                    "观察周期",
+                    "相信“善有善报，恶有恶报”"
+                ],
+                "shadowZh": [
+                    "赌博输钱",
+                    "拒绝尽自己的努力来实现计划",
+                    "以宿命论的态度对待生活",
+                    "对抗自然事件进程"
+                ]
+            },
+            "archetype": "The Fates/Destiny",
+            "questions_to_ask": [
+                "How does this challenge fit into a larger pattern?",
+                "What role does luck play in my circumstances?",
+                "What can I control? How should I know when to relinquish control?"
+            ],
+            "affirmation": "",
+            "nameZh": "命运之轮"
+        },
+        {
+            "name": "Justice",
+            "number": "11",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m11.jpg",
+            "fortune_telling": [
+                "A legal verdict will be rendered soon",
+                "Someone is making a decision",
+                "You need to get the facts"
+            ],
+            "keywords": [
+                "balance",
+                "law",
+                "fairness",
+                "objectivity"
+            ],
+            "meanings": {
+                "light": [
+                    "Making an objective decision",
+                    "Weighing an issue carefully before taking action",
+                    "Appropriately scaling your reaction to a situation",
+                    "Getting all the facts",
+                    "Considering evidence",
+                    "Deliberating"
+                ],
+                "shadow": [
+                    "Delivering harsh criticism",
+                    "Obsessing on rules and regulations",
+                    "Playing by the book even when it is destructive or counterproductive to do so",
+                    "Confusing snap decisions with timely action",
+                    "Playing favorites"
+                ],
+                "lightZh": [
+                    "做出客观的决定",
+                    "采取行动前仔细权衡问题",
+                    "适当调整对情况的反应",
+                    "了解全部事实",
+                    "考虑证据",
+                    "深思熟虑"
+                ],
+                "shadowZh": [
+                    "提出严厉批评",
+                    "沉迷于规则和规定",
+                    "严格遵守规则，即使这样做具有破坏性或适得其反",
+                    "混淆仓促决定和及时行动",
+                    "偏袒"
+                ]
+            },
+            "archetype": "The Id",
+            "questions_to_ask": [
+                "How can I enhance my self-discipline?",
+                "What behaviors tempt me? How can I resist?",
+                "What instincts do I continue to struggle with today?"
+            ],
+            "affirmation": "",
+            "nameZh": "正义"
+        },
+        {
+            "name": "The Hanged Man",
+            "number": "12",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m12.jpg",
+            "fortune_telling": [
+                "A traitor is revealed",
+                "One of your friends is working against you",
+                "Change your ways or suffer the consequences"
+            ],
+            "keywords": [
+                "enlightenment",
+                "sacrifice",
+                "perspective",
+                "suspension",
+                "reversals"
+            ],
+            "meanings": {
+                "light": [
+                    "Seeing growth opportunities in unpleasant events",
+                    "Experiencing a dramatic change in personal perspective",
+                    "Making the best of an unforeseen change in your life or work",
+                    "Suspending disbelief",
+                    "Making sacrifices"
+                ],
+                "shadow": [
+                    "Being untrue to yourself and your values",
+                    "Refusing to make sacrifices when appropriate",
+                    "Refusing to adapt to new situations",
+                    "Blaming others",
+                    "Profiting at the expense of others"
+                ],
+                "lightZh": [
+                    "在不愉快的事件中看到成长机会",
+                    "经历个人观点的重大转变",
+                    "充分利用生活或工作中意想不到的变化",
+                    "暂停怀疑",
+                    "做出牺牲"
+                ],
+                "shadowZh": [
+                    "不忠于自己和自己的价值观",
+                    "拒绝在适当的时候做出牺牲",
+                    "拒绝适应新情况",
+                    "责怪他人",
+                    "损害他人利益而获利"
+                ]
+            },
+            "archetype": "The Traitor",
+            "questions_to_ask": [
+                "How can I radically alter my perspective?",
+                "How might being stuck actually be a blessing in disguise?",
+                "How can I help myself see the glass as half full?"
+            ],
+            "affirmation": "",
+            "nameZh": "吊人"
+        },
+        {
+            "name": "Death",
+            "number": "13",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m13.jpg",
+            "fortune_telling": [
+                "A relationship or illness ends suddenly",
+                "Limit travel and risk-taking",
+                "General gloom and doom"
+            ],
+            "keywords": [
+                "ending",
+                "conclusion",
+                "transition",
+                "passage",
+                "departure"
+            ],
+            "meanings": {
+                "light": [
+                    "Bringing an unpleasant phase of life to an end",
+                    "Recognizing and celebrating the conclusion of something",
+                    "Putting bad habits to rest",
+                    "Becoming a new person",
+                    "Leaving one person, place, or thing for another",
+                    "Letting go"
+                ],
+                "shadow": [
+                    "Obsessing on death and dying",
+                    "Refusing to give up old habits or unhealthy relationships",
+                    "Insisting that everything and everyone should stay the same forever",
+                    "Failing to take good care of yourself"
+                ],
+                "lightZh": [
+                    "结束生活中不愉快的阶段",
+                    "承认并庆祝某件事的结束",
+                    "戒掉坏习惯",
+                    "成为新人",
+                    "离开一个人、一个地方或一件事，去另一个地方",
+                    "放手"
+                ],
+                "shadowZh": [
+                    "痴迷于死亡和临终",
+                    "拒绝放弃旧习惯或不健康的关系",
+                    "坚持一切、每个人都应该永远保持不变",
+                    "没能好好照顾自己"
+                ]
+            },
+            "archetype": "Death",
+            "questions_to_ask": [
+                "What needs to end?",
+                "How might an ending actually be a blessing in this situation?",
+                "What's next?"
+            ],
+            "affirmation": "",
+            "nameZh": "死亡"
+        },
+        {
+            "name": "Temperance",
+            "number": "14",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m14.jpg",
+            "fortune_telling": [
+                "Someone's using drugs or alcohol to excess",
+                "It's time to get back on that diet"
+            ],
+            "keywords": [
+                "blending",
+                "synthesis",
+                "mediation",
+                "combination",
+                "harmony"
+            ],
+            "meanings": {
+                "light": [
+                    "Bringing opposites together",
+                    "Moderating your actions or emotions",
+                    "Finding middle ground",
+                    "Reaching compromises",
+                    "Synthesizing solutions that please everyone involved",
+                    "Using the old to make something new"
+                ],
+                "shadow": [
+                    "Going to extremes",
+                    "Disrupting group efforts",
+                    "Ignoring healthy approaches to life",
+                    "Becoming an addict",
+                    "Practicing gluttony",
+                    "Tearing something or someone apart",
+                    "Breaking alliances"
+                ],
+                "lightZh": [
+                    "将对立面融合在一起",
+                    "控制你的行为或情绪",
+                    "寻找中间立场",
+                    "达成妥协",
+                    "综合所有参与者满意的解决方案",
+                    "用旧做新"
+                ],
+                "shadowZh": [
+                    "走向极端",
+                    "破坏团体努力",
+                    "忽视健康的生活方式",
+                    "成为瘾君子",
+                    "暴食",
+                    "把某物或某人撕碎",
+                    "打破联盟"
+                ]
+            },
+            "archetype": "The Mediator",
+            "questions_to_ask": [
+                "How can I avoid extremes?",
+                "What does everyone involved have in common?",
+                "How might combining familiar things help me create something new?"
+            ],
+            "affirmation": "",
+            "nameZh": "节制"
+        },
+        {
+            "name": "The Devil",
+            "number": "15",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m15.jpg",
+            "fortune_telling": [
+                "Adultery and unfaithfulness",
+                "A string of extremely bad luck is coming your way",
+                "Beware evil influences and wolves in sheep's clothing"
+            ],
+            "keywords": [
+                "shadow",
+                "materialism",
+                "bondage",
+                "delusion"
+            ],
+            "meanings": {
+                "light": [
+                    "Appreciating the luxuries that life has to offer",
+                    "Being comfortable in your own skin",
+                    "Enjoying your sexuality",
+                    "Splurging on an expensive personal item",
+                    "Embracing the fact that everyone has a darker side",
+                    "Dealing with unhealthy impulses in healthy ways"
+                ],
+                "shadow": [
+                    "Putting excessive emphasis on appearances",
+                    "Always wanting more",
+                    "Valuing possessions more than people or relationships",
+                    "Allowing base instincts to govern your life",
+                    "Being selfish",
+                    "Attributing your own dark impulses to outside forces or other people"
+                ],
+                "lightZh": [
+                    "欣赏生活所提供的奢华",
+                    "对自己感到满意",
+                    "享受性生活",
+                    "挥霍购买昂贵的个人物品",
+                    "接受每个人都有阴暗面的事实",
+                    "用健康的方式应对不健康的冲动"
+                ],
+                "shadowZh": [
+                    "过分注重外表",
+                    "总是想要更多",
+                    "重视财产胜过重视人际关系",
+                    "让本能主宰你的生活",
+                    "自私",
+                    "将自己的黑暗冲动归咎于外部力量或其他人"
+                ]
+            },
+            "archetype": "The Shadow, The Other",
+            "questions_to_ask": [
+                "What enslaves me? How can I set myself free?",
+                "How can I re-evaluate the importance I assign to material things?",
+                "To what extent do my cravings define me?"
+            ],
+            "affirmation": "",
+            "nameZh": "魔鬼"
+        },
+        {
+            "name": "The Tower",
+            "number": "16",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m16.jpg",
+            "fortune_telling": [
+                "Impending disaster",
+                "Cancel plans and reverse decisions",
+                "Someone wants to take you down a notch or two",
+                "Don't hold back; say what you really mean"
+            ],
+            "keywords": [
+                "demolition",
+                "upheaval",
+                "deconstruction",
+                "disaster",
+                "destruction"
+            ],
+            "meanings": {
+                "light": [
+                    "Breaking out of old, confining habits and mindsets",
+                    "Clearing the way for new growth",
+                    "Dispelling the influence of an inflated ego",
+                    "Getting back to basics",
+                    "Stripping away harmful illusions",
+                    "Receiving sudden insight"
+                ],
+                "shadow": [
+                    "Clinging to traditions that repress growth",
+                    "Engaging in willful blindness",
+                    "Rejecting evidence that change is needed",
+                    "Ignoring guidance from a higher power",
+                    "Maliciously engaging in destructive behavior"
+                ],
+                "lightZh": [
+                    "摆脱陈旧、局限的习惯和思维模式",
+                    "为新增长扫清道路",
+                    "消除自我膨胀的影响",
+                    "回归根本",
+                    "消除有害幻想",
+                    "获得顿悟"
+                ],
+                "shadowZh": [
+                    "坚守阻碍增长的传统",
+                    "故意视而不见",
+                    "拒绝接受需要改变的证据",
+                    "忽视上级的指导",
+                    "恶意从事破坏性行为"
+                ]
+            },
+            "archetype": "The Shattered Ego",
+            "questions_to_ask": [
+                "How might the current situation dramatically alter my perspective?",
+                "How might this loss open the door for new growth?",
+                "What attitudes need to be struck down before I proceed?"
+            ],
+            "affirmation": "",
+            "nameZh": "塔楼"
+        },
+        {
+            "name": "The Star",
+            "number": "17",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m17.jpg",
+            "fortune_telling": [
+                "Get an astrology chart drawn up",
+                "Someone is a little too starstruck",
+                "What's happening now has long been fore-ordained"
+            ],
+            "keywords": [
+                "hope",
+                "optimism",
+                "openness",
+                "certainty",
+                "faith",
+                "longing",
+                "truth"
+            ],
+            "meanings": {
+                "light": [
+                    "Hoping for the best",
+                    "Believing good things happen to good people",
+                    "Seeing events in the best possible light",
+                    "Adopting a generous spirit",
+                    "Seeking guidance from above",
+                    "Embracing possibility over probability"
+                ],
+                "shadow": [
+                    "Denying unpleasant truths",
+                    "Denying personal accountability and saying, \"Things just happen!\"",
+                    "Ignoring signs and omens",
+                    "Preferring illusion to reality",
+                    "Spreading pessimism and stinginess of spirit"
+                ],
+                "lightZh": [
+                    "希望一切顺利",
+                    "相信好人有好报",
+                    "从最好的角度看待事件",
+                    "秉持慷慨精神",
+                    "寻求上级指导",
+                    "拥抱可能性而非概率"
+                ],
+                "shadowZh": [
+                    "否认令人不快的事实",
+                    "否认个人责任并说“事情就是发生了！”",
+                    "忽视迹象和预兆",
+                    "宁愿幻想也不愿现实",
+                    "传播悲观主义和精神吝啬"
+                ]
+            },
+            "archetype": "The Heavenly Guide",
+            "questions_to_ask": [
+                "What would my higher power direct me to do?",
+                "How can I be less self-conscious and guarded?",
+                "How can I better attune myself to the abundance of life's blessings?"
+            ],
+            "affirmation": "",
+            "nameZh": "明星"
+        },
+        {
+            "name": "The Moon",
+            "number": "18",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m18.jpg",
+            "fortune_telling": [
+                "Watch for problems at the end of the month",
+                "Someone you know needs to howl at the moon more often",
+                "Someone is about to change his or her mind about an important decision"
+            ],
+            "keywords": [
+                "mystery",
+                "fantasy",
+                "imagination",
+                "dreams",
+                "uncertainty"
+            ],
+            "meanings": {
+                "light": [
+                    "Enjoying healthy fantasies and daydreams",
+                    "Using your imagination",
+                    "Practicing magic or celebrating the magic of everyday life",
+                    "Attuning yourself to the cycles of nature",
+                    "Embracing the unknown"
+                ],
+                "shadow": [
+                    "Becoming unable to separate fantasy from reality",
+                    "Suffering from delusions",
+                    "Losing your appreciation for the fantastic or magical",
+                    "Adopting a ruthlessly logical mindset",
+                    "Failing to appreciate life's mysteries"
+                ],
+                "lightZh": [
+                    "享受健康的幻想和白日梦",
+                    "发挥你的想象力",
+                    "练习魔术或庆祝日常生活中的魔力",
+                    "适应自然循环",
+                    "拥抱未知"
+                ],
+                "shadowZh": [
+                    "无法区分幻想与现实",
+                    "患有妄想症",
+                    "失去对奇妙或神奇事物的欣赏",
+                    "采用绝对逻辑的思维方式",
+                    "无法领悟生命的奥秘"
+                ]
+            },
+            "archetype": "The Holy Feminine/The Crone",
+            "questions_to_ask": [
+                "How can I face my fears and move forward?",
+                "What helpers can serve me as guides through my personal darkness?",
+                "How can I deal with the unknown in healthy ways?"
+            ],
+            "affirmation": "",
+            "nameZh": "月亮"
+        },
+        {
+            "name": "The Sun",
+            "number": "19",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m19.jpg",
+            "fortune_telling": [
+                "Everything's coming up roses (or sunflowers, whatever the case may be)",
+                "Whatever's on your mind, go for it because you can't lose today"
+            ],
+            "keywords": [
+                "joy",
+                "brilliance",
+                "validation",
+                "attention",
+                "energy"
+            ],
+            "meanings": {
+                "light": [
+                    "Seeing things clearly",
+                    "Experiencing intense joy",
+                    "Celebrating your own successes",
+                    "Knowing you're good at what you do",
+                    "Gaining recognition for your personal genius"
+                ],
+                "shadow": [
+                    "Being dazzled by your own accomplishments",
+                    "Becoming absorbed in your own self-image",
+                    "Feeling rushed and distracted",
+                    "Exerting yourself to the point of exhaustion",
+                    "Overstating your abilities or misrepresenting your achievements"
+                ],
+                "lightZh": [
+                    "看清事物",
+                    "体验强烈的喜悦",
+                    "庆祝自己的成功",
+                    "知道自己擅长做什么",
+                    "获得对你个人天赋的认可"
+                ],
+                "shadowZh": [
+                    "对自己取得的成就感到眼花缭乱",
+                    "专注于自己的自我形象",
+                    "感到匆忙和心烦意乱",
+                    "用尽全力",
+                    "夸大你的能力或歪曲你的成就"
+                ]
+            },
+            "archetype": "The Holy Masculine",
+            "questions_to_ask": [
+                "How can I take best advantage of the attention coming my way?",
+                "What are my highest spiritual goals?",
+                "How can I avoid being bedazzled by the energy swirling around me?"
+            ],
+            "affirmation": "",
+            "nameZh": "太阳"
+        },
+        {
+            "name": "Judgement",
+            "number": "20",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m20.jpg",
+            "fortune_telling": [
+                "An old issue you thought was over will come up again today",
+                "Get ready for huge changes: break-ups, sudden calls from old friends, and unexpected setbacks",
+                "God's trying to get your attention"
+            ],
+            "keywords": [
+                "revival",
+                "renewal",
+                "resurrection",
+                "evaluation",
+                "invitation"
+            ],
+            "meanings": {
+                "light": [
+                    "Receiving a wake-up call",
+                    "Discovering a new purpose in life",
+                    "Becoming totally and completely yourself",
+                    "Receiving a well-deserved reward",
+                    "Passing an evaluation or examination",
+                    "Welcoming the start of a new phase of life"
+                ],
+                "shadow": [
+                    "Being weighed in the balances and found wanting",
+                    "Failing to measure up to a well-defined standard",
+                    "Being caught goofing off or misbehaving",
+                    "Failing to prepare for an examination you know is coming",
+                    "Rejecting an opportunity to reinvent yourself"
+                ],
+                "lightZh": [
+                    "接到叫醒电话",
+                    "发现新的人生目标",
+                    "成为完全的你自己",
+                    "获得应得的奖励",
+                    "通过评估或考试",
+                    "迎接人生新阶段的开始"
+                ],
+                "shadowZh": [
+                    "被放在天平上衡量，发现不足",
+                    "未能达到明确界定的标准",
+                    "被发现偷懒或行为不当",
+                    "未能为即将来临的考试做好准备",
+                    "拒绝重塑自我的机会"
+                ]
+            },
+            "archetype": "Resurrection",
+            "questions_to_ask": [
+                "What is the main thing I need to realize about myself?",
+                "In what way might the universe be trying to get my attention?",
+                "If I were to reinvent myself, what would I become?"
+            ],
+            "affirmation": "",
+            "nameZh": "判断"
+        },
+        {
+            "name": "The World",
+            "number": "21",
+            "arcana": "Major Arcana",
+            "suit": "Trump",
+            "img": "m21.jpg",
+            "fortune_telling": [
+                "Winning the lottery",
+                "Getting your heart's desire",
+                "Having everything you ever imagined having"
+            ],
+            "keywords": [
+                "wholeness",
+                "integration",
+                "totality",
+                "completeness",
+                "fullness"
+            ],
+            "meanings": {
+                "light": [
+                    "Having it all",
+                    "Knowing and loving yourself as completely as possible",
+                    "Seeing the interconnection of all things and people",
+                    "Enhancing your perspective",
+                    "Living life to its fullest",
+                    "Understanding the meaning of life"
+                ],
+                "shadow": [
+                    "Allowing greed and envy to prevent you from enjoying what you do possess",
+                    "Failing to see the larger design in ordinary events",
+                    "Believing that everything that exists can be touched, counted, or measured",
+                    "Failing to see the divine reflected in those around you"
+                ],
+                "lightZh": [
+                    "拥有一切",
+                    "尽可能全面地了解和爱自己",
+                    "看到万物与人之间的相互联系",
+                    "拓展你的视野",
+                    "充分享受生活",
+                    "理解生命的意义"
+                ],
+                "shadowZh": [
+                    "让贪婪和嫉妒阻止你享受你所拥有的东西",
+                    "看不到普通事件中的大局",
+                    "相信一切存在的事物都可以触摸、计算或测量",
+                    "看不到周围人身上体现的神圣性"
+                ]
+            },
+            "archetype": "Enlightenment",
+            "questions_to_ask": [
+                "For me, what would having it all mean?",
+                "How aware am I of my own connectedness to the world around me?",
+                "What keeps me from having it all right now, today?"
+            ],
+            "affirmation": "",
+            "nameZh": "世界"
+        },
+        {
+            "name": "Ace of Cups",
+            "number": "1",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c01.jpg",
+            "fortune_telling": [
+                "Romance is in the cards",
+                "A new relationship or marriage is just around the corner",
+                "Prayers are answered"
+            ],
+            "keywords": [
+                "intuition",
+                "spirituality",
+                "affection",
+                "motivation"
+            ],
+            "meanings": {
+                "light": [
+                    "Trusting your feelings",
+                    "Opening yourself to spirit",
+                    "Accepting and returning affection",
+                    "Getting in touch with what motivates you",
+                    "Taking advantage of an opportunity to express love to others",
+                    "Listening to the still, small voice"
+                ],
+                "shadow": [
+                    "Hiding your feelings",
+                    "Spurning an opportunity to love or be loved",
+                    "Numbing yourself to spiritual yearnings",
+                    "Rejecting the counsel of your heart",
+                    "Becoming a puppet of your own emotions",
+                    "Indulging in hysteria or obsession"
+                ],
+                "lightZh": [
+                    "相信你的感觉",
+                    "敞开心扉，拥抱精神",
+                    "接受并回报爱",
+                    "了解你的动机",
+                    "借此机会向他人表达爱意",
+                    "聆听那平静、细小的声音"
+                ],
+                "shadowZh": [
+                    "隐藏你的感受",
+                    "拒绝爱与被爱的机会",
+                    "麻痹自己，不去追求精神上的渴望",
+                    "拒绝内心的建议",
+                    "成为自己情绪的傀儡",
+                    "陷入歇斯底里或痴迷"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What am I feeling right now?",
+                "How would I go about opening myself to spiritual guidance?",
+                "What motivates me the most - pleasure or pain? Why?"
+            ],
+            "affirmation": "\"I listen to the counsel of my heart.\"",
+            "nameZh": "圣杯王牌"
+        },
+        {
+            "name": "Two of Cups",
+            "number": "2",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c02.jpg",
+            "fortune_telling": [
+                "Someone has a secret crush on you",
+                "Relationships should be mutual; get rid of a leech"
+            ],
+            "keywords": [
+                "union",
+                "attraction",
+                "combination",
+                "affection"
+            ],
+            "meanings": {
+                "light": [
+                    "Being drawn to someone",
+                    "Longing for someone or something",
+                    "Acting on your desires",
+                    "Discovering a feeling is mutual",
+                    "Doing what makes you feel good",
+                    "Merging",
+                    "Healing broken ties",
+                    "Admitting two people feel differently about each other and moving on"
+                ],
+                "shadow": [
+                    "Burning bridges",
+                    "Becoming caught up in unhealthy codependency",
+                    "Shutting out anyone but your chosen few",
+                    "Obsessing on someone who does not return your affections",
+                    "Despairing over finding \"The One\"",
+                    "Deceiving yourself about your true orientation"
+                ],
+                "lightZh": [
+                    "被某人吸引",
+                    "渴望某人或某事",
+                    "根据你的愿望行事",
+                    "发现感觉是相互的",
+                    "做让你感觉良好的事",
+                    "合并",
+                    "修复破裂的关系",
+                    "承认两个人对彼此的感觉不同，然后继续前进"
+                ],
+                "shadowZh": [
+                    "烧毁桥梁",
+                    "陷入不健康的相互依赖",
+                    "排除除你选择的少数人之外的任何人",
+                    "痴迷于一个不回报你爱的人",
+                    "找不到“真命天子”",
+                    "欺骗自己，不让你知道自己的真实性取向"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can I make sure that what I'm feeling is mutual?\",\"When was the last time I felt \"in love\" with someone or something?",
+                "What do you need in order to feel emotionally stable?"
+            ],
+            "affirmation": "\"I am attuned to what my heart truly desires.\"",
+            "nameZh": "圣杯二"
+        },
+        {
+            "name": "Three of Cups",
+            "number": "3",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c03.jpg",
+            "fortune_telling": [
+                "Unconventional romance is coming your way: a love affair with someone you've always dismissed"
+            ],
+            "keywords": [
+                "celebration",
+                "expression",
+                "community",
+                "friendliness"
+            ],
+            "meanings": {
+                "light": [
+                    "Celebrating your feelings or connections with others",
+                    "Expressing joy through song, dance, or physical affection",
+                    "Working together with others who share your feelings",
+                    "Performing acts of service as a way of saying, \"I love you\"",
+                    "Embracing unconventional romantic arrangements"
+                ],
+                "shadow": [
+                    "Mistaking giddiness for true affection",
+                    "Being dominated by manic emotions",
+                    "Expecting everyone to always feel the same way you do",
+                    "Demanding unreasonable support from friends or family",
+                    "Partying to a dangerous or unhealthy extent"
+                ],
+                "lightZh": [
+                    "庆祝你与他人的感受或联系",
+                    "通过歌曲、舞蹈或身体接触表达喜悦",
+                    "与其他志同道合的人一起工作",
+                    "通过提供服务来表达“我爱你”",
+                    "拥抱非传统的浪漫安排"
+                ],
+                "shadowZh": [
+                    "误以为轻浮是真爱",
+                    "被狂躁的情绪所支配",
+                    "期望每个人都和你有同样的感受",
+                    "要求朋友或家人提供不合理的支持",
+                    "聚会达到危险或不健康的程度"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What's worth celebrating in my life?",
+                "How can I demonstrate my feelings in appropriate ways?",
+                "What can I do to show my partner how I really feel?"
+            ],
+            "affirmation": "\"I allow my actions to reflect my true emotions.\"",
+            "nameZh": "圣杯三"
+        },
+        {
+            "name": "Four of Cups",
+            "number": "4",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c04.jpg",
+            "fortune_telling": [
+                "A lover is getting restless",
+                "Find out what he or she needs, or new opportunities may lure your partner away"
+            ],
+            "keywords": [
+                "boredom",
+                "listlessness",
+                "lethargy",
+                "stability",
+                "ingratitude"
+            ],
+            "meanings": {
+                "light": [
+                    "Maintaining your emotional stability",
+                    "Refusing to give in to overwhelming emotions",
+                    "Appreciating what you have and refusing to take it for granted",
+                    "Seeing the value of long-term commitments"
+                ],
+                "shadow": [
+                    "Being bored",
+                    "Daydreaming at the expense of your work",
+                    "Refusing to be engaged by opportunity",
+                    "Taking people and relationships for granted",
+                    "Ignoring romantic or spiritual opportunities",
+                    "Spurning inspiration",
+                    "Feeling everything should stay \"just like it is\""
+                ],
+                "lightZh": [
+                    "保持情绪稳定",
+                    "拒绝屈服于强烈的情绪",
+                    "珍惜你所拥有的，拒绝视其为理所当然",
+                    "看到长期承诺的价值"
+                ],
+                "shadowZh": [
+                    "无聊",
+                    "以牺牲工作为代价做白日梦",
+                    "拒绝机会",
+                    "将人和关系视为理所当然",
+                    "忽视浪漫或精神上的机会",
+                    "拒绝灵感",
+                    "感觉一切都应该保持“原样”"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can I use this \"downtime\" to my best advantage?",
+                "How can I show my partner that I don't take him or her for granted?",
+                "To what extent is my mood blinding me to new opportunities?"
+            ],
+            "affirmation": "\"I appreciate what I've been given.\"",
+            "nameZh": "圣杯四"
+        },
+        {
+            "name": "Five of Cups",
+            "number": "5",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c05.jpg",
+            "fortune_telling": [
+                "A breakup looms",
+                "Don't cry over spilt milk",
+                "Take your lumps and get back in the saddle"
+            ],
+            "keywords": [
+                "loss",
+                "despair",
+                "re-evaluation",
+                "regret",
+                "uncertainty",
+                "repentance"
+            ],
+            "meanings": {
+                "light": [
+                    "Acknowledging loss and moving on",
+                    "Focusing on how the glass remains \"half-full\"",
+                    "Finding the silver lining in a dark cloud",
+                    "Recognizing that loss is a natural part of life",
+                    "Embracing healthy grief",
+                    "Learning lessons from harsh consequences"
+                ],
+                "shadow": [
+                    "Wallowing in unhealthy grief or self-pity",
+                    "Refusing to move on and let go",
+                    "Clinging to the past",
+                    "Obsessing on past lives and past loves",
+                    "Failing to live in the present",
+                    "Beating yourself up over past mistakes",
+                    "Allowing fear of failure to limit your efforts"
+                ],
+                "lightZh": [
+                    "承认损失并继续前进",
+                    "关注如何让杯子保持“半满”",
+                    "乌云密布中寻找一线希望",
+                    "认识到失去是生活的自然组成部分",
+                    "拥抱健康的悲伤",
+                    "从严酷的后果中汲取教训"
+                ],
+                "shadowZh": [
+                    "沉溺于不健康的悲伤或自怜之中",
+                    "拒绝前进和放手",
+                    "执着于过去",
+                    "沉迷于过去的生活和过去的爱情",
+                    "未能活在当下",
+                    "为过去的错误自责",
+                    "让对失败的恐惧限制你的努力"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How do I tend to deal with loss?",
+                "What life lesson might I be learning now?",
+                "How can I shift my attention from the past to the future?"
+            ],
+            "affirmation": "\"I learn from my losses and move on.\"",
+            "nameZh": "圣杯五"
+        },
+        {
+            "name": "Six of Cups",
+            "number": "6",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c06.jpg",
+            "fortune_telling": [
+                "A stingy spirit is strangling your enjoyment of life",
+                "Loosen up and think of others for once, why don't you?"
+            ],
+            "keywords": [
+                "charity",
+                "sharing",
+                "sacrifice",
+                "cooperation",
+                "fairness"
+            ],
+            "meanings": {
+                "light": [
+                    "Donating your time and talents to others",
+                    "Taking satisfaction in knowing how your efforts will aid others",
+                    "Creating a \"win-win\" scenario",
+                    "Giving even when you know repayment is not possible",
+                    "Being motivated to do a good deed"
+                ],
+                "shadow": [
+                    "Linking your sense of self-worth to the appraisals of others",
+                    "Striving to appear more needy than you really are",
+                    "Taking undeserved or unmerited charity",
+                    "Bragging about your charitable efforts",
+                    "Profiteering in times of distress",
+                    "Refusing to share a burden"
+                ],
+                "lightZh": [
+                    "为他人奉献你的时间和才华",
+                    "知道自己的努力将如何帮助他人，从而感到满意",
+                    "创造“双赢”局面",
+                    "即使知道无法偿还，也要给予",
+                    "有动力去做一件好事"
+                ],
+                "shadowZh": [
+                    "将你的自我价值感与他人的评价联系起来",
+                    "努力表现得比实际上更需要帮助",
+                    "接受不应得或不值得的施舍",
+                    "吹嘘你的慈善努力",
+                    "危难之时牟取暴利",
+                    "拒绝分担负担"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What gifts do I possess? How freely do I give them?",
+                "How can I practice unconditional giving?",
+                "How would things change if I became a more charitable person?"
+            ],
+            "affirmation": "\"I freely give myself to others, expecting nothing in return.\"",
+            "nameZh": "圣杯六"
+        },
+        {
+            "name": "Seven of Cups",
+            "number": "7",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c07.jpg",
+            "fortune_telling": [
+                "You're being fed a line",
+                "Rather than be dazzled by fancy words and promises, demand something real"
+            ],
+            "keywords": [
+                "imagination",
+                "dreams",
+                "illusions",
+                "goals"
+            ],
+            "meanings": {
+                "light": [
+                    "Motivating yourself with images of future success",
+                    "Using visualization to encourage progress",
+                    "Taking an imaginative or creative approach to problem solving",
+                    "Making dreams come true",
+                    "Gleaning insight from personal visions"
+                ],
+                "shadow": [
+                    "Obsessing on imaginary fears or uncertain consequences",
+                    "Giving in to emotional or political terrorism",
+                    "Spending more time dreaming than working",
+                    "Failing to envision the possible repercussions of your choices",
+                    "Being controlled by fear"
+                ],
+                "lightZh": [
+                    "用未来成功的形象来激励自己",
+                    "使用可视化来促进进步",
+                    "采取富有想象力或创造性的方法解决问题",
+                    "让梦想成真",
+                    "从个人愿景中汲取洞见"
+                ],
+                "shadowZh": [
+                    "沉迷于想象中的恐惧或不确定的后果",
+                    "屈服于情感或政治恐怖主义",
+                    "花在做梦上的时间比工作上的时间多",
+                    "未能预见到你的选择可能带来的后果",
+                    "被恐惧所控制"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What do you want most? What do you fear most? How are these related?",
+                "How is your imagination working for you? Against you?",
+                "How might a clearer personal vision help you choose a single cup from the many available?"
+            ],
+            "affirmation": "\"I use inner vision as a tool for growth.\"",
+            "nameZh": "圣杯七"
+        },
+        {
+            "name": "Eight of Cups",
+            "number": "8",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c08.jpg",
+            "fortune_telling": [
+                "Someone's \"stepping out\" on you, now or in the near future",
+                "Maybe it's time to quit talking about the problem and just move on"
+            ],
+            "keywords": [
+                "longing",
+                "dissatisfaction",
+                "quest",
+                "departure",
+                "withdrawal"
+            ],
+            "meanings": {
+                "light": [
+                    "Wanting something better",
+                    "Blazing your own trail",
+                    "Realizing there must be more to life",
+                    "Leaving an unhealthy situation behind",
+                    "Starting your own business",
+                    "Going on a retreat",
+                    "Seeking the \"still, small voice\""
+                ],
+                "shadow": [
+                    "Being implacable",
+                    "Finding fault",
+                    "Nitpicking",
+                    "Refusing to settle down",
+                    "Running away from problems or confrontations",
+                    "Saying, \"It's my way or the highway!\"",
+                    "Harping on past mistakes and disappointments",
+                    "Threatening to quit as a strategy to get your way"
+                ],
+                "lightZh": [
+                    "想要更好的东西",
+                    "开辟自己的道路",
+                    "意识到生活还应该有更多的意义",
+                    "摆脱不健康的状况",
+                    "创办自己的企业",
+                    "去静修",
+                    "寻找“微小的声音”"
+                ],
+                "shadowZh": [
+                    "坚不可摧",
+                    "挑毛病",
+                    "挑剔",
+                    "拒绝安定下来",
+                    "逃避问题或冲突",
+                    "说道：“要么听我的，要么滚蛋！”",
+                    "反复谈论过去的错误和失望",
+                    "以辞职作为威胁来达到目的的策略"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What do I need to leave behind once and for all?",
+                "If I left in search of \"more,\" what would I be looking for, exactly?",
+                "How might a retreat enhance my perspective?"
+            ],
+            "affirmation": "\"I am always open to opportunities for growth.\"",
+            "nameZh": "圣杯八"
+        },
+        {
+            "name": "Nine of Cups",
+            "number": "9",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c09.jpg",
+            "fortune_telling": [
+                "Whatever you want, you'll get it"
+            ],
+            "keywords": [
+                "satisfaction",
+                "sensuality",
+                "luxury",
+                "pleasure"
+            ],
+            "meanings": {
+                "light": [
+                    "Being delighted with your own achievements",
+                    "Recognizing your own talents and abilities",
+                    "Reveling in the good things life has to offer",
+                    "Indulging yourself",
+                    "Relaxing and unwinding",
+                    "Having everything you need in order to feel complete"
+                ],
+                "shadow": [
+                    "Being smug",
+                    "Satisfying yourself at the expense of others",
+                    "Being selfish",
+                    "Over-indulging",
+                    "Avoiding work that needs to be done",
+                    "Claiming achievements or skills you do not possess",
+                    "Never being satisfied, no matter how much you have"
+                ],
+                "lightZh": [
+                    "为自己的成就感到高兴",
+                    "认识自己的天赋和能力",
+                    "享受生活给予的美好事物",
+                    "放纵自己",
+                    "放松身心",
+                    "拥有让你感觉完整所需要的一切"
+                ],
+                "shadowZh": [
+                    "自鸣得意",
+                    "以牺牲他人为代价来满足自己",
+                    "自私",
+                    "过度放纵",
+                    "逃避需要做的工作",
+                    "声称自己并不具备的成就或技能",
+                    "永不满足，无论拥有多少"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What is true happiness?",
+                "If I could have anything, what would I have?",
+                "What is my attitude toward luxury? Do I deserve it?"
+            ],
+            "affirmation": "\"I have everything I need to be happy.\"",
+            "nameZh": "圣杯九"
+        },
+        {
+            "name": "Ten of Cups",
+            "number": "10",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c10.jpg",
+            "fortune_telling": [
+                "Marriage and family are in the cards",
+                "Expect a friendship to blossom into a romance"
+            ],
+            "keywords": [
+                "joy",
+                "fulfillment",
+                "overwhelming emotion",
+                "giddiness"
+            ],
+            "meanings": {
+                "light": [
+                    "Having more than you ever dreamed",
+                    "Being deeply thankful for all you've been given",
+                    "Recognizing the Hand of God in the gifts the Universe brings your way",
+                    "Experiencing transcendent joy",
+                    "Achieving domestic bliss"
+                ],
+                "shadow": [
+                    "Comparing your achievements or relationships to unrealistic fantasy standards",
+                    "Experiencing emotions so intense they blunt your ability to cope with reality",
+                    "Feeling overwhelmed",
+                    "Envying the achievements and happiness of others"
+                ],
+                "lightZh": [
+                    "拥有比你梦想的更多",
+                    "深深感恩你所得到的一切",
+                    "在宇宙赐予你的礼物中认出上帝之手",
+                    "体验超越的喜悦",
+                    "实现家庭幸福"
+                ],
+                "shadowZh": [
+                    "将你的成就或人际关系与不切实际的幻想标准进行比较",
+                    "经历如此强烈的情绪，削弱了你应对现实的能力",
+                    "感到不知所措",
+                    "羡慕别人的成就和幸福"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "Who gets to define what \"joy\" consists of?",
+                "What course of action is available when you feel overwhelmed?",
+                "How might vows or promises play a role in achieving a greater level of joy in your life?"
+            ],
+            "affirmation": "\"I take time to appreciate what I've been given.\"",
+            "nameZh": "圣杯十"
+        },
+        {
+            "name": "Page of Cups",
+            "number": "11",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c11.jpg",
+            "fortune_telling": [
+                "This card represents a young man or woman with a watery, dreamy demeanor, likely born a Libra, Scorpio, or Sagittarius, who wants to start a new relationship with you"
+            ],
+            "keywords": [
+                "enthusiasm",
+                "first impressions",
+                "romanticism",
+                "superficiality"
+            ],
+            "meanings": {
+                "light": [
+                    "Showing your emotions freely",
+                    "Throwing yourself into romance",
+                    "Nursing a secret crush",
+                    "Indulging in romantic fantasy",
+                    "Starting a new relationship",
+                    "Recalling your first love",
+                    "Experiencing love for the first time",
+                    "Converting to a new religion"
+                ],
+                "shadow": [
+                    "Mistaking a crush for true love",
+                    "Reading romantic intention into innocent action",
+                    "Frantically trying to impress others",
+                    "Indulging in overly-sweet sentimentality",
+                    "Pretending to more romantic or spiritual experience than you possess"
+                ],
+                "lightZh": [
+                    "自由地表达你的情绪",
+                    "投入浪漫",
+                    "暗恋",
+                    "沉迷于浪漫幻想",
+                    "开始新的关系",
+                    "回忆你的初恋",
+                    "第一次体验爱情",
+                    "皈依新宗教"
+                ],
+                "shadowZh": [
+                    "误以为暗恋是真爱",
+                    "将浪漫意图解读为天真行动",
+                    "拼命地想要给别人留下深刻印象",
+                    "沉溺于过于甜蜜的感情",
+                    "假装拥有比实际更多的浪漫或精神体验"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How worried are you that others will see you as foolish or inexperienced?",
+                "To what extent can you be honest about your lack of experience in love and faith?",
+                "How can you maintain enthusiasm over time?"
+            ],
+            "affirmation": "\"I am ready to embrace love and Spirit.\"",
+            "nameZh": "圣杯侍从"
+        },
+        {
+            "name": "Knight of Cups",
+            "number": "12",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c12.jpg",
+            "fortune_telling": [
+                "This card represents a man with an emotional, sensitive personality, likely born between October 13th and November 11th, who wants you to rally around his latest passionate cause"
+            ],
+            "keywords": [
+                "fervor",
+                "zeal",
+                "moodiness",
+                "illumination"
+            ],
+            "meanings": {
+                "light": [
+                    "Being deeply committed to a cause",
+                    "Giving in to strong emotions, from excitement to depression",
+                    "Acting on intuition alone",
+                    "Solving problems intuitively",
+                    "Believing in and basing decisions on ideals instead of realities",
+                    "Bringing intuition or passion to the table"
+                ],
+                "shadow": [
+                    "Becoming a fanatic",
+                    "Rejecting information that suggests your intuitions are misguided",
+                    "Allowing your emotions to control you",
+                    "Giving in to jealousy, confrontation, and peer pressure",
+                    "Hiding or ignoring intuitive insights"
+                ],
+                "lightZh": [
+                    "全身心致力于某项事业",
+                    "屈服于强烈的情绪，从兴奋到沮丧",
+                    "仅凭直觉行事",
+                    "直观解决问题",
+                    "相信理想而不是现实，并以此为基础做出决定",
+                    "发挥直觉或热情"
+                ],
+                "shadowZh": [
+                    "成为狂热分子",
+                    "拒绝那些表明你的直觉被误导的信息",
+                    "让情绪控制你",
+                    "屈服于嫉妒、冲突和同辈压力",
+                    "隐藏或忽略直觉的洞察"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How prone to emotional extremes are you?",
+                "What's the difference in driving passion and blind zeal?",
+                "How can you inspire others without inciting a riot?"
+            ],
+            "affirmation": "\"I translate my passions into actions.\"",
+            "nameZh": "圣杯骑士"
+        },
+        {
+            "name": "Queen of Cups",
+            "number": "13",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c13.jpg",
+            "fortune_telling": [
+                "This card represents a woman with an emotional, deeply spiritual nature, likely born between June 11th and July 11th, who uses emotional and spiritual appeals to sway others to her point of view"
+            ],
+            "keywords": [
+                "insightfulness",
+                "spirituality",
+                "compassion",
+                "empathy",
+                "instinct"
+            ],
+            "meanings": {
+                "light": [
+                    "Allowing yourself to be moved by the plight of others",
+                    "Feeling strong emotions",
+                    "Possessing unusual sympathy or empathy",
+                    "Trusting your feelings to guide you",
+                    "Calling on psychic abilities",
+                    "Achieving unity with Spirit"
+                ],
+                "shadow": [
+                    "Becoming so caught up in matters of Spirit, you become detached from the world",
+                    "Allowing empathy to disable you (instead of inspire action)",
+                    "Using psychic abilities to wield covert influence",
+                    "Wallowing in emotionalism, sentiment, or self-pity"
+                ],
+                "lightZh": [
+                    "允许自己被他人的困境所感动",
+                    "感受到强烈的情绪",
+                    "拥有不同寻常的同情心或同理心",
+                    "相信你的感觉会指引你",
+                    "召唤心灵感应能力",
+                    "实现精神统一"
+                ],
+                "shadowZh": [
+                    "过于沉迷于精神世界，你会变得与世界脱节",
+                    "让同理心阻碍你（而不是激发你的行动）",
+                    "利用心灵感应能力施加隐秘影响",
+                    "沉溺于情绪化、多愁善感或自怜自艾"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How do I handle strong emotions?",
+                "To what extent am I a victim of my own feelings?",
+                "How can I move from reflection to action?"
+            ],
+            "affirmation": "\"I choose to be enabled, not disabled, by my strong emotions.\"",
+            "nameZh": "圣杯皇后"
+        },
+        {
+            "name": "King of Cups",
+            "number": "14",
+            "arcana": "Minor Arcana",
+            "suit": "Cups",
+            "img": "c14.jpg",
+            "fortune_telling": [
+                "This card represents an older man with a gentle, sensitive presence, likely born between February 9th and March 10th, who is known for his fairness and tolerance"
+            ],
+            "keywords": [
+                "wisdom",
+                "diplomacy",
+                "restraint",
+                "composure"
+            ],
+            "meanings": {
+                "light": [
+                    "Keeping a stiff upper lip",
+                    "Being brave and clear in the face of adverse circumstances",
+                    "Sharing experience as a way of comforting others",
+                    "Making fair and empathetic decisions",
+                    "Honoring the spirit, not just the letter, of the law"
+                ],
+                "shadow": [
+                    "Allowing yourself to become rigid and unemotional",
+                    "Making unfair decisions based on a hidden agenda",
+                    "Making decisions without regard for their emotional impact on others",
+                    "Abusing spiritual authority",
+                    "Using emotional or spiritual leverage to exercise unhealthy control over others"
+                ],
+                "lightZh": [
+                    "保持镇定",
+                    "面对不利情况时保持勇敢和清醒",
+                    "分享经验以安慰他人",
+                    "做出公平且富有同理心的决定",
+                    "尊重法律的精神，而不仅仅是法律的条文"
+                ],
+                "shadowZh": [
+                    "允许自己变得僵硬和冷漠",
+                    "根据隐藏的议程做出不公平的决定",
+                    "做出决定时不考虑对他人情感的影响",
+                    "滥用精神权威",
+                    "利用情感或精神上的影响力对他人进行不健康的控制"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What wise person could be consulted for good advice?",
+                "How can I make sure I'm being as objective and fair as possible?",
+                "To what extent am I capable of keeping a \"stiff upper lip?\""
+            ],
+            "affirmation": "\"I strive to be stable and fair-minded.\"",
+            "nameZh": "圣杯国王"
+        },
+        {
+            "name": "Ace of Swords",
+            "number": "1",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s01.jpg",
+            "fortune_telling": [
+                "The time to make a choice is now",
+                "Stop wavering and do what you know is best"
+            ],
+            "keywords": [
+                "logic",
+                "objectivity",
+                "intellect",
+                "choice"
+            ],
+            "meanings": {
+                "light": [
+                    "Making objective decisions",
+                    "Applying logic",
+                    "Reasoning your way out of a difficult situation",
+                    "Solving puzzles",
+                    "Thinking things through",
+                    "Emphasizing the facts",
+                    "Clearing your mind",
+                    "Seeking clarity"
+                ],
+                "shadow": [
+                    "Applying ruthless or twisted logic",
+                    "Gloating over your own superior intellect",
+                    "Using quick thinking to deceive or confuse others",
+                    "Confusing snap judgments with quick thinking",
+                    "Making decisions without thinking through consequences"
+                ],
+                "lightZh": [
+                    "做出客观的决定",
+                    "应用逻辑",
+                    "用理性的方法摆脱困境",
+                    "解决难题",
+                    "仔细思考",
+                    "强调事实",
+                    "清理思绪",
+                    "寻求清晰"
+                ],
+                "shadowZh": [
+                    "采用残酷或扭曲的逻辑",
+                    "炫耀自己的高超智慧",
+                    "利用敏捷的思维欺骗或迷惑他人",
+                    "混淆快速判断和快速思考",
+                    "做出决定时不考虑后果"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "If I made my decision purely based on reason and logic, what would my decision be?",
+                "What do I think about my own problem-solving ability?",
+                "Who can supply me with the pure and simple facts?"
+            ],
+            "affirmation": "\"I take the time to think things through.\"",
+            "nameZh": "宝剑 Ace"
+        },
+        {
+            "name": "Two of Swords",
+            "number": "2",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s02.jpg",
+            "fortune_telling": [
+                "Sometimes, the only way to win is to refuse to fight",
+                "You're stuck for now; let time pass before taking action"
+            ],
+            "keywords": [
+                "denial",
+                "debate",
+                "impasse",
+                "truce"
+            ],
+            "meanings": {
+                "light": [
+                    "Refusing to make a decision without getting the facts",
+                    "Exploring both sides of an argument",
+                    "Arguing passionately for what you believe in",
+                    "Weighing the issues",
+                    "Encouraging the open exchange of ideas",
+                    "Discussing political or religious issues without getting \"hot under the collar\""
+                ],
+                "shadow": [
+                    "Rejecting evidence that conflicts with dearly-held beliefs",
+                    "Arguing with others just for the sake of doing so",
+                    "Nit-picking",
+                    "Putting off a decision because you're afraid to face the consequences",
+                    "Preventing others from getting the information they need to make good decisions"
+                ],
+                "lightZh": [
+                    "拒绝在不了解事实的情况下做出决定",
+                    "探讨争论的双方",
+                    "为自己的信仰而激烈争论",
+                    "权衡问题",
+                    "鼓励开放的思想交流",
+                    "讨论政治或宗教问题，但不要“生气”"
+                ],
+                "shadowZh": [
+                    "拒绝与坚定信念相冲突的证据",
+                    "为了争论而与他人争论",
+                    "挑剔",
+                    "因为害怕承担后果而推迟做决定",
+                    "阻止他人获取做出正确决策所需的信息"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What information do I need to get past this impasse?",
+                "How can I get past being defensive and see the facts?",
+                "What viewpoints, other than my own, play a role in this situation?"
+            ],
+            "affirmation": "\"I strive to see all sides of every issue.\"",
+            "nameZh": "宝剑二"
+        },
+        {
+            "name": "Three of Swords",
+            "number": "3",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s03.jpg",
+            "fortune_telling": [
+                "Breakups and infidelity abound",
+                "What hurts now, though, will turn out to be good for you later on"
+            ],
+            "keywords": [
+                "variance",
+                "difference",
+                "dissatisfaction",
+                "heartache",
+                "rejection"
+            ],
+            "meanings": {
+                "light": [
+                    "Being brave enough to see things as they really are",
+                    "Exercising your critical eye",
+                    "Being your own best critic",
+                    "Acknowledging that things don't always turn out as planned",
+                    "Moving past heartbreak to embrace a painful truth"
+                ],
+                "shadow": [
+                    "Wallowing in despair",
+                    "Allowing yourself to be completely crushed by the thoughts, words, or deeds of another",
+                    "Judging yourself too harshly",
+                    "Holding yourself to an unrealistic standard of excellence",
+                    "Wearing your heart on your sleeve while carrying a chip on your shoulder"
+                ],
+                "lightZh": [
+                    "勇于看清事物的本来面目",
+                    "锻炼你的批判眼光",
+                    "做自己最好的批评家",
+                    "承认事情并不总是按计划进行",
+                    "走出心碎，接受痛苦的真相"
+                ],
+                "shadowZh": [
+                    "陷入绝望",
+                    "让自己完全被别人的思想、言语或行为压垮",
+                    "对自己要求太严格",
+                    "对自己要求不切实际的卓越标准",
+                    "坦率而又不失自信"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can I get past my depression?",
+                "To what extent are my emotions a matter of choice?",
+                "How can I learn from the mistakes of the past?"
+            ],
+            "affirmation": "\"I learn from failures and setbacks.\"",
+            "nameZh": "宝剑三"
+        },
+        {
+            "name": "Four of Swords",
+            "number": "4",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s04.jpg",
+            "fortune_telling": [
+                "Don't make any decision now",
+                "Wait, and you'll be glad you did"
+            ],
+            "keywords": [
+                "meditation",
+                "contemplation",
+                "perspective",
+                "mindset"
+            ],
+            "meanings": {
+                "light": [
+                    "Thinking over your plans before putting them into action",
+                    "Pausing to meditate or clear your mind",
+                    "Taking time to understand someone or something before criticizing it",
+                    "Resting",
+                    "Occupying your thoughts with a healthy distraction"
+                ],
+                "shadow": [
+                    "Failing to think things through",
+                    "Mistaking procrastination for thoughtfulness",
+                    "Adopting a point of view and refusing to reconsider your conclusions, even when presented with refuting evidence",
+                    "Allowing chaos and whimsy to dominate your thoughts"
+                ],
+                "lightZh": [
+                    "在实施计划之前要三思",
+                    "停下来冥想或清理思绪",
+                    "在批评某人或某事之前先花时间去了解它",
+                    "休息",
+                    "用健康的方式分散你的注意力"
+                ],
+                "shadowZh": [
+                    "缺乏深思熟虑",
+                    "误把拖延当成深思熟虑",
+                    "坚持自己的观点，拒绝重新考虑自己的结论，即使有反驳的证据",
+                    "让混乱和奇想主宰你的思想"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How long has it been since you deliberately took a \"time out?\"",
+                "How difficult is it for you to meditate?",
+                "What would happen if you simply refused to make a decision today?"
+            ],
+            "affirmation": "\"I think before taking action.\"",
+            "nameZh": "宝剑四"
+        },
+        {
+            "name": "Five of Swords",
+            "number": "5",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s05.jpg",
+            "fortune_telling": [
+                "Someone is stealing from you, financially or romantically",
+                "Be wary of friends who talk behind your back"
+            ],
+            "keywords": [
+                "selfishness",
+                "hostility",
+                "irrationality",
+                "self-preservation"
+            ],
+            "meanings": {
+                "light": [
+                    "Acting in your own best interest",
+                    "Choosing to stand up for yourself",
+                    "Not backing down from disagreement and discord",
+                    "Taking a stand",
+                    "Refusing to go along with an unethical plan",
+                    "Knowing when to bend the rules"
+                ],
+                "shadow": [
+                    "Taking advantage of others",
+                    "Intimidating others",
+                    "Acting in an unethical manner",
+                    "Picking fights",
+                    "Using words to goad others into violence and irrationality",
+                    "Ignoring rules you've agreed to abide by",
+                    "Looking out for yourself while allowing harm to come to others",
+                    "Gloating over victory"
+                ],
+                "lightZh": [
+                    "以自己的最佳利益行事",
+                    "选择为自己挺身而出",
+                    "不因分歧和不和而退缩",
+                    "采取立场",
+                    "拒绝接受不道德的计划",
+                    "知道何时打破规则"
+                ],
+                "shadowZh": [
+                    "利用他人",
+                    "恐吓他人",
+                    "行为不道德",
+                    "挑起争端",
+                    "使用言语煽动他人采取暴力和非理性行为",
+                    "忽视你已经同意遵守的规则",
+                    "照顾好自己，却允许伤害他人",
+                    "胜利得意洋洋"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How do I behave when I win? What does that say about me?",
+                "How can I do what's necessary without making others feel defeated?",
+                "What's the difference between selfish action and acting in my own best interest?"
+            ],
+            "affirmation": "\"Even as I care for myself, I am mindful of the needs of others.\"",
+            "nameZh": "宝剑五"
+        },
+        {
+            "name": "Six of Swords",
+            "number": "6",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s06.jpg",
+            "fortune_telling": [
+                "You'll soon go on a long journey over water",
+                "Actions have unexpected consequences, so be prepared"
+            ],
+            "keywords": [
+                "adaptation",
+                "adjustments",
+                "science",
+                "travel"
+            ],
+            "meanings": {
+                "light": [
+                    "Making the best of a bad situation",
+                    "Recovering from defeat",
+                    "Resetting expectations",
+                    "Making allowances for unexpected circumstances",
+                    "Helping others who find themselves in dire circumstances",
+                    "Changing the way you see the world",
+                    "Broadening your perspective through study or travel"
+                ],
+                "shadow": [
+                    "Refusing to accept that things have changed",
+                    "Playing the victim",
+                    "Rejecting the idea that your actions have consequences",
+                    "Applying scientific criteria to matters of faith, or confusing faith with science",
+                    "Believing the whole world should be like your small corner of it"
+                ],
+                "lightZh": [
+                    "在糟糕的情况下尽力而为",
+                    "从失败中恢复过来",
+                    "重新设定期望",
+                    "为意外情况留出余地",
+                    "帮助处境艰难的人",
+                    "改变你看待世界的方式",
+                    "通过学习或旅行拓宽视野"
+                ],
+                "shadowZh": [
+                    "拒绝接受事情已经改变",
+                    "扮演受害者",
+                    "拒绝承认自己的行为会产生后果",
+                    "将科学标准应用于信仰问题，或将信仰与科学混为一谈",
+                    "相信整个世界应该像你的一小片角落一样"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What assumptions govern my thinking?",
+                "How willing am I to lend aid to others? To request it when I need it?",
+                "How prepared am I to deal with change? With unexpected outcomes?"
+            ],
+            "affirmation": "\"I keep an open mind.\"",
+            "nameZh": "宝剑六"
+        },
+        {
+            "name": "Seven of Swords",
+            "number": "7",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s07.jpg",
+            "fortune_telling": [
+                "Don't assume people around you are worthy of your trust",
+                "Ask for an accounting of where people have been, and what they've been doing"
+            ],
+            "keywords": [
+                "dishonesty",
+                "presumption",
+                "sneakiness",
+                "assumptions"
+            ],
+            "meanings": {
+                "light": [
+                    "Refusing to do something dishonest, even when there's no chance of ever being caught",
+                    "Handling a difficult situation with finesse",
+                    "Pointing out assumptions",
+                    "Acting ethically in public and in private",
+                    "Living a life that is beyond reproach"
+                ],
+                "shadow": [
+                    "Stealing or lying",
+                    "Doing whatever you can get away with, simply because you can",
+                    "Looking for a way around consequences",
+                    "Justifying wicked behavior by focusing on the wickedness of others",
+                    "Failing to examine your own motives and prejudices"
+                ],
+                "lightZh": [
+                    "拒绝做不诚实的事，即使不会被发现",
+                    "巧妙处理困难局面",
+                    "指出假设",
+                    "在公共和私人场合都遵守道德规范",
+                    "过着无可指责的生活"
+                ],
+                "shadowZh": [
+                    "偷窃或撒谎",
+                    "做任何你能做的事情，仅仅因为你可以",
+                    "寻找避免后果的方法",
+                    "通过关注他人的邪恶来为邪恶行为辩护",
+                    "未能审视自己的动机和偏见"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What assumptions am I making?",
+                "How well-defined is my sense of ethics?",
+                "How should I respond when I know others are breaking the rules?"
+            ],
+            "affirmation": "\"I hold myself to the highest ethical standards.\"",
+            "nameZh": "宝剑七"
+        },
+        {
+            "name": "Eight of Swords",
+            "number": "8",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s08.jpg",
+            "fortune_telling": [
+                "Get over playing the victim",
+                "Once you realize you are your own biggest obstacle, nothing can hold you back"
+            ],
+            "keywords": [
+                "restriction",
+                "limitation",
+                "confinement",
+                "helplessness"
+            ],
+            "meanings": {
+                "light": [
+                    "Honoring limits",
+                    "Respecting the rules",
+                    "Deciding to go on a diet for your health's sake",
+                    "Recognizing you cannot always be in control",
+                    "Identifying obstacles to further progress",
+                    "Refusing to think about unhealthy or unethical options",
+                    "Asking for assistance"
+                ],
+                "shadow": [
+                    "Feeling trapped",
+                    "Being lost in a maze of rules and regulations",
+                    "Giving in to despair",
+                    "Playing the victim",
+                    "Allowing others to dictate what you can and cannot do",
+                    "Being rendered helpless",
+                    "Having very few options",
+                    "Failing to look for a way out"
+                ],
+                "lightZh": [
+                    "尊重限制",
+                    "尊重规则",
+                    "为了健康而决定节食",
+                    "认识到你无法始终掌控一切",
+                    "确定进一步发展的障碍",
+                    "拒绝考虑不健康或不道德的选择",
+                    "寻求帮助"
+                ],
+                "shadowZh": [
+                    "感觉陷入困境",
+                    "迷失在规则和条例的迷宫中",
+                    "屈服于绝望",
+                    "扮演受害者",
+                    "允许别人决定你能做什么和不能做什么",
+                    "变得无助",
+                    "选择很少",
+                    "未能寻找出路"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "Who's empowered to cut through the red tape?",
+                "What, exactly, are the obstacles? What resources, exactly, are needed to move them?",
+                "To what extent is your powerlessness a matter of attitude?"
+            ],
+            "affirmation": "\"I know my own limits.\"",
+            "nameZh": "宝剑八"
+        },
+        {
+            "name": "Nine of Swords",
+            "number": "9",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s09.jpg",
+            "fortune_telling": [
+                "If you take the action you're considering now, you'll be sorry in the future"
+            ],
+            "keywords": [
+                "remorse",
+                "worry",
+                "distraught",
+                "conclusion"
+            ],
+            "meanings": {
+                "light": [
+                    "Refusing to worry about what you cannot control",
+                    "Rejecting anxiety",
+                    "Judging your own performance with kindness and gentleness",
+                    "Using meditation to quiet a troubled mind",
+                    "Confronting nightmares and fears",
+                    "Drawing a conclusion and putting an issue out of your mind"
+                ],
+                "shadow": [
+                    "Torturing yourself with regrets",
+                    "Second-guessing your every move",
+                    "Beating yourself up for your mistakes",
+                    "Depression",
+                    "Obsessing on errors and overlooked details",
+                    "Refusing to handle stress in healthy ways",
+                    "Ruining your ability to appreciate the present by dwelling on the past",
+                    "Debating irreversible decisions"
+                ],
+                "lightZh": [
+                    "拒绝担心你无法控制的事情",
+                    "拒绝焦虑",
+                    "用善良和温柔来评判自己的表现",
+                    "通过冥想来平息烦恼的心灵",
+                    "面对噩梦和恐惧",
+                    "得出结论并抛开问题"
+                ],
+                "shadowZh": [
+                    "用悔恨折磨自己",
+                    "质疑你的每一个举动",
+                    "为自己的错误而自责",
+                    "沮丧",
+                    "沉迷于错误和被忽视的细节",
+                    "拒绝以健康的方式应对压力",
+                    "沉溺于过去会毁掉你珍惜当下的能力",
+                    "辩论不可逆转的决定"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What role does worry play in your current situation?",
+                "To what other ends might you devote the energy you're giving to anxiety?",
+                "How can you know when it's time to stop thinking and start acting?"
+            ],
+            "affirmation": "\"I do not worry about what I cannot control.\"",
+            "nameZh": "宝剑九"
+        },
+        {
+            "name": "Ten of Swords",
+            "number": "10",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s10.jpg",
+            "fortune_telling": [
+                "Disaster",
+                "Put off plans and do not take action until omens are better"
+            ],
+            "keywords": [
+                "exhaustion",
+                "ruin",
+                "disaster",
+                "stamina",
+                "obsession"
+            ],
+            "meanings": {
+                "light": [
+                    "Seeing the signs that you've reached your limits",
+                    "Paying attention to what your body is trying to tell you",
+                    "Giving in to the need for rest and renewal",
+                    "Acknowledging that you've hit bottom",
+                    "Committing to a turnaround",
+                    "Knowing the worst is over"
+                ],
+                "shadow": [
+                    "Accepting defeat prematurely",
+                    "Driving yourself to total exhaustion, especially mentally",
+                    "Experiencing a mental breakdown",
+                    "Obsessing on a problem to the breaking point",
+                    "Giving up",
+                    "Refusing to move from thought to action",
+                    "Deeply unhealthy thoughts"
+                ],
+                "lightZh": [
+                    "看到你已经达到极限的迹象",
+                    "注意你的身体试图告诉你什么",
+                    "满足休息和恢复的需要",
+                    "承认自己已经跌至谷底",
+                    "致力于扭转局面",
+                    "知道最坏的情况已经过去"
+                ],
+                "shadowZh": [
+                    "过早接受失败",
+                    "让自己筋疲力尽，尤其是精神上",
+                    "精神崩溃",
+                    "沉迷于一个问题直至崩溃",
+                    "放弃",
+                    "拒绝从思想转向行动",
+                    "极度不健康的想法"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What are the signs that the time for debate is over?",
+                "How can you tell when interest has given way to obsession?",
+                "When your own limits are reached, where can you turn for aid?"
+            ],
+            "affirmation": "\"When my limits are exceeded, I take action on my own behalf.\"",
+            "nameZh": "宝剑十"
+        },
+        {
+            "name": "Page of Swords",
+            "number": "11",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s11.jpg",
+            "fortune_telling": [
+                "This card represents a young man or woman with an airy, intellectual demeanor, likely born a Capricorn, Aquarius, or Pisces, who wants to learn something new from you or have a discussion with you"
+            ],
+            "keywords": [
+                "student",
+                "apprentice",
+                "scholarship",
+                "information"
+            ],
+            "meanings": {
+                "light": [
+                    "Pursuing a course of study",
+                    "Asking good questions",
+                    "Investing time in study and practice",
+                    "Doing research",
+                    "Making a habit of learning new things",
+                    "Starting an investigation",
+                    "Outlining what you need to know",
+                    "Finding a mentor or teacher"
+                ],
+                "shadow": [
+                    "Pretending to knowledge or sophistication you do not possess",
+                    "Cheating on an exam",
+                    "Feigning interest as a way of gaining favor",
+                    "Considering only the evidence that supports conclusions you've already drawn",
+                    "Rejecting the wise counsel of experienced teachers"
+                ],
+                "lightZh": [
+                    "继续学习",
+                    "提出好问题",
+                    "投入时间学习和练习",
+                    "做研究",
+                    "养成学习新事物的习惯",
+                    "开始调查",
+                    "概述你需要知道的内容",
+                    "寻找导师或老师"
+                ],
+                "shadowZh": [
+                    "假装拥有你并不具备的知识或经验",
+                    "考试作弊",
+                    "假装感兴趣以获得好感",
+                    "只考虑支持你已经得出结论的证据",
+                    "拒绝经验丰富的教师的明智建议"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How comfortable are you with revealing your own ignorance?",
+                "What are the marks of a good student?",
+                "To what extent are you open to new information?"
+            ],
+            "affirmation": "\"I am ready to make good decisions.\"",
+            "nameZh": "宝剑侍从"
+        },
+        {
+            "name": "Knight of Swords",
+            "number": "12",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s12.jpg",
+            "fortune_telling": [
+                "A blunder leads someone to say something he or she regrets",
+                "If this was you, be prepared to apologize and move on"
+            ],
+            "keywords": [
+                "bluntness",
+                "intelligence",
+                "incisiveness",
+                "investigation"
+            ],
+            "meanings": {
+                "light": [
+                    "Speaking your mind",
+                    "Making your opinions known",
+                    "Offering constructive criticism",
+                    "Sharing your knowledge",
+                    "Making insightful observations",
+                    "Pinpointing the problem",
+                    "Clarifying what others have said",
+                    "Giving clear direction to others",
+                    "Uncovering the truth"
+                ],
+                "shadow": [
+                    "Stating your opinions as fact",
+                    "Picking fights",
+                    "Starting arguments",
+                    "Using clever insults to undermine the confidence of others",
+                    "Tossing reason out the window",
+                    "Speaking without taking the feelings of others into account",
+                    "Going on a witch hunt",
+                    "Distorting evidence"
+                ],
+                "lightZh": [
+                    "说出你的想法",
+                    "表达你的意见",
+                    "提出建设性的批评",
+                    "分享你的知识",
+                    "做出深刻的观察",
+                    "找出问题",
+                    "澄清其他人的说法",
+                    "给予他人明确的方向",
+                    "揭露真相"
+                ],
+                "shadowZh": [
+                    "把你的观点陈述为事实",
+                    "挑起争端",
+                    "开始争论",
+                    "巧妙地用侮辱的言语来破坏他人的信心",
+                    "抛开理由",
+                    "说话不考虑别人的感受",
+                    "进行猎巫行动",
+                    "扭曲证据"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What do I really need to know?",
+                "To what extent have I investigated the facts behind my situation?",
+                "How can I share what I know without alienating others?"
+            ],
+            "affirmation": "\"I temper my insights with tact.\"",
+            "nameZh": "宝剑骑士"
+        },
+        {
+            "name": "Queen of Swords",
+            "number": "13",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s13.jpg",
+            "fortune_telling": [
+                "This card represents a woman with an artistic, intellectual nature, likely born between September 12th and October 12th, who uses clever, positive communication to sway others to her point of view"
+            ],
+            "keywords": [
+                "grace",
+                "skill",
+                "wit",
+                "charm",
+                "aptitude"
+            ],
+            "meanings": {
+                "light": [
+                    "Exercising tact or using diplomacy",
+                    "Defusing a tense situation",
+                    "Knowing what to say and how to say it",
+                    "Making others feel comfortable and confident",
+                    "Bringing out the best in everyone",
+                    "Having a way with words",
+                    "Telling jokes",
+                    "Possessing a knack for music, math, art, or science"
+                ],
+                "shadow": [
+                    "Knowing exactly what to say to destroy another person",
+                    "Withholding critical information",
+                    "Using a barbed tongue to upset others",
+                    "Employing sarcasm",
+                    "Mimicking others unkindly",
+                    "Making light of the less fortunate",
+                    "Being disrespectful",
+                    "Failing to use the talent you've been given"
+                ],
+                "lightZh": [
+                    "运用机智或外交手段",
+                    "缓解紧张局势",
+                    "知道说什么和怎么说",
+                    "让别人感到舒适和自信",
+                    "让每个人发挥出最好的一面",
+                    "善于言辞",
+                    "讲笑话",
+                    "具有音乐、数学、艺术或科学方面的天赋"
+                ],
+                "shadowZh": [
+                    "知道该说些什么才能毁掉另一个人",
+                    "隐瞒关键信息",
+                    "用尖刻的言辞激怒别人",
+                    "使用讽刺",
+                    "不善地模仿他人",
+                    "轻视那些不幸的人",
+                    "不尊重他人",
+                    "没能发挥你的天赋"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What do I have a knack for? How might my special gift prove useful now?",
+                "To what extent am I capable of saying what needs to be said?",
+                "What is the best possible way to say what I want to say?"
+            ],
+            "affirmation": "\"I make the truth easier to hear.\"",
+            "nameZh": "宝剑皇后"
+        },
+        {
+            "name": "King of Swords",
+            "number": "14",
+            "arcana": "Minor Arcana",
+            "suit": "Swords",
+            "img": "s14.jpg",
+            "fortune_telling": [
+                "This card represents an older man with an insightful, deliberate spirit, likely born between May 11th and June 10th, who is known for his integrity and sharp decision-making ability"
+            ],
+            "keywords": [
+                "genius",
+                "expertise",
+                "decision",
+                "verdict"
+            ],
+            "meanings": {
+                "light": [
+                    "Expressing yourself with firmness and authority",
+                    "Rendering a final decision",
+                    "Consulting an expert",
+                    "Calling in advisors and consultants",
+                    "Coming to a final conclusion",
+                    "Reaching a beneficial agreement based on sound information"
+                ],
+                "shadow": [
+                    "Insisting on having the last word",
+                    "Flaunting your intellectual capability",
+                    "Talking \"over the heads\" of others",
+                    "Waffling on an important decision",
+                    "Constantly changing your mind",
+                    "Refusing to make choices that are in your own best interest",
+                    "Wishing in vain you could take back what's been said"
+                ],
+                "lightZh": [
+                    "坚定而有权威地表达自己",
+                    "做出最终决定",
+                    "咨询专家",
+                    "聘请顾问和咨询师",
+                    "得出最终结论",
+                    "基于可靠信息达成互利协议"
+                ],
+                "shadowZh": [
+                    "坚持拥有最终决定权",
+                    "炫耀你的智力",
+                    "说话“超出别人的理解范围”",
+                    "在重要决定上犹豫不决",
+                    "不断改变主意",
+                    "拒绝做出符合自己最佳利益的选择",
+                    "我希望你能收回我说的话"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What would your decision be if you had to render a binding verdict right now?",
+                "How comfortable are you saying exactly what you mean? How often do you temper what you have to say for fear of offending others?",
+                "If you were to ask others, \"What's my area of expertise?\" what would they say?"
+            ],
+            "affirmation": "\"My word is my bond.\"",
+            "nameZh": "宝剑国王"
+        },
+        {
+            "name": "Ace of Wands",
+            "number": "1",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w01.jpg",
+            "fortune_telling": [
+                "Someone has the \"hots\" for you",
+                "A new job offer is coming your way",
+                "Walk softly, and carry a big stick"
+            ],
+            "keywords": [
+                "desire",
+                "inspiration",
+                "vision",
+                "creation",
+                "invention"
+            ],
+            "meanings": {
+                "light": [
+                    "Being inspired",
+                    "Identifying an important goal",
+                    "Being given the opportunity to do whatever you want to do",
+                    "Giving or receiving direction",
+                    "Seeing a solution",
+                    "Creating something new",
+                    "Being aroused, sexually or creatively"
+                ],
+                "shadow": [
+                    "Failing to take advantage of a great opportunity",
+                    "Being ineffectual or lazy",
+                    "Making an inadequate effort",
+                    "Working toward a goal, but lacking the resources or initiative to achieve success",
+                    "Setting inappropriate goals",
+                    "Failing to take a stand"
+                ],
+                "lightZh": [
+                    "受到启发",
+                    "确定一个重要目标",
+                    "有机会做任何你想做的事",
+                    "给予或接受指示",
+                    "找到解决方案",
+                    "创造新事物",
+                    "性欲或创造力被激发"
+                ],
+                "shadowZh": [
+                    "未能利用好大好机会",
+                    "效率低下或懒惰",
+                    "努力不够",
+                    "努力实现目标，但缺乏取得成功的资源或主动性",
+                    "设定不适当的目标",
+                    "未能表明立场"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What do I really want, more than anything else?",
+                "What happens if I let this opportunity pass me by?",
+                "How clearly have I defined my directions, values, and goals?"
+            ],
+            "affirmation": "\"I jump at the opportunity to pursue my heart's desire.\"",
+            "nameZh": "权杖王牌"
+        },
+        {
+            "name": "Two of Wands",
+            "number": "2",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w02.jpg",
+            "fortune_telling": [
+                "Beware false friends",
+                "Don't be mealy-mouthed; say what you think and do what you want to do"
+            ],
+            "keywords": [
+                "conflict",
+                "decision",
+                "option",
+                "individuality"
+            ],
+            "meanings": {
+                "light": [
+                    "Having a choice",
+                    "Offering or being offered an option",
+                    "Seeing the value of another person's approach",
+                    "Understanding there's more than one way to \"skin a cat\"",
+                    "Successfully doing more than one thing at a time",
+                    "Being empowered to make a choice"
+                ],
+                "shadow": [
+                    "Misrepresenting your intentions",
+                    "Doing one thing while desiring another",
+                    "Changing course mid-stream for no good reason",
+                    "Refusing to change your goal even when pursuing it no longer makes sense",
+                    "Disregarding the input of others"
+                ],
+                "lightZh": [
+                    "有选择",
+                    "提供或被提供选择",
+                    "看到别人方法的价值",
+                    "理解“剥猫皮”的方法不止一种",
+                    "成功地同时做多件事",
+                    "有权做出选择"
+                ],
+                "shadowZh": [
+                    "歪曲你的意图",
+                    "做一件事却想做另一件事",
+                    "无缘无故中途改变路线",
+                    "即使追求目标不再有意义，也拒绝改变目标",
+                    "忽视他人的意见"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "In a conflict, how do you decide who wins?",
+                "What values govern your decision-making process?",
+                "What choice will you make if you make no choice at all?"
+            ],
+            "affirmation": "\"With my goals in mind, I make confident choices.\"",
+            "nameZh": "权杖二"
+        },
+        {
+            "name": "Three of Wands",
+            "number": "3",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w03.jpg",
+            "fortune_telling": [
+                "You'll be planning a trip soon",
+                "Be on the lookout: your ship is coming in"
+            ],
+            "keywords": [
+                "implementation",
+                "action",
+                "exploration"
+            ],
+            "meanings": {
+                "light": [
+                    "Putting a plan into motion",
+                    "Taking that critical first step",
+                    "Making good things happen",
+                    "Going beyond your limits",
+                    "Blazing new trails",
+                    "Hitting the ground running",
+                    "Seeing your plans come to fruition"
+                ],
+                "shadow": [
+                    "Procrastinating",
+                    "Knowing what to do, but refusing to do it",
+                    "Launching a project without a clear definition of who should do what",
+                    "Rejecting an opportunity to try something new",
+                    "Failing to finish what you start"
+                ],
+                "lightZh": [
+                    "实施计划",
+                    "迈出关键的第一步",
+                    "让美好的事情发生",
+                    "超越你的极限",
+                    "开拓新道路",
+                    "立即行动",
+                    "看到你的计划实现"
+                ],
+                "shadowZh": [
+                    "拖延",
+                    "知道该做什么，但拒绝去做",
+                    "在没有明确定义谁应该做什么的情况下启动项目",
+                    "拒绝尝试新事物的机会",
+                    "未能完成你开始的事情"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can you make a habit of breaking your habits?",
+                "How can you be a decisive leader in this circumstance?",
+                "What's your action plan for the next week, month, year, or decade?"
+            ],
+            "affirmation": "\"I take the steps necessary to put my plans in action.\"",
+            "nameZh": "权杖三"
+        },
+        {
+            "name": "Four of Wands",
+            "number": "4",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w04.jpg",
+            "fortune_telling": [
+                "Someone is watching and evaluating your work",
+                "You may get a wedding invitation soon"
+            ],
+            "keywords": [
+                "celebration",
+                "jubilation",
+                "community",
+                "teamwork",
+                "completion"
+            ],
+            "meanings": {
+                "light": [
+                    "Sharing in a great celebration",
+                    "Sharing in a communal sense of achievement and success",
+                    "Preparing for a party",
+                    "Working together toward a common goal",
+                    "Giving or winning awards"
+                ],
+                "shadow": [
+                    "Keeping your nose to the grindstone",
+                    "Recognizing good work by demanding more work",
+                    "Failing to share in a group celebration",
+                    "Allowing sour grapes to poison your moment in the sun",
+                    "Refusing to do your part"
+                ],
+                "lightZh": [
+                    "共享盛典",
+                    "分享共同的成就感和成功感",
+                    "准备派对",
+                    "共同努力实现共同目标",
+                    "颁发或赢得奖项"
+                ],
+                "shadowZh": [
+                    "埋头苦干",
+                    "通过要求更多工作来认可出色的工作",
+                    "未能参加集体庆祝活动",
+                    "让酸葡萄毒害你的阳光时光",
+                    "拒绝尽自己的责任"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "To what extent am I doing my part?",
+                "What kind of recognition would be most meaningful?",
+                "How might a celebration now impact community morale?"
+            ],
+            "affirmation": "\"My contributions are worthy of celebration.\"",
+            "nameZh": "权杖四"
+        },
+        {
+            "name": "Five of Wands",
+            "number": "5",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w05.jpg",
+            "fortune_telling": [
+                "Prepare for a fight with your best friend",
+                "Remember: once you let words loose, you can't take them back"
+            ],
+            "keywords": [
+                "confrontation",
+                "disruption",
+                "distinction",
+                "objection",
+                "strife"
+            ],
+            "meanings": {
+                "light": [
+                    "Calmly expressing a dissenting opinion",
+                    "Allowing someone to use his or her own methods to get a job done",
+                    "Opening the floor for discussion or debate",
+                    "Comparing progress made so far to standards set earlier"
+                ],
+                "shadow": [
+                    "Berating others for their ridiculous opinions",
+                    "Picking fights",
+                    "Offering destructive criticism",
+                    "Baiting people with barbed remarks",
+                    "Disrupting progress with an endless stream of pointless objections"
+                ],
+                "lightZh": [
+                    "冷静地表达不同意见",
+                    "允许某人用自己的方法完成工作",
+                    "开始讨论或辩论",
+                    "与之前制定的标准相比，迄今为止取得的进展"
+                ],
+                "shadowZh": [
+                    "斥责别人的荒谬观点",
+                    "挑起争端",
+                    "提出破坏性批评",
+                    "用尖刻的言论挑衅别人",
+                    "用无休止的无意义的反对意见来阻碍进步"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "To what extent is your current issue worth fighting for?",
+                "What alternatives are there to outright conflict?",
+                "What happens in a \"fair fight?\" How can you keep this fight fair?"
+            ],
+            "affirmation": "\"I can express dissent in constructive ways.\"",
+            "nameZh": "权杖五"
+        },
+        {
+            "name": "Six of Wands",
+            "number": "6",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w06.jpg",
+            "fortune_telling": [
+                "Someone is planning a party for you, but not everyone feels so good about your recent success",
+                "Watch out for envious friends"
+            ],
+            "keywords": [
+                "victory",
+                "achievement",
+                "success",
+                "triumph"
+            ],
+            "meanings": {
+                "light": [
+                    "Outperforming your peers",
+                    "Winning a competition",
+                    "Being recognized as a capable person",
+                    "Having your \"moment in the spotlight\"",
+                    "Being cheered on by the crowd",
+                    "Getting an award",
+                    "Earning the admiration of others",
+                    "Telling someone, \"Good job!\""
+                ],
+                "shadow": [
+                    "Being a bad winner",
+                    "Allowing your achievements to inflate your ego",
+                    "Looking down on people who seem less capable",
+                    "Craving to be the center of attention",
+                    "Giving or receiving insincere praise",
+                    "Envying the achievements of others"
+                ],
+                "lightZh": [
+                    "超越同行",
+                    "赢得比赛",
+                    "被认可为有能力的人",
+                    "拥有“聚光灯下的时刻”",
+                    "受到人群欢呼",
+                    "获得奖励",
+                    "赢得他人的钦佩",
+                    "告诉某人“干得好！”"
+                ],
+                "shadowZh": [
+                    "成为一个糟糕的赢家",
+                    "让你的成就膨胀你的自我",
+                    "瞧不起那些看起来能力较差的人",
+                    "渴望成为关注的焦点",
+                    "给予或接受不真诚的赞美",
+                    "羡慕别人的成就"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What kind of recognition do I crave? Why?",
+                "How freely do I praise the achievements of others?",
+                "What happens when the parade is over?"
+            ],
+            "affirmation": "\"I value sincere praise.\"",
+            "nameZh": "权杖六"
+        },
+        {
+            "name": "Seven of Wands",
+            "number": "7",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w07.jpg",
+            "fortune_telling": [
+                "Don't be surprised by a personal attack",
+                "Prepare to defend yourself or someone you love"
+            ],
+            "keywords": [
+                "bravery",
+                "resolve",
+                "determination"
+            ],
+            "meanings": {
+                "light": [
+                    "Refusing to be silenced through fear or intimidation",
+                    "Continuing a fight against all odds",
+                    "Being fierce",
+                    "Defending yourself against physical and emotional attacks",
+                    "Refusing to put up with abuse",
+                    "Clinging to your values despite all pressure to abandon them"
+                ],
+                "shadow": [
+                    "Having a chip on your shoulder",
+                    "Taking unnecessary risks as a means of proving your fearlessness",
+                    "Looking for an opportunity to take offense",
+                    "Responding to constructive criticism with defensiveness",
+                    "Refusing to stand up for yourself and your beliefs"
+                ],
+                "lightZh": [
+                    "拒绝因恐惧或威胁而沉默",
+                    "继续奋战",
+                    "凶猛",
+                    "保护自己免受身体和情感攻击",
+                    "拒绝忍受虐待",
+                    "不顾一切压力坚持自己的价值观"
+                ],
+                "shadowZh": [
+                    "心怀怨恨",
+                    "冒不必要的风险来证明自己的无所畏惧",
+                    "寻找机会冒犯",
+                    "以防御态度回应建设性的批评",
+                    "拒绝捍卫自己和自己的信仰"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "When do you feel most threatened? When do you get defensive?",
+                "How capable are you of defending yourself?",
+                "What kinds of beliefs are worth defending?"
+            ],
+            "affirmation": "\"I am willing to take a stand for what I believe in.\"",
+            "nameZh": "权杖七"
+        },
+        {
+            "name": "Eight of Wands",
+            "number": "8",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w08.jpg",
+            "fortune_telling": [
+                "Watch for a surprising letter in the mail",
+                "Your whole world is about to be turned on its ear"
+            ],
+            "keywords": [
+                "speed",
+                "swiftness",
+                "responsiveness",
+                "change"
+            ],
+            "meanings": {
+                "light": [
+                    "Taking swift action",
+                    "Moving forward with a plan as quickly as possible",
+                    "Energizing yourself",
+                    "Adapting to sudden changes",
+                    "Taking setbacks in stride",
+                    "Embracing the idea that nothing stays the same forever",
+                    "Reacting quickly and appropriately to unforeseen problems"
+                ],
+                "shadow": [
+                    "Giving in to panic",
+                    "Running in circles and screaming",
+                    "Insisting things must always stay the same",
+                    "Stirring the pot just to see what will happen",
+                    "Rushing others",
+                    "Refusing to re-evaluate a schedule or program, even when it's clearly no longer appropriate"
+                ],
+                "lightZh": [
+                    "迅速采取行动",
+                    "尽快推进计划",
+                    "给自己注入活力",
+                    "适应突然的变化",
+                    "坦然面对挫折",
+                    "相信没有什么是永恒不变的",
+                    "对不可预见的问题做出快速而适当的反应"
+                ],
+                "shadowZh": [
+                    "屈服于恐慌",
+                    "一边尖叫一边跑来跑去",
+                    "坚持事物必须始终保持不变",
+                    "搅动锅子只是为了看看会发生什么",
+                    "催促他人",
+                    "拒绝重新评估时间表或计划，即使它显然不再合适"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How quickly to you adapt to change?",
+                "What would your response be to overwhelming, sudden change?",
+                "What changes are on your horizon? How well have you prepared for them?"
+            ],
+            "affirmation": "\"I adapt quickly to change.\"",
+            "nameZh": "权杖八"
+        },
+        {
+            "name": "Nine of Wands",
+            "number": "9",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w09.jpg",
+            "fortune_telling": [
+                "Don't relax yet; there's more to come",
+                "The test you're facing now is happening for one reason: to show you who your real friends are"
+            ],
+            "keywords": [
+                "toughness",
+                "persistence",
+                "stamina",
+                "loyalty",
+                "release"
+            ],
+            "meanings": {
+                "light": [
+                    "Sticking with it for the duration",
+                    "Fulfilling your promises and obligations",
+                    "Bearing up under incredible duress",
+                    "Dragging yourself across the finish line",
+                    "Picking yourself up by your own bootstraps",
+                    "Refusing to quit",
+                    "Going as far as you can go and being satisfied with your performance"
+                ],
+                "shadow": [
+                    "Making yourself a martyr",
+                    "Abandoning your post",
+                    "Giving up at the first sign of opposition",
+                    "Being prevented from fulfilling an obligation",
+                    "Failing to be dependable",
+                    "Refusing to let something go that needs to be released",
+                    "Beating a dead horse"
+                ],
+                "lightZh": [
+                    "坚持下去",
+                    "履行你的承诺和义务",
+                    "承受着难以置信的压力",
+                    "努力跨过终点线",
+                    "依靠自己的力量振作起来",
+                    "拒绝退出",
+                    "尽你所能，对自己的表现感到满意"
+                ],
+                "shadowZh": [
+                    "让自己成为烈士",
+                    "放弃你的帖子",
+                    "一有反对就放弃",
+                    "无法履行义务",
+                    "不值得信赖",
+                    "拒绝放弃需要放弃的东西",
+                    "鞭策自己"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How do you cope when things get really tough?",
+                "When you get low, what encourages you to go on?",
+                "At what point should you be able to let this situation go?"
+            ],
+            "affirmation": "\"When the going gets tough, I stay the course.\"",
+            "nameZh": "权杖九"
+        },
+        {
+            "name": "Ten of Wands",
+            "number": "10",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w10.jpg",
+            "fortune_telling": [
+                "You're worn out",
+                "Back off, take a time out, and let someone else handle things for a while"
+            ],
+            "keywords": [
+                "exhaustion",
+                "resistance",
+                "burden",
+                "oppression"
+            ],
+            "meanings": {
+                "light": [
+                    "Holding your own in extreme circumstances",
+                    "Helping others carry their burdens",
+                    "Coming to the aid of the oppressed",
+                    "Knowing and being honest about your own limits",
+                    "Recognizing when you are not well-suited for a particular task"
+                ],
+                "shadow": [
+                    "Taking on more work than you know you can handle",
+                    "Refusing to say \"No\" when you're already overloaded",
+                    "Making a habit of working overtime",
+                    "Shielding others from facing the consequences of their own poor judgment",
+                    "Over-extending yourself on a regular basis"
+                ],
+                "lightZh": [
+                    "在极端情况下坚持自己的立场",
+                    "帮助别人承担负担",
+                    "帮助受压迫者",
+                    "了解并诚实地面对自己的极限",
+                    "认识到自己不适合某项特定任务"
+                ],
+                "shadowZh": [
+                    "承担比你所能承受的更多的工作",
+                    "当你已经负担过重时，拒绝说“不”",
+                    "养成加班的习惯",
+                    "保护他人免于承担自己错误判断的后果",
+                    "经常过度劳累"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How will you know when you reach the end of your rope?",
+                "How easily do you say no to new projects and requests?",
+                "What projects could you delegate...or eliminate?"
+            ],
+            "affirmation": "\"I respect my own limits.\"",
+            "nameZh": "权杖十"
+        },
+        {
+            "name": "Page of Wands",
+            "number": "11",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w11.jpg",
+            "fortune_telling": [
+                "This card represents a young man or woman with a fiery, enthusiastic demeanor, likely born a Cancer, Leo, or Virgo, who wants to start a new relationship with you"
+            ],
+            "keywords": [
+                "enthusiasm",
+                "eagerness",
+                "confidence",
+                "validation",
+                "affirmation"
+            ],
+            "meanings": {
+                "light": [
+                    "Leaping at a new opportunity",
+                    "Being a cheerleader or ardent advocate for your cause",
+                    "Being a True Believer",
+                    "Taking first steps toward independence",
+                    "Trusting in your own abilities",
+                    "Asking for feedback"
+                ],
+                "shadow": [
+                    "Basing your entire self-image on what others think",
+                    "Seizing every new idea that comes your way without question",
+                    "Habitually discounting input or feedback from others",
+                    "Being so eager to \"do it yourself\" that you hinder your own progress"
+                ],
+                "lightZh": [
+                    "抓住新机遇",
+                    "成为你事业的啦啦队员或热心倡导者",
+                    "成为真正的信徒",
+                    "迈向独立的第一步",
+                    "相信自己的能力",
+                    "寻求反馈"
+                ],
+                "shadowZh": [
+                    "你的整个自我形象都建立在别人的想法之上",
+                    "毫无疑问地抓住每一个新想法",
+                    "习惯性地忽视他人的意见或反馈",
+                    "太渴望“自己做”，以致阻碍了自己进步"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How easily do you admit your own inexperience?",
+                "How can you be a better student or employee?",
+                "What qualities would make a total beginner's voyage of discovery easier?"
+            ],
+            "affirmation": "\"I can do this.\"",
+            "nameZh": "权杖侍从"
+        },
+        {
+            "name": "Knight of Wands",
+            "number": "12",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w12.jpg",
+            "fortune_telling": [
+                "This card represents a man with a bold, passionate personality, likely born between July 12th and August 11th, who wants to sweep you off your feet"
+            ],
+            "keywords": [
+                "boldness",
+                "bravado",
+                "passion",
+                "persuasion",
+                "advocacy"
+            ],
+            "meanings": {
+                "light": [
+                    "Charging ahead",
+                    "Making rapid progress",
+                    "Refusing limits",
+                    "Dazzling those around you with your wit and charm",
+                    "Convincing others of your right to leadership",
+                    "Convincing others to follow you",
+                    "Being a catalyst for change"
+                ],
+                "shadow": [
+                    "Blundering forward with inadequate skill or information",
+                    "Running roughshod over the feelings of others",
+                    "Using sex appeal to manipulate others",
+                    "Forcing your leadership or ideology on others",
+                    "Beginning many projects without finishing any"
+                ],
+                "lightZh": [
+                    "继续前进",
+                    "取得快速进展",
+                    "拒绝限制",
+                    "用你的智慧和魅力让周围的人眼花缭乱",
+                    "让别人相信你有权担任领导",
+                    "说服别人跟随你",
+                    "成为变革的催化剂"
+                ],
+                "shadowZh": [
+                    "因技能或信息不足而跌跌撞撞地前进",
+                    "不顾别人的感受",
+                    "利用性吸引力来操纵他人",
+                    "强迫他人接受你的领导或意识形态",
+                    "开始了很多项目，但没有完成任何一项"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "To what extent have you defined your ultimate goal?",
+                "What's the fastest way to get the job done? Is this necessarily the best way?",
+                "How long has it been since you looked back to see if others really are following your lead?"
+            ],
+            "affirmation": "\"I can lead the way to success.\"",
+            "nameZh": "权杖骑士"
+        },
+        {
+            "name": "Queen of Wands",
+            "number": "13",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w13.jpg",
+            "fortune_telling": [
+                "This card represents a woman with an attractive, appealing personality, likely born between March 11th and April 20th, who wants to charm you into doing things her way"
+            ],
+            "keywords": [
+                "attention",
+                "attraction",
+                "unification",
+                "collaboration"
+            ],
+            "meanings": {
+                "light": [
+                    "Paying close attention",
+                    "Helping others focus on the issue at hand",
+                    "Getting everyone to work together",
+                    "Identifying common ground",
+                    "Bringing people together, despite their differences",
+                    "Using reverse psychology"
+                ],
+                "shadow": [
+                    "Being distracted, or using your charms or skills to distract others from the goal",
+                    "Calling attention to yourself with negative or unhealthy behaviors",
+                    "Disrupting group activities as a means of feeding your own ego"
+                ],
+                "lightZh": [
+                    "密切关注",
+                    "帮助别人关注当前的问题",
+                    "让大家一起努力",
+                    "找到共同点",
+                    "让人们团结起来，克服分歧",
+                    "运用逆向心理学"
+                ],
+                "shadowZh": [
+                    "分散注意力，或利用自己的魅力或技能分散他人的注意力",
+                    "通过消极或不健康的行为引起别人的注意",
+                    "扰乱团体活动以满足自己的虚荣心"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How attentive am I?",
+                "How can I draw people's attention to what we have in common?",
+                "To what extent am I able to convince people to do what I want them to do?"
+            ],
+            "affirmation": "\"I use my influence to promote unity.\"",
+            "nameZh": "权杖王后"
+        },
+        {
+            "name": "King of Wands",
+            "number": "14",
+            "arcana": "Minor Arcana",
+            "suit": "Wands",
+            "img": "w14.jpg",
+            "fortune_telling": [
+                "This card represents an older man with a commanding, charismatic personality, likely born between November 13th and December 12th, who prefers to give directions and have them followed"
+            ],
+            "keywords": [
+                "creativity",
+                "ingenuity",
+                "achievement",
+                "direction"
+            ],
+            "meanings": {
+                "light": [
+                    "Putting old things together in new and exciting ways",
+                    "Coming up with unexpected solutions",
+                    "Using your experience to solve puzzles and problems",
+                    "Doing what you set out to do",
+                    "Directing the efforts of others"
+                ],
+                "shadow": [
+                    "Using your creativity to get out of honest work",
+                    "Investing great energy in avoiding responsibility",
+                    "Boasting about achievements without putting your expertise to practical use",
+                    "Lording it over others"
+                ],
+                "lightZh": [
+                    "以新颖、令人兴奋的方式将旧事物组合在一起",
+                    "想出意想不到的解决方案",
+                    "利用你的经验来解决难题和问题",
+                    "做你打算做的事",
+                    "指导他人的努力"
+                ],
+                "shadowZh": [
+                    "运用你的创造力摆脱诚实的工作",
+                    "投入大量精力逃避责任",
+                    "夸耀成就，却不将专业知识付诸实践",
+                    "凌驾于他人之上"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How confident a leader am I?",
+                "How can I project more confidence?",
+                "How can I offer my expertise in ways that inspire others to follow me?"
+            ],
+            "affirmation": "\"I use my authority and experience to get things done faster.\"",
+            "nameZh": "权杖国王"
+        },
+        {
+            "name": "Ace of Pentacles",
+            "number": "1",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p01.jpg",
+            "fortune_telling": [
+                "Your health will improve",
+                "The check you're looking for really is in the mail"
+            ],
+            "keywords": [
+                "health",
+                "wealth",
+                "practicality",
+                "receiving"
+            ],
+            "meanings": {
+                "light": [
+                    "Outlining a plan for achieving prosperity",
+                    "Becoming aware of opportunities to improve income or health",
+                    "Realizing you have everything you need",
+                    "Appreciating everything the Universe has given you",
+                    "Receiving the perfect gift at the perfect time"
+                ],
+                "shadow": [
+                    "Indulging in relentless consumerism",
+                    "Wanting more, no matter how much you have",
+                    "Obsessing on your account balance",
+                    "Suffering from hypochondria",
+                    "Consuming blessings without expressing gratitude",
+                    "Taking what you want without concern for the needs of others"
+                ],
+                "lightZh": [
+                    "制定实现繁荣的计划",
+                    "意识到改善收入或健康的机会",
+                    "意识到你拥有了你需要的一切",
+                    "感谢宇宙给予你的一切",
+                    "在完美的时间收到完美的礼物"
+                ],
+                "shadowZh": [
+                    "沉迷于无休止的消费主义",
+                    "无论你拥有多少，都想要更多",
+                    "关注账户余额",
+                    "患有疑病症",
+                    "只顾享受祝福而不表达感激",
+                    "不顾他人的需要，只顾自己想要什么"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "If I made my decision based solely on practical concerns, what would my decision be?",
+                "What resources are available to me?",
+                "What will be the physical and financial impact of my decisions?"
+            ],
+            "affirmation": "\"I am open to and thankful for my blessings.\"",
+            "nameZh": "五角星王牌"
+        },
+        {
+            "name": "Two of Pentacles",
+            "number": "2",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p02.jpg",
+            "fortune_telling": [
+                "It's time to balance the budget",
+                "Avoid the temptation to spend critical funds on frivolous goods"
+            ],
+            "keywords": [
+                "evaluation",
+                "decision",
+                "budgeting",
+                "diagnosis"
+            ],
+            "meanings": {
+                "light": [
+                    "Weighing options",
+                    "Comparing prices",
+                    "Determining the value of one option over another",
+                    "Juggling resources to make ends meet",
+                    "Making difficult choices based on what's best for your body or your bankbook",
+                    "Looking at the bottom line",
+                    "Asking for a second opinion on health issues"
+                ],
+                "shadow": [
+                    "Engaging in endless price comparison",
+                    "Putting off a buying decision for fear of finding a slightly better value later on",
+                    "Buying something without regard for value",
+                    "Breaking your budget with unnecessary expenses",
+                    "Engaging in behavior with no regard for how your body or bankbook will be impacted"
+                ],
+                "lightZh": [
+                    "称重选项",
+                    "比较价格",
+                    "确定一个选项相对于另一个选项的价值",
+                    "调配资源以维持收支平衡",
+                    "根据对你的身体或银行账户的最佳利益做出艰难的选择",
+                    "看看底线",
+                    "就健康问题征求第二意见"
+                ],
+                "shadowZh": [
+                    "无休止地进行价格比较",
+                    "由于担心以后会发现稍微更划算的产品而推迟购买决定",
+                    "购买东西时不考虑其价值",
+                    "不必要的开支超出预算",
+                    "做出不顾自己的身体或银行存款会受到何种影响的行为"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What values govern my decisions?",
+                "How willing am I to sacrifice a little pleasure now in order to have more pleasure later on?",
+                "Given my current situation, which course of action will give me more of what I really need?"
+            ],
+            "affirmation": "\"Before taking action, I consider costs.\"",
+            "nameZh": "两枚五角星币"
+        },
+        {
+            "name": "Three of Pentacles",
+            "number": "3",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p03.jpg",
+            "fortune_telling": [
+                "A high-dollar contract is in your future",
+                "If you work hard, you'll succeed"
+            ],
+            "keywords": [
+                "expression",
+                "production",
+                "work",
+                "contribution"
+            ],
+            "meanings": {
+                "light": [
+                    "Finishing a project",
+                    "Setting and meeting standards",
+                    "Performing according to specifications",
+                    "Making something others value",
+                    "Creating something new",
+                    "Doing your part in a group project",
+                    "Delivering exactly what others have asked for"
+                ],
+                "shadow": [
+                    "Pandering to the tastes of others",
+                    "Failing to deliver what you've promised",
+                    "Not delivering your best work unless closely supervised",
+                    "Ignoring or breaking agreements with those who have invested in you",
+                    "Refusing to do your part",
+                    "Failing to abide by a clearly-outlined agreement with yourself or others"
+                ],
+                "lightZh": [
+                    "完成一个项目",
+                    "制定并达到标准",
+                    "按规范执行",
+                    "创造别人重视的东西",
+                    "创造新事物",
+                    "在小组项目中尽自己的一份力量",
+                    "完全满足其他人的要求"
+                ],
+                "shadowZh": [
+                    "迎合他人的口味",
+                    "未能兑现承诺",
+                    "除非受到密切监督，否则无法提供最好的工作",
+                    "忽视或违反与投资你的人的协议",
+                    "拒绝尽自己的责任",
+                    "未能遵守与自己或他人明确达成的协议"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can I get more done?",
+                "What's expected of me? How large a role do I play in controlling those expectations?",
+                "What's been agreed to? How well has that agreement been followed?"
+            ],
+            "affirmation": "\"My work produces results.\"",
+            "nameZh": "三个五角星币"
+        },
+        {
+            "name": "Four of Pentacles",
+            "number": "4",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p04.jpg",
+            "fortune_telling": [
+                "A rainy day is coming—it's time to save"
+            ],
+            "keywords": [
+                "protection",
+                "conservation",
+                "preservation",
+                "safety"
+            ],
+            "meanings": {
+                "light": [
+                    "Saving for a rainy day",
+                    "Fasting as part of a spiritual practice",
+                    "Dieting in an effort to improve your body",
+                    "Abstaining from sex as a way of honoring a spiritual tradition or personal promise",
+                    "Being financially conservative",
+                    "Establishing a trust fund",
+                    "Opening a savings account"
+                ],
+                "shadow": [
+                    "Being stingy",
+                    "Refusing to spend money that needs to be spent",
+                    "Withholding sex from your partner",
+                    "Taking care of your own needs exclusively, without regard for the needs of others",
+                    "Spending a dollar to save a penny",
+                    "Failing to be a good manager of the blessings you've been given"
+                ],
+                "lightZh": [
+                    "未雨绸缪",
+                    "禁食是精神修炼的一部分",
+                    "通过节食改善身体状况",
+                    "禁欲是遵守精神传统或个人承诺的一种方式",
+                    "财务上保守",
+                    "设立信托基金",
+                    "开立储蓄账户"
+                ],
+                "shadowZh": [
+                    "吝啬",
+                    "拒绝花该花的钱",
+                    "拒绝与伴侣发生性关系",
+                    "只顾自己的需要，不顾别人的需要",
+                    "花一美元省一分钱",
+                    "没能很好地管理好自己所得到的祝福"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What factors determine how conservative or generous you are?",
+                "What kinds of things must be preserved at all costs?",
+                "When is greediness or stinginess a good trait to have? When might generosity work against you?"
+            ],
+            "affirmation": "\"I use my resources wisely.\"",
+            "nameZh": "四个五角星币"
+        },
+        {
+            "name": "Five of Pentacles",
+            "number": "5",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p05.jpg",
+            "fortune_telling": [
+                "Finances are getting tighter",
+                "Prepare for a setback"
+            ],
+            "keywords": [
+                "poverty",
+                "destitution",
+                "need",
+                "crisis"
+            ],
+            "meanings": {
+                "light": [
+                    "Recognizing your needs and taking action to fulfill them",
+                    "Doing as much as you can do with what little you have",
+                    "Admitting you need help",
+                    "Embracing the aid that comes your way",
+                    "Focusing on what you have versus what you don't",
+                    "Looking for the light at the end of the tunnel"
+                ],
+                "shadow": [
+                    "Exaggerating your financial or physical needs",
+                    "Adopting a poverty mentality",
+                    "Refusing to support yourself",
+                    "Refusing offers of support",
+                    "Playing the martyr",
+                    "Turning down opportunities to improve your health or finances",
+                    "Wallowing in misery"
+                ],
+                "lightZh": [
+                    "认识自己的需求并采取行动来满足它们",
+                    "尽你所能，做你力所能及的事",
+                    "承认你需要帮助",
+                    "接受你得到的援助",
+                    "关注你所拥有的，而不是你所没有的",
+                    "寻找隧道尽头的光明"
+                ],
+                "shadowZh": [
+                    "夸大你的财务或身体需求",
+                    "养成贫穷心态",
+                    "拒绝养活自己",
+                    "拒绝提供支持",
+                    "扮演烈士",
+                    "拒绝改善健康或财务状况的机会",
+                    "沉浸在痛苦之中"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What critical resources do I lack?",
+                "What people or groups would come to my aid if I asked?",
+                "How might an impoverished spirit be impacting my physical or financial condition?"
+            ],
+            "affirmation": "\"I have faith that what I need will appear.\"",
+            "nameZh": "五角星币"
+        },
+        {
+            "name": "Six of Pentacles",
+            "number": "6",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p06.jpg",
+            "fortune_telling": [
+                "When you need help, ask for it",
+                "Remember, though: what you receive may be limited by what you've given to others in the past"
+            ],
+            "keywords": [
+                "charity",
+                "fairness",
+                "cooperation",
+                "sharing"
+            ],
+            "meanings": {
+                "light": [
+                    "Giving time, money, or effort to a charity",
+                    "Taking part in a group effort",
+                    "Lending your resources to others without expecting anything in return",
+                    "Making sure everyone is treated equally",
+                    "Working together toward a common goal",
+                    "Redistributing wealth, time, or attention",
+                    "Tithing",
+                    "Sharing credit for your success"
+                ],
+                "shadow": [
+                    "Making a loan as a means of gaining control over someone",
+                    "Using charitable acts to draw attention to yourself",
+                    "Dividing work or resources unfairly",
+                    "Failing to do your part in a group effort",
+                    "Ignoring obligations and commitments"
+                ],
+                "lightZh": [
+                    "为慈善机构奉献时间、金钱或精力",
+                    "参加集体活动",
+                    "把自己的资源借给他人而不求任何回报",
+                    "确保每个人都受到平等对待",
+                    "共同努力实现共同目标",
+                    "重新分配财富、时间或注意力",
+                    "什一税",
+                    "分享你的成功功劳"
+                ],
+                "shadowZh": [
+                    "以贷款作为控制某人的手段",
+                    "利用慈善行为吸引别人的注意",
+                    "不公平地分配工作或资源",
+                    "未能在集体努力中尽到自己的责任",
+                    "忽视义务和承诺"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How do I feel about charity? About giving it? About receiving it?",
+                "How can I know if I'm treating others fairly?",
+                "What could I give that no one else can?"
+            ],
+            "affirmation": "\"Knowing I will receive more, I share my resources freely.\"",
+            "nameZh": "六枚五角星币"
+        },
+        {
+            "name": "Seven of Pentacles",
+            "number": "7",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p07.jpg",
+            "fortune_telling": [
+                "Things won't work out as expected",
+                "Pick up the pieces and prepare to move on"
+            ],
+            "keywords": [
+                "assessment",
+                "evaluation",
+                "re-evaluation",
+                "reflection"
+            ],
+            "meanings": {
+                "light": [
+                    "Measuring progress toward your goal",
+                    "Looking at results with an eye toward improving performance",
+                    "Asking, \"How happy am I?\"",
+                    "Coming up with ideas for improving your health or prosperity",
+                    "Deciding it's time for a change",
+                    "Expressing an honest opinion"
+                ],
+                "shadow": [
+                    "Becoming distracted by melancholy thoughts",
+                    "Longing for \"the good old days\"",
+                    "Beating yourself up over lost opportunities",
+                    "Judging your own work harshly",
+                    "Holding others to inappropriate standards",
+                    "Refusing to take part in a project, then whining about the quality of the outcome"
+                ],
+                "lightZh": [
+                    "衡量目标实现的进展",
+                    "着眼于提高绩效来看待结果",
+                    "问：“我有多幸福？”",
+                    "提出改善健康或繁荣的想法",
+                    "决定是时候做出改变了",
+                    "表达诚实的意见"
+                ],
+                "shadowZh": [
+                    "忧郁的思绪使人心烦意乱",
+                    "怀念“过去的美好时光”",
+                    "因失去机会而自责",
+                    "严厉评判自己的工作",
+                    "对别人要求不适当的标准",
+                    "拒绝参与项目，然后抱怨结果的质量"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "To what extent have I fulfilled my own expectations?",
+                "What are the terms of success?",
+                "How can I be happier with the progress I've made?"
+            ],
+            "affirmation": "\"To stay on target, I measure my progress.\"",
+            "nameZh": "七枚五角星币"
+        },
+        {
+            "name": "Eight of Pentacles",
+            "number": "8",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p08.jpg",
+            "fortune_telling": [
+                "Stop over-analyzing, researching, and outlining",
+                "Buckle down and get the work done"
+            ],
+            "keywords": [
+                "effort",
+                "work diligence",
+                "skill"
+            ],
+            "meanings": {
+                "light": [
+                    "Doing your best",
+                    "Bringing enthusiasm and zeal to your work",
+                    "Making an effort to be the best you can be",
+                    "Finding the work that is right for you",
+                    "Taking care of the small details",
+                    "Becoming a finely skilled craftsperson",
+                    "Building something with your hands",
+                    "Making a handmade gift"
+                ],
+                "shadow": [
+                    "Working yourself to death",
+                    "Doing a half-hearted or sloppy job",
+                    "Continuing in a job you hate",
+                    "Buying thoughtless gifts",
+                    "Producing work with shoddy craftsmanship",
+                    "Rushing through your work",
+                    "Rejecting opportunities to learn more about your craft"
+                ],
+                "lightZh": [
+                    "尽最大努力",
+                    "为工作注入热情和热忱",
+                    "努力做到最好",
+                    "找到适合你的工作",
+                    "注意小细节",
+                    "成为技艺精湛的工匠",
+                    "用你的双手建造一些东西",
+                    "制作手工礼物"
+                ],
+                "shadowZh": [
+                    "拼命工作",
+                    "做事马虎或敷衍",
+                    "继续做你讨厌的工作",
+                    "购买不经意的礼物",
+                    "以劣质工艺制作作品",
+                    "匆忙完成工作",
+                    "拒绝进一步了解你的手艺的机会"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How long has it been since you were \"lost in your work?\"",
+                "How can you improve your level of dedication and focus?",
+                "What work do you do best? What about that work appeals to you?"
+            ],
+            "affirmation": "\"I give myself wholeheartedly to the task of the moment.\"",
+            "nameZh": "八个五角星币"
+        },
+        {
+            "name": "Nine of Pentacles",
+            "number": "9",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p09.jpg",
+            "fortune_telling": [
+                "Until you appreciate what you have, you won't have any luck getting more"
+            ],
+            "keywords": [
+                "training",
+                "discipline",
+                "confidence",
+                "enough"
+            ],
+            "meanings": {
+                "light": [
+                    "Investing time in learning or teaching a difficult task",
+                    "Restraining yourself from physical or financial extremes",
+                    "Making sacrifices as a way of achieving larger goals",
+                    "Breaking a complex task down into simple steps",
+                    "Wanting what you have",
+                    "Knowing the difference between needs and wants"
+                ],
+                "shadow": [
+                    "Being assigned to a task without being trained to perform it",
+                    "Pursuing a position for which you are not qualified",
+                    "Disregarding requirements",
+                    "Refusing to dedicate adequate time or attention when learning about something or someone new",
+                    "Always craving more"
+                ],
+                "lightZh": [
+                    "投入时间学习或教授一项困难的任务",
+                    "克制自己不要陷入身体或财务极端",
+                    "为了实现更大的目标而做出牺牲",
+                    "将复杂的任务分解为简单的步骤",
+                    "想要你所拥有的",
+                    "了解需要和想要之间的区别"
+                ],
+                "shadowZh": [
+                    "未接受过相关培训就被分配了某项任务",
+                    "寻求你不具备资格的职位",
+                    "无视要求",
+                    "在学习新事物或新人时拒绝投入足够的时间或注意力",
+                    "总是渴望更多"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "If you could not have what you want, how would you make do?",
+                "Could you make a complex task easier by breaking it down into smaller steps?",
+                "How patient are you during the learning process? With yourself? With others?"
+            ],
+            "affirmation": "\"I know enough to be confident in my decisions.\"",
+            "nameZh": "九个五角星"
+        },
+        {
+            "name": "Ten of Pentacles",
+            "number": "10",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p10.jpg",
+            "fortune_telling": [
+                "Big money is in the near future",
+                "Expect a powerful blessing to come your way"
+            ],
+            "keywords": [
+                "wealth",
+                "abundance",
+                "acquisition",
+                "greed"
+            ],
+            "meanings": {
+                "light": [
+                    "Celebrating your physical and financial blessings",
+                    "Realizing how lucky or how blessed you are",
+                    "Being satisfied with your physical and financial achievements",
+                    "Taking best advantage of \"times of plenty\"",
+                    "Enjoying a feast",
+                    "Showering friends or family with gifts"
+                ],
+                "shadow": [
+                    "Spending all of your money on extravagant gifts and possessions",
+                    "Trying too hard to impress others with your wealth or physique",
+                    "Giving an inappropriately expensive gift as a means of currying favor",
+                    "Obsessing on matters of weight, health, or finance",
+                    "Always asking, \"What's in it for me?\""
+                ],
+                "lightZh": [
+                    "庆祝你的身体和财务祝福",
+                    "意识到自己有多幸运或多么幸福",
+                    "对自己的身体和财务成就感到满意",
+                    "充分利用“丰收年华”",
+                    "享受盛宴",
+                    "给朋友或家人送礼物"
+                ],
+                "shadowZh": [
+                    "把所有的钱都花在奢侈的礼物和物品上",
+                    "过于努力地用自己的财富或体格来打动别人",
+                    "赠送不适当的昂贵礼物以求得好处",
+                    "过分关注体重、健康或财务问题",
+                    "总是问：“这对我有什么好处？”"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How much stuff do I really need?",
+                "How do I feel about wealth and abundance? How do I define these terms?",
+                "How might shedding some possessions open room for growth?"
+            ],
+            "affirmation": "\"I keep physical and financial matters in perspective.\"",
+            "nameZh": "十个五角星"
+        },
+        {
+            "name": "Page of Pentacles",
+            "number": "11",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p11.jpg",
+            "fortune_telling": [
+                "This card represents a young man or woman with an earthy, practical demeanor, likely born an Aries, Taurus, or Gemini, who playfully encourages you to take financial or sexual risks"
+            ],
+            "keywords": [
+                "practicality",
+                "prosperity",
+                "learning",
+                "growth",
+                "adolescence"
+            ],
+            "meanings": {
+                "light": [
+                    "Learning the value of a dollar",
+                    "Starting a savings plan",
+                    "Taking the first steps toward getting out of debt",
+                    "Learning new physical tasks",
+                    "Discovering your sexuality",
+                    "Launching a diet, a weight-lifting program, or a health-related effort",
+                    "Learning by doing"
+                ],
+                "shadow": [
+                    "Trying to appear healthier or wealthier than you really are",
+                    "Spending money carelessly",
+                    "Living strictly for today, with no thought of tomorrow",
+                    "Possessing immature attitudes toward sex and sexuality",
+                    "Using wealth or beauty as an excuse for not having to learn and grow"
+                ],
+                "lightZh": [
+                    "了解美元的价值",
+                    "开始储蓄计划",
+                    "迈出摆脱债务的第一步",
+                    "学习新的体力任务",
+                    "发现你的性取向",
+                    "开始节食、举重计划或与健康相关的努力",
+                    "边做边学"
+                ],
+                "shadowZh": [
+                    "试图表现得比实际更健康或更富有",
+                    "乱花钱",
+                    "只顾当下，不考虑明天",
+                    "对性和性行为抱有不成熟的态度",
+                    "以财富或美貌作为不学习和成长的借口"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can you get more financial or sexual experience without risking your livelihood or health?",
+                "How might hands-on learning play a role in your situation?",
+                "What's the most practical choice you could make?"
+            ],
+            "affirmation": "\"I am physically and financially responsible.\"",
+            "nameZh": "钱币侍从"
+        },
+        {
+            "name": "Knight of Pentacles",
+            "number": "12",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p12.jpg",
+            "fortune_telling": [
+                "A stingy person may chide you for spending money",
+                "Be prepared to defend an economic or sexual decision"
+            ],
+            "keywords": [
+                "caution",
+                "focus",
+                "realism",
+                "invention"
+            ],
+            "meanings": {
+                "light": [
+                    "Spending money wisely",
+                    "Saving for a rainy day",
+                    "Paying close attention to physical or financial details",
+                    "Knowing where every dollar goes",
+                    "Having safe sex",
+                    "Preferring facts to \"good feelings\"",
+                    "Finding creative ways to \"make do\" with resources on hand",
+                    "Completing a new invention"
+                ],
+                "shadow": [
+                    "Throwing caution to the four winds",
+                    "Spending without regard for consequence",
+                    "Spending on luxury when necessities are lacking",
+                    "Escaping stress by spending money",
+                    "Obsessing on tiny physical or financial details",
+                    "Perpetually chasing after some new bauble",
+                    "Copying another's work and claiming it as your own"
+                ],
+                "lightZh": [
+                    "明智地花钱",
+                    "未雨绸缪",
+                    "密切关注身体或财务细节",
+                    "知道每一美元的去向",
+                    "安全性行为",
+                    "更看重事实而非“良好感觉”",
+                    "寻找创造性的方法来“利用现有资源”",
+                    "完成一项新发明"
+                ],
+                "shadowZh": [
+                    "抛开谨慎",
+                    "不顾后果地消费",
+                    "在缺乏必需品时消费奢侈品",
+                    "通过花钱来逃避压力",
+                    "过分关注身体或财务方面的细微细节",
+                    "永远追逐一些新奇的东西",
+                    "抄袭他人作品并声称是自己的作品"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "What's the difference between caution and fear?",
+                "How can I evaluate the practicality of my own ideas and methods?",
+                "How realistic are my goals?"
+            ],
+            "affirmation": "\"I temper my actions with cautious optimism.\"",
+            "nameZh": "五角星骑士"
+        },
+        {
+            "name": "Queen of Pentacles",
+            "number": "13",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p13.jpg",
+            "fortune_telling": [
+                "This card represents a woman with an expansive, sensual nature, likely born between December 13th and 31st, who uses sensual appeal and the promise of reward to sway others to her point of view"
+            ],
+            "keywords": [
+                "luxury",
+                "comfort",
+                "resourcefulness",
+                "generosity",
+                "prosperity"
+            ],
+            "meanings": {
+                "light": [
+                    "Appreciating fine food, fine wine, beautiful art, beautiful bodies, or any of the better things in life",
+                    "Reveling in healthy sexuality",
+                    "Treating yourself",
+                    "Splurging on the occasional \"nice to have\" item",
+                    "Rewarding someone with compensation above and beyond expectations",
+                    "Having it all"
+                ],
+                "shadow": [
+                    "Indulging in gluttony or greediness",
+                    "Becoming insatiable",
+                    "Blunting the impact of treats by indulging in them too often",
+                    "Providing physical comfort without providing for emotional needs",
+                    "Allowing a feeling of entitlement to distort your gratitude for what you're given"
+                ],
+                "lightZh": [
+                    "欣赏美食、美酒、美丽的艺术、美丽的身体，或生活中任何美好的事物",
+                    "享受健康的性生活",
+                    "善待自己",
+                    "偶尔挥霍购买“好东西”",
+                    "以超出预期的报酬奖励某人",
+                    "拥有一切"
+                ],
+                "shadowZh": [
+                    "贪吃或贪婪",
+                    "变得不知足",
+                    "过于频繁地吃零食会削弱零食的功效",
+                    "提供身体上的安慰，而不满足情感上的需求",
+                    "让一种权利感扭曲你对所得到的东西的感激之情"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How do I define luxury?",
+                "To what extent am I capable of reveling in sensual pleasure?",
+                "What would I have to give up in order to \"have it all?\""
+            ],
+            "affirmation": "\"I relish the best this world has to offer.\"",
+            "nameZh": "五角星皇后"
+        },
+        {
+            "name": "King of Pentacles",
+            "number": "14",
+            "arcana": "Minor Arcana",
+            "suit": "Pentacles",
+            "img": "p14.jpg",
+            "fortune_telling": [
+                "This card represents an older man with a financially, socially, and politically conservative spirit, likely born between August 12th and September 11th, who is known for putting his money where his mouth is"
+            ],
+            "keywords": [
+                "stability",
+                "dependability",
+                "confidence",
+                "intervention"
+            ],
+            "meanings": {
+                "light": [
+                    "Becoming debt-free",
+                    "Having more than enough to get by",
+                    "Making contributions to a savings plan",
+                    "Taking a new job with an eye toward advancing your career",
+                    "Buying life or health insurance",
+                    "Being confident in the bedroom",
+                    "Taking on the role of enforcer when called upon to do so"
+                ],
+                "shadow": [
+                    "Becoming so conservative you resist all change on principle alone",
+                    "Ignoring innovations in the name of preserving tradition",
+                    "Being smug or cocky",
+                    "Becoming ruthlessly dedicated to profit or pleasure",
+                    "Being sexually selfish",
+                    "Bossing others around, especially when you're not empowered to do so"
+                ],
+                "lightZh": [
+                    "摆脱债务",
+                    "绰绰有余",
+                    "为储蓄计划做出贡献",
+                    "接受新工作，着眼于职业发展",
+                    "购买人寿或健康保险",
+                    "在卧室里充满自信",
+                    "在需要时承担执法者的角色"
+                ],
+                "shadowZh": [
+                    "变得如此保守以至于你仅凭原则抵制一切改变",
+                    "以维护传统为名忽视创新",
+                    "自鸣得意或骄傲自大",
+                    "变得无情地致力于利益或快乐",
+                    "性自私",
+                    "对别人发号施令，尤其是在你没有权力这样做的时候"
+                ]
+            },
+            "archetype": "",
+            "questions_to_ask": [
+                "How can you handle expenses with greater confidence and maturity?",
+                "How dependable are you? How dependable would others say you are?",
+                "To what extent is a conservative viewpoint valuable? At what point does it become more of a burden than a blessing?"
+            ],
+            "affirmation": "\"I embody confidence and fairness.\"",
+            "nameZh": "五角星国王"
+        }
+    ]
+}

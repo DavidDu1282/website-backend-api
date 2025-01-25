@@ -11,19 +11,10 @@ def analyze_tarot_logic(request):
         if card.name not in tarot_cards:
             raise ValueError(f"Invalid card: {card.name}")
 
-    # Enrich cards with data
-    enriched_cards = [
-        {**tarot_cards[card.name], "orientation": card.orientation}
-        for card in request.tarot_cards
-    ]
+    # Use request.language to determine the language
+    language = request.language if hasattr(request, 'language') else "en"
 
-    # Detect language from request.spread
-    if "过去" in request.spread or "凯尔特" in request.spread:
-        language = "zh"
-    else:
-        language = "en"
-
-    # Language-specific prompts
+    # Language-specific prompt_data
     language_prompts = {
         "en": {
             "question": "The user has asked the following question regarding their fortune:",
@@ -40,25 +31,28 @@ def analyze_tarot_logic(request):
             "analyze_custom": "分析这五张牌，重点关注它们的个体和整体含义。将它们的解读与用户的问题联系起来，并提供可操作的洞察。"
         }
     }
-
-    prompts = language_prompts.get(language, language_prompts["en"])
-
+    
+    prompt_data = language_prompts.get(language, language_prompts["en"])
+    print(prompt_data)
     # Generate a tarot analysis prompt based on spread type
-    if request.spread in ["Three-Card Spread (Past, Present, Future)", "三张牌阵 (过去，现在，未来)"]:
+    if request.spread in ["Three-Card Spread (Past, Present, Future)", "过去、现在、未来"]:
         card_positions = ["Past", "Present", "Future"] if language == "en" else ["过去", "现在", "未来"]
+        print(1)
         prompt = (
-            f"{prompts['question']}\n"
+            f"{prompt_data['question']}\n"
             f"\"{request.user_context}\"\n\n"
-            f"{prompts['cards_drawn']}\n\n"
+            f"{prompt_data['cards_drawn']}\n\n"
         )
-        for index, card in enumerate(enriched_cards):
+        
+        for index, card in enumerate(request.tarot_cards):
+            card_data = tarot_cards[card.name]
             prompt += (
-                f"{card_positions[index]}: {card['name']} ({card['orientation'].capitalize()})\n"
-                f"  关键词: {', '.join(card.get('keywords', []))}\n"
-                f"  光明含义: {', '.join(card['meanings']['light'])}\n"
-                f"  阴影含义: {', '.join(card['meanings']['shadow'])}\n"
+                f"{card_positions[index]}: {card_data['name']} ({card.orientation.capitalize()})\n"
+                f"  关键词: {', '.join(card_data['keywords'])}\n"
+                f"  光明含义: {', '.join(card_data['meanings']['light'])}\n"
+                f"  阴影含义: {', '.join(card_data['meanings']['shadow'])}\n"
             )
-        prompt += f"\n{prompts['analyze_three']}"
+        prompt += f"\n{prompt_data['analyze_three']}"
 
     elif request.spread in ["Celtic Cross", "凯尔特十字牌阵"]:
         card_positions = [
@@ -69,38 +63,40 @@ def analyze_tarot_logic(request):
             "显意识的目标", "不久的将来", "自我", "环境", "希望与恐惧", "结果"
         ]
         prompt = (
-            f"{prompts['question']}\n"
+            f"{prompt_data['question']}\n"
             f"\"{request.user_context}\"\n\n"
-            f"{prompts['cards_drawn']}\n\n"
+            f"{prompt_data['cards_drawn']}\n\n"
         )
-        for index, card in enumerate(enriched_cards):
+        for index, card in enumerate(request.tarot_cards):
             if index < len(card_positions):
+                card_data = tarot_cards[card.name]
                 prompt += (
-                    f"{card_positions[index]}: {card['name']} ({card['orientation'].capitalize()})\n"
-                    f"  关键词: {', '.join(card.get('keywords', []))}\n"
-                    f"  光明含义: {', '.join(card['meanings']['light'])}\n"
-                    f"  阴影含义: {', '.join(card['meanings']['shadow'])}\n"
+                    f"{card_positions[index]}: {card_data['name']} ({card.orientation.capitalize()})\n"
+                    f"  关键词: {', '.join(card_data['keywords'])}\n"
+                    f"  光明含义: {', '.join(card_data['meanings']['light'])}\n"
+                    f"  阴影含义: {', '.join(card_data['meanings']['shadow'])}\n"
                 )
-        prompt += f"\n{prompts['analyze_celtic']}"
+        prompt += f"\n{prompt_data['analyze_celtic']}"
 
     elif request.spread in ["Custom (5 cards)", "自定义（5张牌）"]:
         prompt = (
-            f"{prompts['question']}\n"
+            f"{prompt_data['question']}\n"
             f"\"{request.user_context}\"\n\n"
-            f"{prompts['cards_drawn']}\n\n"
+            f"{prompt_data['cards_drawn']}\n\n"
         )
-        for index, card in enumerate(enriched_cards):
+        for index, card in enumerate(request.tarot_cards):
+            card_data = tarot_cards[card.name]
             prompt += (
-                f"牌 {index + 1}: {card['name']} ({card['orientation'].capitalize()})\n"
-                f"  关键词: {', '.join(card.get('keywords', []))}\n"
-                f"  光明含义: {', '.join(card['meanings']['light'])}\n"
-                f"  阴影含义: {', '.join(card['meanings']['shadow'])}\n"
+                f"牌 {index + 1}: {card_data['name']} ({card.orientation.capitalize()})\n"
+                f"  关键词: {', '.join(card_data['keywords'])}\n"
+                f"  光明含义: {', '.join(card_data['meanings']['light'])}\n"
+                f"  阴影含义: {', '.join(card_data['meanings']['shadow'])}\n"
             )
-        prompt += f"\n{prompts['analyze_custom']}"
+        prompt += f"\n{prompt_data['analyze_custom']}"
 
     else:
         raise ValueError(f"Unsupported spread type: {request.spread}")
-
+    print(prompt)
     # Send to LLM
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
     try:
