@@ -29,20 +29,20 @@ def load_tarot_data(filepath):
                 "affirmation": card["affirmation"]
             }
 
-            # Chinese version
-            tarot_cards[card["nameZh"]] = {
-                "name": card["nameZh"],
-                "number": card["number"],
-                "arcana": card["arcana"],
-                "suit": card["suit"],
-                "img": card["img"],
-                "fortune_telling": card.get("fortune_tellingZh", card["fortune_telling"]),
-                "keywords": card.get("keywordsZh", card["keywords"]),
-                "meanings": {
-                    "light": card["meanings"].get("lightZh", card["meanings"]["light"]),
-                    "shadow": card["meanings"].get("shadowZh", card["meanings"]["shadow"])
-                },
-                "archetype": card.get("archetypeZh", card["archetype"]),
-                "questions_to_ask": card.get("questions_to_askZh", card["questions_to_ask"]),
-                "affirmation": card["affirmation"]
-            }
+            # # Chinese version
+            # tarot_cards[card["nameZh"]] = {
+            #     "name": card["nameZh"],
+            #     "number": card["number"],
+            #     "arcana": card["arcana"],
+            #     "suit": card["suit"],
+            #     "img": card["img"],
+            #     "fortune_telling": card.get("fortune_tellingZh", card["fortune_telling"]),
+            #     "keywords": card.get("keywordsZh", card["keywords"]),
+            #     "meanings": {
+            #         "light": card["meanings"].get("lightZh", card["meanings"]["light"]),
+            #         "shadow": card["meanings"].get("shadowZh", card["meanings"]["shadow"])
+            #     },
+            #     "archetype": card.get("archetypeZh", card["archetype"]),
+            #     "questions_to_ask": card.get("questions_to_askZh", card["questions_to_ask"]),
+            #     "affirmation": card["affirmation"]
+            # }

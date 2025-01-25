@@ -33,11 +33,11 @@ def analyze_tarot_logic(request):
     }
     
     prompt_data = language_prompts.get(language, language_prompts["en"])
-    print(prompt_data)
+    
     # Generate a tarot analysis prompt based on spread type
     if request.spread in ["Three-Card Spread (Past, Present, Future)", "过去、现在、未来"]:
         card_positions = ["Past", "Present", "Future"] if language == "en" else ["过去", "现在", "未来"]
-        print(1)
+        
         prompt = (
             f"{prompt_data['question']}\n"
             f"\"{request.user_context}\"\n\n"
@@ -96,7 +96,7 @@ def analyze_tarot_logic(request):
 
     else:
         raise ValueError(f"Unsupported spread type: {request.spread}")
-    print(prompt)
+
     # Send to LLM
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
     try:
