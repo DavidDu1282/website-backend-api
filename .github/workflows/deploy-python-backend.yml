@@ -24,7 +24,9 @@ jobs:
       # Step 3: Add host key to known hosts
       - name: Add host key to known hosts
         run: |
-          ssh-keyscan -H 150.136.107.196 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 140.245.56.252 >> ~/.ssh/known_hosts
+      # Old VM replace all instances of 140.245.56.252 with 150.136.107.196
+      # ssh-keyscan -H 150.136.107.196 >> ~/.ssh/known_hosts 
 
       # Step 4: Sync files to the server
       - name: Deploy to Oracle VM
@@ -35,8 +37,9 @@ jobs:
 
       # Step 5: Set up Python environment and restart backend
       - name: Set up and Restart Backend
-        run: |
-          ssh ubuntu@150.136.107.196 << 'EOF'
+        run: | 
+          ssh ubuntu@140.245.56.252 << 'EOF'
+
           echo "Navigating to backend directory..."
           cd /home/ubuntu/website-backend-api
 
@@ -58,7 +61,7 @@ jobs:
       # Step 6: Verify Deployment
       - name: Verify Deployment
         run: |
-          ssh ubuntu@150.136.107.196 << 'EOF'
+          ssh ubuntu@140.245.56.252 << 'EOF'
           echo "Checking application status..."
           sudo systemctl status backend-api
           EOF
