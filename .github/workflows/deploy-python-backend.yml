@@ -33,7 +33,7 @@ jobs:
         env:
           RSYNC_PASSWORD: ${{ secrets.RSYNC_PASSWORD }} # Optional: If you use rsync with a password
         run: |
-          rsync -avz --exclude '__pycache__' --exclude '.env' --exclude '.git' ./ ubuntu@150.136.107.196:/home/ubuntu/website-backend-api/
+          rsync -avz --exclude '__pycache__' --exclude '.env' --exclude '.git' ./ ubuntu@140.245.56.252:/home/ubuntu/website-backend-api/
 
       # Step 5: Set up Python environment and restart backend
       - name: Set up and Restart Backend
