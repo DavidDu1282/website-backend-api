@@ -1,0 +1,10 @@
+services:
+  redis:
+    image: redis:latest  # Use the official Redis image
+    ports:
+      - "6379:6379"  # Expose Redis port (standard port)
+    volumes:
+      - redis_data:/data  # Persist Redis data (optional, but recommended)
+
+volumes:
+  redis_data:  # Define the named volume

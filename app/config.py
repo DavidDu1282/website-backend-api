@@ -1,3 +1,4 @@
+#%%
 import os
 
 class Settings:
@@ -5,3 +6,4 @@ class Settings:
     LOCATION = os.getenv("GOOGLE_REGION", "us-central1")
 
 settings = Settings()
+#%%
