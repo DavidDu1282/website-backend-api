@@ -1,8 +1,8 @@
 services:
-  redis:
-    image: redis:latest  # Use the official Redis image
+  website-backend-api-redis: # Use the correct container name
+    image: redis:latest
     ports:
-      - "6379:6379"  # Expose Redis port (standard port)
+      - "6379:6379"
     volumes:
       - redis_data:/data  # Persist Redis data (optional, but recommended)
 

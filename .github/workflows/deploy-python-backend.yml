@@ -76,5 +76,5 @@ jobs:
           echo "Checking application status..."
           docker ps
           docker compose ps
-          docker logs backend-api
+          docker logs website-backend-api-redis-1
           EOF
