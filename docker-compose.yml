@@ -47,7 +47,8 @@ services:
     ports:
       - "8000:8000"
     command: >
-      sh -c "chmod -R 777 /app && alembic upgrade head && gunicorn -k uvicorn.workers.UvicornWorker -w 2 -b 0.0.0.0:8000 app.main:app"
+      sh -c "chmod -R 777 /app && alembic upgrade head && gunicorn -c gunicorn.conf.py app.main:app"
+
 
 volumes:
   postgres_data:
