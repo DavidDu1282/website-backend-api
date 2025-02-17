@@ -69,10 +69,15 @@ jobs:
           echo "Removing unused images..."
           docker system prune -f
 
+          echo "Ensuring external network exists..."
+          docker network ls | grep frontend_network || docker network create frontend_network
+          docker network ls | grep backend_network || docker network create backend_network
+
           echo "Building and running the new containers..."
           docker compose up -d --build
 
           EOF
+
           
       # Step 6: Verify Deployment
       - name: Verify Deployment
