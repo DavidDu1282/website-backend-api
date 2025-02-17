@@ -46,6 +46,8 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    networks:
+      - backend_network
     command: >
       sh -c "chmod -R 777 /app && alembic upgrade head && gunicorn -c gunicorn.conf.py app.main:app"
 
@@ -53,3 +55,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+
+networks:
+  backend_network:
+    external: true

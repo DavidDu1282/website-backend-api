@@ -78,19 +78,23 @@ jobs:
       - name: Verify Deployment
         run: |
           ssh ubuntu@140.245.56.252 << 'EOF'
+          echo "Waiting for services to fully start..."
+          sleep 5  # Small delay to ensure all containers are fully up
+
           echo "Checking running containers..."
           docker ps || echo "Error: docker ps failed"
-      
+
           echo "Checking Docker Compose services..."
           docker compose ps || echo "Error: docker compose ps failed"
-      
+
           echo "Checking backend logs..."
           docker logs website-backend-api-backend-1 || echo "Error: Unable to fetch backend logs"
-      
+
           echo "Checking open ports..."
           sudo netstat -tulnp | grep LISTEN || echo "Error: No services are listening"
-      
+
           echo "Checking if backend is reachable..."
           curl -I http://127.0.0.1:8000 || echo "Error: Backend is not responding"
           EOF
+
         
