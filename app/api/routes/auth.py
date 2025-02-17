@@ -19,7 +19,8 @@ from app.services.auth_service import (
     get_current_user,
     hash_password,
     is_token_blacklisted,
-    verify_password,  # Use verify_password
+    verify_password,
+    validate_password
 )
 from email_validator import EmailNotValidError, validate_email
 
@@ -39,7 +40,7 @@ class LoginRequest(BaseModel):  # Added LoginRequest
 @router.post("/register", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     """Register a new user."""
-    verify_password(user_data.password)
+    validate_password(user_data.password)
     try:
         validate_email(user_data.email)
     except EmailNotValidError as e:
