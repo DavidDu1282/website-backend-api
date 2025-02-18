@@ -37,9 +37,15 @@ class LoginRequest(BaseModel):  # Added LoginRequest
     username: str
     password: str
 
+from fastapi import Request
+
 @router.post("/register", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def register(user_data: UserCreate, db: Session = Depends(get_db)):
+async def register(user_data: UserCreate, request: Request, db: Session = Depends(get_db)):
     """Register a new user."""
+    
+    print("Received Host Header:", request.headers.get("host"))
+    print("Received Origin Header:", request.headers.get("origin"))
+
     validate_password(user_data.password)
     try:
         validate_email(user_data.email)
@@ -65,7 +71,8 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
-    return {"success": True, "message": "User registered successfully", "user_id": user.id}  # Add success: True
+    return {"success": True, "message": "User registered successfully", "user_id": user.id}
+
 
 
 @router.post("/login", response_model=Token, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
