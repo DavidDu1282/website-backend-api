@@ -29,7 +29,7 @@ app.add_middleware(
 )
 
 app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1"]#, settings.SERVER_IP]
+    TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "backend", "nginx", "140.245.56.252"]#, settings.SERVER_IP]
 )
 
 # Include API Routes
