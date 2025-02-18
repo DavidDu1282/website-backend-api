@@ -14,7 +14,9 @@ origins = [
     "http://127.0.0.1:5173",  # Another localhost variation
     f"http://0.0.0.0:5173",  # External server IP
     "http://host.docker.internal:5173",  # Access from Docker on Mac/Windows
-    "https://140.245.56.252"
+    "https://140.245.56.252",
+    "http://nginx",  # ✅ Add Nginx as a valid origin (Docker internal network)
+    "http://backend",  # ✅ Add backend service name if accessed from Nginx
     # "*",  # TEMPORARY: Allow everything (for debugging)
 ]
 
