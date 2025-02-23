@@ -3,7 +3,7 @@ from app.models.tarot import TarotAnalysisRequest
 from app.services.tarot_service import analyze_tarot_logic
 from sqlalchemy.orm import Session
 from app.data.database import get_db
-from app.models.tarot_reading import TarotReading
+from app.models.tarot_reading_history import TarotReadingHistory
 from app.services.auth_service import extract_optional_user_id
 
 router = APIRouter()
@@ -28,7 +28,7 @@ async def analyze_tarot(
 @router.get("/history")
 def get_tarot_history(user_id: str = Depends(extract_optional_user_id), db: Session = Depends(get_db)):
     """Fetch a user's tarot reading history."""
-    readings = db.query(TarotReading).filter(TarotReading.user_id == user_id).order_by(TarotReading.date.desc()).all()
+    readings = db.query(TarotReadingHistory).filter(TarotReadingHistory.user_id == user_id).order_by(TarotReadingHistory.date.desc()).all()
     
     return [
         {
@@ -45,7 +45,7 @@ def get_tarot_history(user_id: str = Depends(extract_optional_user_id), db: Sess
 @router.delete("/history/{reading_id}")
 def delete_tarot_reading(reading_id: int, user_id: str = Depends(extract_optional_user_id), db: Session = Depends(get_db)):
     """Delete a specific tarot reading."""
-    reading = db.query(TarotReading).filter(TarotReading.id == reading_id, TarotReading.user_id == user_id).first()
+    reading = db.query(TarotReadingHistory).filter(TarotReadingHistory.id == reading_id, TarotReadingHistory.user_id == user_id).first()
     
     if not reading:
         raise HTTPException(status_code=404, detail="Reading not found")

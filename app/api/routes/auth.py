@@ -73,11 +73,10 @@ async def register(user_data: UserCreate, request: Request, db: Session = Depend
     db.refresh(user)
     return {"success": True, "message": "User registered successfully", "user_id": user.id}
 
-
-
 @router.post("/login", response_model=Token, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def login(login_data: LoginRequest, db: Session = Depends(get_db)):  # Use LoginRequest
     """Login a user and return access and refresh tokens."""
+    print(login_data)
     user = await authenticate_user(db, login_data.username, login_data.password)
     if not user:
         raise HTTPException(
@@ -96,14 +95,17 @@ async def login(login_data: LoginRequest, db: Session = Depends(get_db)):  # Use
     return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer", "success":True} #Return success: True
 
 
+# app/api/routes/auth.py
 @router.post("/logout")
-async def logout(current_user: User = Depends(get_current_user)):
+async def logout(user_token: tuple[User, str] = Depends(get_current_user)): #Added User, Str type hint
     """Logout a user (blacklist the current token)."""
-    if not is_token_blacklisted(current_user.token):
-        blacklist_token(current_user.token)
-    return {"message": "Successfully logged out", "success":True} #return success: True
+    current_user, token = user_token #unpack user and token
+    if not is_token_blacklisted(token):
+        blacklist_token(token)
+    return {"message": "Successfully logged out", "success":True}
 
 @router.get("/check-auth")
-async def check_auth(current_user: User = Depends(get_current_user)):
+async def check_auth(user_token: tuple[User, str] = Depends(get_current_user)):
     """Check if the user is authenticated."""
-    return {"username": current_user.username, "email": current_user.email, "success":True} #return "success":True
+    current_user, _ = user_token  # Unpack, but we don't need the token here (using _)
+    return {"username": current_user.username, "email": current_user.email, "success":True}

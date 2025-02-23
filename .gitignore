@@ -1,10 +1,9 @@
-# Ignore environment files
 .env
 generate_password.py
-# Ignore virtual environment directories
 venv/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 secrets/
+docker-compose.override.yml

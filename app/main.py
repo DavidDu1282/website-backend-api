@@ -1,9 +1,10 @@
+# app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from app.api.routes import auth, tarot, llm, root, counsellor
 from app.config import settings
-from app.core.startup import startup_event
+from app.core.startup import startup_event  # Import the startup event
 
 # Initialize FastAPI App
 app = FastAPI()
@@ -40,4 +41,6 @@ app.include_router(counsellor.router, prefix="/api/counsellor")
 app.include_router(auth.router, prefix="/api/auth")
 
 # Register startup event
-app.add_event_handler("startup", startup_event)
+@app.on_event("startup")
+async def app_startup():
+    await startup_event(app)

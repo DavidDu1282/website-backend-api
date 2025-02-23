@@ -8,13 +8,15 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
+    DATABASE_URL: str
+
     POSTGRES_DB: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
 
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
-    REDIS_URL: str = "" 
+    REDIS_URL: str = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
     SERVER_IP: str = "0.0.0.0" 
 
@@ -28,8 +30,9 @@ class Settings(BaseSettings):
 settings = Settings()
 print(f"Loaded SERVER_IP: {settings.SERVER_IP}")
 
-settings.REDIS_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}"
-
+# settings.REDIS_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}"
+print(f"Loaded REDIS_URL: {settings.REDIS_URL}")
+print(f"Loaded DATABASE_URL: {settings.DATABASE_URL}")
 # Explicitly set the environment variables for Vertex AI
 # os.environ["GOOGLE_PROJECT_ID"] = settings.GOOGLE_PROJECT_ID
 # os.environ["GOOGLE_REGION"] = settings.GOOGLE_REGION

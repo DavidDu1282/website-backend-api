@@ -6,7 +6,7 @@ from app.data.database import get_db
 
 from fastapi import Depends, HTTPException, Request
 from jose import JWTError, jwt
-from app.models.tarot_reading import TarotReading
+from app.models.tarot_reading_history import TarotReadingHistory
 from app.services.auth_service import create_access_token, extract_optional_user_id
 from app.core.config import Settings
 
@@ -153,7 +153,7 @@ def analyze_tarot_logic(request, db: Session, user_id: str | None):
     else:
         raise ValueError(f"Unsupported spread type: {request.spread}")
 
-    # Send to LLM
+    print(prompt)
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
     try:
         response = chat_logic(llm_request)

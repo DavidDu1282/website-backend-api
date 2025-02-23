@@ -19,7 +19,10 @@ sys.path.insert(0, PROJECT_ROOT)
 # --- Model Imports ---
 from app.data.database import Base
 from app.models.user import User
-from app.models.tarot_reading import TarotReading
+from app.models.tarot_reading_history import TarotReadingHistory
+from app.models.counsellor_message_history import CounsellorMessageHistory
+from app.models.user_prompt import UserPrompt
+from app.core.config import settings
 
 # --- Print Metadata Tables ---
 print(Base.metadata.tables)  # <--- Add this line!
@@ -50,10 +53,10 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 def run_migrations_online() -> None:
-    database_url = os.getenv("DATABASE_URL")
-    if database_url is None:
+    # database_url = os.getenv("DATABASE_URL")
+    if settings.DATABASE_URL is None:
         raise ValueError("DATABASE_URL environment variable not set.")
-    connectable = create_engine(database_url)
+    connectable = create_engine(settings.DATABASE_URL)
     with connectable.connect() as connection:  # Only needed for online migrations
         if connection.dialect.name == 'sqlite':  # Add this check
             render_as_batch_setting = True

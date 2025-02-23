@@ -15,7 +15,7 @@ from app.models.user import User
 from app.models.token import TokenData
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")  # Correct tokenUrl
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 # --- In-Memory Token Blacklist (FOR DEVELOPMENT/TESTING ONLY) ---
 blacklisted_tokens = set()
@@ -70,7 +70,6 @@ def create_refresh_token(data: dict, expires_delta: Optional[timedelta] = None):
     )  # Use the same secret key and algorithm
     return encoded_jwt
 
-
 async def get_current_user(
     token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
 ):
@@ -94,9 +93,9 @@ async def get_current_user(
     user = db.query(User).filter(User.username == token_data.username).first()
     if user is None:
         raise credentials_exception
-    # Removed: user.token = token  # Not necessary
 
-    return user
+    # Return both the user and the token
+    return user, token
 
 
 def extract_optional_user_id(request: Request):
