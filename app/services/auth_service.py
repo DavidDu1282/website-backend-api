@@ -13,6 +13,7 @@ from app.core.config import settings
 from app.data.database import get_db
 from app.models.user import User
 from app.models.token import TokenData
+from app.models.password_validation import PasswordValidationError
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
@@ -125,21 +126,19 @@ def blacklist_token(token: str):
 
 def validate_password(password: str):
     """Ensure password meets security requirements."""
-    if len(password) < 12:
-        raise HTTPException(
-            status_code=400, detail="Password must be at least 12 characters long."
-        )
-    if not re.search(r"\d", password):
-        raise HTTPException(
-            status_code=400, detail="Password must include at least one number."
-        )
-    if not re.search(r"[A-Za-z]", password):
-        raise HTTPException(
-            status_code=400, detail="Password must include at least one letter."
-        )
-    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-        raise HTTPException(
-            status_code=400,
-            detail="Password must include at least one special character.",
-        )
-    return password
+    errors = []
+    if len(password) < 8:
+        errors.append("8_characters_long")
+    if not any(char.isdigit() for char in password):
+        errors.append("one_digit")
+    if not any(char.isupper() for char in password):
+        errors.append("one_uppercase")
+    if not any(char.islower() for char in password):
+        errors.append("one_lowercase")
+    if not any(char in "!@#$%^&*()" for char in password):
+        errors.append("one_special")
+
+    if errors:
+        raise PasswordValidationError(errors)
+
+    return True
