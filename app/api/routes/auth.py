@@ -47,16 +47,18 @@ async def register(user_data: UserCreate, request: Request, db: Session = Depend
     print("Received Host Header:", request.headers.get("host"))
     print("Received Origin Header:", request.headers.get("origin"))
 
-    try:
-        validate_password(user_data.password)
-    except PasswordValidationError as e:
-        errors = []
-        for error_message in e.messages:
-            errors.append(ValidationError(loc=["password"], msg=error_message, type= "value_error.password"))
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=[error.model_dump() for error in errors]
-        )
+    # Not Validating Passwords Yet
+    
+    # try:
+    #     validate_password(user_data.password)
+    # except PasswordValidationError as e:
+    #     errors = []
+    #     for error_message in e.messages:
+    #         errors.append(ValidationError(loc=["password"], msg=error_message, type= "value_error.password"))
+    #     raise HTTPException(
+    #         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+    #         detail=[error.model_dump() for error in errors]
+    #     )
     try:
         validate_email(user_data.email)
     except EmailNotValidError as e:

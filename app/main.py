@@ -18,6 +18,8 @@ origins = [
     "https://140.245.56.252",
     "http://nginx",  # ✅ Add Nginx as a valid origin (Docker internal network)
     "http://backend",  # ✅ Add backend service name if accessed from Nginx
+    "http://hao123.ddns.net",  # ADDED: Your domain - HTTP
+    "https://hao123.ddns.net", # ADDED: Your domain - HTTPS
     # "*",  # TEMPORARY: Allow everything (for debugging)
 ]
 
@@ -30,7 +32,7 @@ app.add_middleware(
 )
 
 app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "backend", "nginx", "140.245.56.252"]#, settings.SERVER_IP]
+    TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "backend", "nginx", "140.245.56.252", "hao123.ddns.net"]#, settings.SERVER_IP]
 )
 
 # Include API Routes
