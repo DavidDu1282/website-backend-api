@@ -1,27 +1,31 @@
+# app/services/tarot_service.py
 from app.data.tarot import tarot_cards
 from app.models.llm import ChatRequest
 from app.services.llm_service import chat_logic
 from sqlalchemy.orm import Session
-from app.data.database import get_db
 
-from fastapi import Depends, HTTPException, Request
+from fastapi import HTTPException, Request
 from jose import JWTError, jwt
 from app.models.tarot_reading_history import TarotReadingHistory
-from app.services.auth_service import create_access_token, extract_optional_user_id
 from app.core.config import Settings
+import json
+from datetime import datetime
+import logging
 
-def analyze_tarot_logic(request, db: Session, user_id: str | None):
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+def analyze_tarot_logic(request, db: Session, user):
     """
     Analyze tarot cards with user context based on the spread type.
     """
-    print("Starting tarot service")
-    print(f"Full Request: {request.__dict__}")
+    logger.info("Starting tarot service")
+    logger.debug(f"Full Request: {request.__dict__}")
     # Validate cards
     for card in request.tarot_cards:
         if card.name not in tarot_cards:
             raise ValueError(f"Invalid card: {card.name}")
 
-    # Use request.language to determine the language
     language = request.language if hasattr(request, 'language') else "en"
 
     # Language-specific prompt_data
@@ -153,20 +157,34 @@ def analyze_tarot_logic(request, db: Session, user_id: str | None):
     else:
         raise ValueError(f"Unsupported spread type: {request.spread}")
 
-    print(prompt)
+    logger.info(prompt)
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
     try:
         response = chat_logic(llm_request)
-        print(response)
-        print(f"User ID: {user_id}")  # Log the user ID for debugging
-        if user_id:
-            # Store reading in database
-            tarot_reading = TarotReading(
-                user_id=user_id,  # Use the extracted user_id
+        logger.info(response)
+        logger.info(f"User: {user}")  # Log the user
+
+        if user:
+            user_id_int = user.id
+            cards_drawn_serialized = json.dumps([{"name": card.name, "orientation": card.orientation} for card in request.tarot_cards])
+            interpretation = response["response"]
+
+            # --- LOGGING BEFORE DATABASE INTERACTION ---
+            logger.info("--- Preparing to store Tarot Reading ---")
+            logger.info(f"  user_id: {user_id_int} (type: {type(user_id_int)})")
+            logger.info(f"  reading_date: {datetime.utcnow()} (type: {type(datetime.utcnow())})")
+            logger.info(f"  cards_drawn: {cards_drawn_serialized} (type: {type(cards_drawn_serialized)})")
+            logger.info(f"  interpretation: {interpretation} (type: {type(interpretation)})")
+            logger.info(f"  spread: {request.spread} (type: {type(request.spread)})")
+            logger.info(f"  user_context: {request.user_context} (type: {type(request.user_context)})")
+            logger.info("----------------------------------------")
+            tarot_reading = TarotReadingHistory(
+                user_id=user_id_int,
+                reading_date=datetime.utcnow(),
+                cards_drawn=cards_drawn_serialized,
+                interpretation=interpretation,
                 spread=request.spread,
-                cards=[{"name": card.name, "orientation": card.orientation} for card in request.tarot_cards],
-                user_context=request.user_context,
-                analysis=response["response"]
+                user_context=request.user_context
             )
 
             db.add(tarot_reading)
@@ -176,5 +194,8 @@ def analyze_tarot_logic(request, db: Session, user_id: str | None):
             "message": prompt_data["message_success"],
             "summary": response["response"]
         }
+    except Exception as e:
+        logger.error(f"Error during LLM processing or database operation: {e}", exc_info=True)  # Log the full traceback
+        raise ValueError(f"{prompt_data['error_llm']}{e}")
     except Exception as e:
         raise ValueError(f"{prompt_data['error_llm']}{e}")

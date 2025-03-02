@@ -4,29 +4,29 @@ from app.services.tarot_service import analyze_tarot_logic
 from sqlalchemy.orm import Session
 from app.data.database import get_db
 from app.models.tarot_reading_history import TarotReadingHistory
-from app.services.auth_service import extract_optional_user_id
+from app.services.auth_service import get_current_user_from_cookie
 
 router = APIRouter()
 
 @router.post("/analyze")
 async def analyze_tarot(
     request: TarotAnalysisRequest,
-    user_id: str | None = Depends(extract_optional_user_id),  # Inject user_id
-    db: Session = Depends(get_db)  # Inject database session
+    user: str | None = Depends(get_current_user_from_cookie),
+    db: Session = Depends(get_db)
 ):
     """
     Analyze the tarot draw results in the context of the user's query.
     """
     try:
         print(request)
-        return analyze_tarot_logic(request, db=db, user_id=user_id)  # Pass db and user_id
+        return analyze_tarot_logic(request, db=db, user=user)  # Pass db and user_id
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 @router.get("/history")
-def get_tarot_history(user_id: str = Depends(extract_optional_user_id), db: Session = Depends(get_db)):
+def get_tarot_history(user_id: str = Depends(get_current_user_from_cookie), db: Session = Depends(get_db)):
     """Fetch a user's tarot reading history."""
     readings = db.query(TarotReadingHistory).filter(TarotReadingHistory.user_id == user_id).order_by(TarotReadingHistory.date.desc()).all()
     
@@ -43,7 +43,7 @@ def get_tarot_history(user_id: str = Depends(extract_optional_user_id), db: Sess
     ]
 
 @router.delete("/history/{reading_id}")
-def delete_tarot_reading(reading_id: int, user_id: str = Depends(extract_optional_user_id), db: Session = Depends(get_db)):
+def delete_tarot_reading(reading_id: int, user_id: str = Depends(get_current_user_from_cookie), db: Session = Depends(get_db)):
     """Delete a specific tarot reading."""
     reading = db.query(TarotReadingHistory).filter(TarotReadingHistory.id == reading_id, TarotReadingHistory.user_id == user_id).first()
     

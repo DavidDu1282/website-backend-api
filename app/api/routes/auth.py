@@ -1,33 +1,35 @@
 # app/api/routes/auth.py
 from datetime import timedelta, datetime
 from typing import Dict
-from fastapi import APIRouter, Depends, HTTPException, status
+
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 from jose import JWTError, jwt
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+
 from app.core.config import settings
 from app.data.database import get_db
 from app.models.user import User
-from app.models.token import Token, TokenData
-from app.models.password_validation import PasswordValidationError, ValidationError, ErrorResponse
+from app.models.token import Token, TokenData  # Keep TokenData for type hints
+from app.models.password_validation import (
+    PasswordValidationError,
+    ValidationError,
+    ErrorResponse,
+)
 from app.services.auth_service import (
     authenticate_user,
-    blacklist_token,
     create_access_token,
     create_refresh_token,
-    get_current_user,
+    get_current_user_from_cookie,
     hash_password,
-    is_token_blacklisted,
-    verify_password,
-    validate_password
+    validate_password,
 )
 from email_validator import EmailNotValidError, validate_email
 
 router = APIRouter(tags=["Authentication"])
-# --- In-Memory Rate Limiting (FOR DEVELOPMENT/TESTING ONLY) ---
-in_memory_storage: Dict[str, Dict] = {}  # Global in-memory store
+
 # Pydantic Models
 class UserCreate(BaseModel):
     username: str
@@ -43,12 +45,12 @@ from fastapi import Request
 @router.post("/register", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def register(user_data: UserCreate, request: Request, db: Session = Depends(get_db)):
     """Register a new user."""
-    
+
     print("Received Host Header:", request.headers.get("host"))
     print("Received Origin Header:", request.headers.get("origin"))
 
     # Not Validating Passwords Yet
-    
+
     # try:
     #     validate_password(user_data.password)
     # except PasswordValidationError as e:
@@ -85,17 +87,18 @@ async def register(user_data: UserCreate, request: Request, db: Session = Depend
     db.refresh(user)
     return {"success": True, "message": "User registered successfully", "user_id": user.id}
 
-@router.post("/login", response_model=Token, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
-async def login(login_data: LoginRequest, db: Session = Depends(get_db)):  # Use LoginRequest
-    """Login a user and return access and refresh tokens."""
-    print(login_data)
+@router.post("/login")  # Removed response_model=Token
+async def login(
+    login_data: LoginRequest, response: Response, db: Session = Depends(get_db)
+):
+    """Login a user and set access and refresh tokens as HTTP-only cookies."""
     user = await authenticate_user(db, login_data.username, login_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
         )
+
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     refresh_token_expires = timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     access_token = create_access_token(
@@ -104,20 +107,91 @@ async def login(login_data: LoginRequest, db: Session = Depends(get_db)):  # Use
     refresh_token = create_refresh_token(
         data={"sub": user.username}, expires_delta=refresh_token_expires
     )
-    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer", "success":True} #Return success: True
 
+    # Set cookies
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=True,  #  HTTPS only
+        samesite="lax",  # Or "strict" depending on your needs
+        expires=int(access_token_expires.total_seconds()),
+        path="/"
+    )
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        secure=True,  #  HTTPS only
+        samesite="lax",
+        expires=int(refresh_token_expires.total_seconds()),
+        path="/"
+    )
+    
+    return {"success": True, "message": "Logged in successfully"}
 
-# app/api/routes/auth.py
 @router.post("/logout")
-async def logout(user_token: tuple[User, str] = Depends(get_current_user)): #Added User, Str type hint
-    """Logout a user (blacklist the current token)."""
-    current_user, token = user_token #unpack user and token
-    if not is_token_blacklisted(token):
-        blacklist_token(token)
-    return {"message": "Successfully logged out", "success":True}
+async def logout(response: Response):
+    """Logout a user (delete the cookies)."""
+    response.delete_cookie("access_token", path="/")
+    response.delete_cookie("refresh_token", path="/")
+    return {"message": "Successfully logged out", "success": True}
+
 
 @router.get("/check-auth")
-async def check_auth(user_token: tuple[User, str] = Depends(get_current_user)):
+async def check_auth(user: User = Depends(get_current_user_from_cookie)):
     """Check if the user is authenticated."""
-    current_user, _ = user_token  # Unpack, but we don't need the token here (using _)
-    return {"username": current_user.username, "email": current_user.email, "success":True}
+    return {"username": user.username, "email": user.email, "success": True}
+
+from fastapi import Cookie
+
+@router.post("/refresh")
+async def refresh_token_route(
+    response: Response,
+    refresh_token: str | None = Cookie(default=None),
+    db: Session = Depends(get_db),
+):
+    """
+    Refreshes the access token using the refresh token (provided as a cookie).
+    Sets a new access token cookie.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate refresh token",
+    )
+    if refresh_token is None:
+        raise credentials_exception
+
+    try:
+        payload = jwt.decode(
+            refresh_token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+
+    user = db.query(User).filter(User.username == token_data.username).first()
+    if user is None:
+        raise credentials_exception
+
+    # Create new access token
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    new_access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+
+    # Set new access token cookie
+    response.set_cookie(
+        key="access_token",
+        value=new_access_token,
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        expires=int(access_token_expires.total_seconds()),
+        path="/"
+    )
+
+    return {"success": True, "message": "Access token refreshed"}

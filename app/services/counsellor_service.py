@@ -1,99 +1,129 @@
 # app/services/counsellor_service.py
-from app.models.llm import ChatRequest
-from app.services.llm_service import chat_logic
-from app.models.user import User
-from app.models.counsellor_message_history import CounsellorMessageHistory
-from app.data.database import get_db
-from sqlalchemy.orm import Session
-from app.core.dependencies import get_redis_client
-
 import json
-from fastapi import Depends
+import logging
+from typing import List
+
+from fastapi import HTTPException
 from redis.asyncio import Redis
+from sqlalchemy.orm import Session
 
-async def analyse_counsellor_request(request, db: Session = Depends(get_db), redis_client: Redis = Depends(get_redis_client)):
+from app.models.llm import ChatRequest  # Changed to correct import
+from app.models.counsellor_message_history import CounsellorMessageHistory
+from app.models.user import User
+from app.models.user_prompt import UserPrompt
+from app.services.llm_service import chat_logic  # Import your LLM service
+# Configure logging (adjust level and format as needed)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_client: Redis, user: User):
     """
-    Analyze user input, generate a response using the LLM, and manage caching.
+    Analyzes user input, generates an LLM response, and manages caching.
     """
-    # Validate user message
-    if not hasattr(request, 'message') or not request.message.strip():
-        raise ValueError("Invalid input: Message cannot be empty")
+    logging.debug("Starting analyse_counsellor_request")
 
-    # Determine language
-    language = request.language if hasattr(request, 'language') else "en"
+    # Validate user message (more robust check)
+    if not request.message or not request.message.strip():
+        logging.warning("Invalid input: Message cannot be empty")
+        raise HTTPException(status_code=400, detail="Message cannot be empty")
 
-    # Get person identifier
-    session_id = request.session_id if hasattr(request, 'session_id') else "default"
+    language = request.language if request.language else "en"
+    session_id = request.session_id if request.session_id else "default"
 
-    # Define system messages for different languages
+    # Define system messages (clearer structure)
     system_messages = {
         "en": "You are a helpful and empathetic counsellor. Provide thoughtful and supportive advice.",
         "zh": "你是一个乐于助人且富有同情心的咨询师。请提供周到和支持性的建议。",
-        "zh_TW": "你是一個樂於助人且富有同情心的諮詢師。請提供周到和支持性的建議："
+        "zh_TW": "你是一個樂於助人且富有同情心的諮詢師。請提供周到和支持性的建議：",
     }
+    base_prompt = system_messages.get(language, system_messages["en"])
 
-    async def build_counsellor_prompt(user_id, session_id, new_message, db: Session, redis_client: Redis):
-        """Builds the prompt for the LLM, including message history."""
-        user = db.query(User).get(user_id)
+    async def build_counsellor_prompt(user: User, session_id: str, new_message: str, db: Session, redis_client: Redis) -> str:
+        """Builds the complete prompt for the counsellor."""
+        try:
+            logging.debug(f"Building counsellor prompt for user: {user.username}, session: {session_id}")
 
-        base_prompt = system_messages.get(language, system_messages["en"])
+            # --- Get Custom Prompt ---
+            custom_prompt_obj = db.query(UserPrompt).filter(
+                UserPrompt.user_id == user.id,
+                UserPrompt.prompt_type == "counsellor"  # Correctly filter by prompt_type
+            ).order_by(UserPrompt.timestamp.desc()).first()  # Get the *latest* custom prompt
 
-        custom_prompt = user.custom_counsellor_prompt if user.custom_counsellor_prompt else ""
+            custom_prompt = custom_prompt_obj.prompt_text if custom_prompt_obj else ""
 
-        # Generate a unique cache key
-        cache_key = f"counsellor_history:{user_id}:{session_id}"
+            # --- Get Message History ---
+            cache_key = f"counsellor_history:{user.id}:{session_id}"
+            cached_history = await redis_client.get(cache_key)
+            if cached_history:
+                # --- FIX: Check if bytes before decoding ---
+                if isinstance(cached_history, bytes):
+                    message_history = json.loads(cached_history.decode('utf-8'))
+                else:  # It's already a string
+                    message_history = json.loads(cached_history)
+                logging.debug("Message history retrieved from Redis.")
+            else:
+                message_history_objects: List[CounsellorMessageHistory] = db.query(CounsellorMessageHistory).filter(
+                    CounsellorMessageHistory.user_id == user.id,
+                    CounsellorMessageHistory.session_id == session_id
+                ).order_by(CounsellorMessageHistory.timestamp.desc()).limit(5).all()
 
-        # Try to get the message history from Redis
-        cached_history = await redis_client.get(cache_key)
+                message_history = [
+                    {"user_message": msg.user_message, "counsellor_response": msg.counsellor_response}
+                    for msg in message_history_objects
+                ]
+                await redis_client.setex(cache_key, 3600, json.dumps(message_history))  # Cache for 1 hour
+                logging.debug(f"Message history stored in Redis: {cache_key}")
 
-        if cached_history:
-            message_history = json.loads(cached_history.decode('utf-8'))
+            # --- Format History ---
+            history_string = "\n".join(
+                [f"User: {msg['user_message']}\nCounsellor: {msg['counsellor_response']}"
+                 for msg in reversed(message_history)]
+            )
 
-        else:
-            # If not in Redis, query the database
-            message_history_objects = db.query(CounsellorMessageHistory).filter(
-                CounsellorMessageHistory.user_id == user_id,
-                CounsellorMessageHistory.session_id == session_id
-            ).order_by(CounsellorMessageHistory.timestamp.desc()).limit(5).all()
+            # --- Combine Everything ---
+            final_prompt = f"{base_prompt}\n{custom_prompt}\n\nMessage History:\n{history_string}\n\nUser: {new_message}"
+            logging.debug("Final Prompt Built Successfully.")
+            return final_prompt
 
-            # Convert the SQLAlchemy objects to a list of dictionaries before caching
-            message_history = [{"user_message": msg.user_message, "counsellor_response": msg.counsellor_response} for msg in message_history_objects]
+        except Exception as e:
+            logging.error(f"Error in build_counsellor_prompt: {e}", exc_info=True)
+            raise  # Re-raise the exception
 
-            # Store the message history in Redis (as JSON)
-            await redis_client.setex(cache_key, 3600, json.dumps(message_history))
-
-        history_string = "\n".join([f"User: {msg['user_message']}\nCounsellor: {msg['counsellor_response']}" for msg in reversed(message_history)])
-
-        final_prompt = f"{base_prompt}\n{custom_prompt}\n\nMessage History:\n{history_string}\n\nUser: {new_message}"
-
-        return final_prompt
-
-    # Build the prompt
-    prompt = await build_counsellor_prompt(request.user_id, session_id, request.message, db, redis_client)
+    # --- Main Logic ---
+    try:
+        prompt = await build_counsellor_prompt(user, session_id, request.message, db, redis_client)
+    except Exception as e:
+        logging.error(f"❌ build_counsellor_prompt failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
 
     # Prepare request for LLM
-    llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
+    llm_request = ChatRequest(session_id=session_id, prompt=prompt, language=language)
 
     try:
-        response = chat_logic(llm_request)
+        logging.debug("Sending request to LLM service.")
+        response = chat_logic(llm_request) # temporarily removed await, will make chat logic async later
+        logging.debug("Received response from LLM service.")
 
-        # Store the message and response in the database
+        # Store message and response
         counsellor_message = CounsellorMessageHistory(
-            user_id=request.user_id,
+            user_id=user.id,
             session_id=session_id,
             user_message=request.message,
             counsellor_response=response["response"]
         )
         db.add(counsellor_message)
         db.commit()
+        db.refresh(counsellor_message)
 
-        # Invalidate the cache (remove the old entry)
-        cache_key = f"counsellor_history:{request.user_id}:{session_id}"
+        # Invalidate cache
+        cache_key = f"counsellor_history:{user.id}:{session_id}"
         await redis_client.delete(cache_key)
+        logging.debug(f"Cache invalidated: {cache_key}")
 
         return {
             "message": "Response generated successfully" if language == "en" else "回应生成成功",
             "response": response["response"]
         }
+
     except Exception as e:
-        raise ValueError(f"Error during LLM processing: {e}" if language == "en" else f"LLM 处理时出错：{e}")
+        logging.exception(f"Error during LLM processing: {e}")
+        raise HTTPException(status_code=500, detail=f"LLM Error: {str(e)}" if language == "en" else f"LLM错误: {str(e)}")
