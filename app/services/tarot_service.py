@@ -15,7 +15,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-def analyze_tarot_logic(request, db: Session, user):
+async def analyze_tarot_logic(request, db: Session, user):
     """
     Analyze tarot cards with user context based on the spread type.
     """
@@ -160,7 +160,7 @@ def analyze_tarot_logic(request, db: Session, user):
     logger.info(prompt)
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
     try:
-        response = chat_logic(llm_request)
+        response = await chat_logic(llm_request)
         logger.info(response)
         logger.info(f"User: {user}")  # Log the user
 

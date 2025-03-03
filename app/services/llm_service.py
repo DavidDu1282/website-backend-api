@@ -1,14 +1,18 @@
+# app/services/llm_service.py
+import asyncio  # Import asyncio
 from app.core.sessions import chat_sessions
 from vertexai.generative_models import GenerativeModel, ChatSession
 from datetime import datetime, timedelta
+from typing import AsyncGenerator, Dict, Any
 
 # Constants
-MODEL_NAME = "gemini-2.0-flash-exp" #"gemini-2.0-flash-thinking-exp-1219"
+MODEL_NAME = "gemini-2.0-flash-exp"  # "gemini-2.0-flash-thinking-exp-1219"
 SESSION_EXPIRY_TIME = timedelta(hours=1)  # Expire sessions after 1 hour
 
-def chat_logic(request):
+
+async def chat_logic(request) -> Dict[str, Any]:
     """
-    Handle LLM chat sessions.
+    Handle LLM chat sessions asynchronously.
     """
     session_id = request.session_id
     prompt = request.prompt
@@ -21,16 +25,21 @@ def chat_logic(request):
 
             # Check if session is expired
             if datetime.now() - session_data["last_used"] > SESSION_EXPIRY_TIME:
-                chat_session = start_new_chat_session(session_id)
+                chat_session = await start_new_chat_session(session_id)
         else:
-            chat_session = start_new_chat_session(session_id)
+            chat_session = await start_new_chat_session(session_id)
 
         # Update last used time
         chat_sessions[session_id]["last_used"] = datetime.now()
 
-        # Send prompt to LLM
-        responses = chat_session.send_message(prompt, stream=True)
-        return {"response": "".join(chunk.text for chunk in responses)}
+        # Send prompt to LLM *in a separate thread*
+        def send_message_sync():  # Helper function for synchronous operation
+            responses = chat_session.send_message(prompt, stream=True)
+            return "".join(chunk.text for chunk in responses)
+        
+        response_text = await asyncio.to_thread(send_message_sync)
+        return {"response": response_text}
+
 
     except Exception as e:
         # Log the error and return a failure response
@@ -38,14 +47,17 @@ def chat_logic(request):
         return {"error": "Failed to process request", "details": str(e)}
 
 
-def start_new_chat_session(session_id):
+async def start_new_chat_session(session_id):
     """
-    Start a new chat session.
+    Start a new chat session (made asynchronous).
     """
     try:
-        # Initialize the LLM model
-        model = GenerativeModel(MODEL_NAME)
-        chat_session = model.start_chat()
+        # Initialize the LLM model *in a separate thread*
+        def init_model_sync():
+            model = GenerativeModel(MODEL_NAME)
+            return model.start_chat()
+
+        chat_session = await asyncio.to_thread(init_model_sync)
 
         # Store session in chat_sessions
         chat_sessions[session_id] = {
@@ -62,7 +74,8 @@ def start_new_chat_session(session_id):
 
 def cleanup_expired_sessions():
     """
-    Clean up expired chat sessions.
+    Clean up expired chat sessions.  This could also be made async, but
+    it's likely less critical, as it's probably run periodically.
     """
     try:
         current_time = datetime.now()

@@ -19,7 +19,7 @@ async def analyze_tarot(
     """
     try:
         print(request)
-        return analyze_tarot_logic(request, db=db, user=user)  # Pass db and user_id
+        return await analyze_tarot_logic(request, db=db, user=user)  # Pass db and user_id
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:

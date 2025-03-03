@@ -100,7 +100,7 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
 
     try:
         logging.debug("Sending request to LLM service.")
-        response = chat_logic(llm_request) # temporarily removed await, will make chat logic async later
+        response = await chat_logic(llm_request) 
         logging.debug("Received response from LLM service.")
 
         # Store message and response

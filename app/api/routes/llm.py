@@ -10,6 +10,6 @@ async def chat(request: ChatRequest):
     Handle user chat with LLM session management.
     """
     try:
-        return chat_logic(request)
+        return await chat_logic(request)
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal Server Error")
