@@ -1,4 +1,6 @@
-from fastapi import APIRouter, HTTPException
+# app/api/routes/llm.py
+from fastapi import APIRouter, HTTPException, status
+from fastapi.responses import StreamingResponse
 from app.models.llm import ChatRequest
 from app.services.llm_service import chat_logic
 
@@ -7,9 +9,9 @@ router = APIRouter()
 @router.post("/chat")
 async def chat(request: ChatRequest):
     """
-    Handle user chat with LLM session management.
+    Handle user chat with LLM session management, streaming the response.
     """
     try:
-        return await chat_logic(request)
+        return StreamingResponse(chat_logic(request), media_type="text/plain")
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

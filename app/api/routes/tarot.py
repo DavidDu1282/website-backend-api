@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import StreamingResponse
 from app.models.tarot import TarotAnalysisRequest
 from app.services.tarot_service import analyze_tarot_logic
 from sqlalchemy.orm import Session
@@ -19,7 +20,7 @@ async def analyze_tarot(
     """
     try:
         print(request)
-        return await analyze_tarot_logic(request, db=db, user=user)  # Pass db and user_id
+        return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/plain")
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:

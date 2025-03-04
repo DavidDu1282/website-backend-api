@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, Request 
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from redis.asyncio import Redis
 from app.data.database import get_db
@@ -21,8 +22,8 @@ async def chat(
     Handle user chat with LLM session management.
     """
     try:
-        print(f"User:{user}")
-        return await analyse_counsellor_request(request, db, redis_client, user)  # ✅ Now pass actual instances
+        # print(f"User:{user}")
+        return StreamingResponse(analyse_counsellor_request(request, db, redis_client, user), media_type="text/plain")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 

@@ -1,7 +1,7 @@
 # app/services/counsellor_service.py
 import json
 import logging
-from typing import List
+from typing import List, AsyncGenerator
 
 from fastapi import HTTPException
 from redis.asyncio import Redis
@@ -12,12 +12,14 @@ from app.models.counsellor_message_history import CounsellorMessageHistory
 from app.models.user import User
 from app.models.user_prompt import UserPrompt
 from app.services.llm_service import chat_logic  # Import your LLM service
+
 # Configure logging (adjust level and format as needed)
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_client: Redis, user: User):
+async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_client: Redis, user: User) -> AsyncGenerator[str, None]:
     """
     Analyzes user input, generates an LLM response, and manages caching.
+    Streams the response back to the client.
     """
     logging.debug("Starting analyse_counsellor_request")
 
@@ -45,8 +47,8 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
             # --- Get Custom Prompt ---
             custom_prompt_obj = db.query(UserPrompt).filter(
                 UserPrompt.user_id == user.id,
-                UserPrompt.prompt_type == "counsellor"  # Correctly filter by prompt_type
-            ).order_by(UserPrompt.timestamp.desc()).first()  # Get the *latest* custom prompt
+                UserPrompt.prompt_type == "counsellor"
+            ).order_by(UserPrompt.timestamp.desc()).first()
 
             custom_prompt = custom_prompt_obj.prompt_text if custom_prompt_obj else ""
 
@@ -54,10 +56,9 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
             cache_key = f"counsellor_history:{user.id}:{session_id}"
             cached_history = await redis_client.get(cache_key)
             if cached_history:
-                # --- FIX: Check if bytes before decoding ---
                 if isinstance(cached_history, bytes):
                     message_history = json.loads(cached_history.decode('utf-8'))
-                else:  # It's already a string
+                else:
                     message_history = json.loads(cached_history)
                 logging.debug("Message history retrieved from Redis.")
             else:
@@ -70,7 +71,7 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
                     {"user_message": msg.user_message, "counsellor_response": msg.counsellor_response}
                     for msg in message_history_objects
                 ]
-                await redis_client.setex(cache_key, 3600, json.dumps(message_history))  # Cache for 1 hour
+                await redis_client.setex(cache_key, 3600, json.dumps(message_history))
                 logging.debug(f"Message history stored in Redis: {cache_key}")
 
             # --- Format History ---
@@ -86,7 +87,7 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
 
         except Exception as e:
             logging.error(f"Error in build_counsellor_prompt: {e}", exc_info=True)
-            raise  # Re-raise the exception
+            raise
 
     # --- Main Logic ---
     try:
@@ -98,17 +99,30 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
     # Prepare request for LLM
     llm_request = ChatRequest(session_id=session_id, prompt=prompt, language=language)
 
+    response_chunks = []  # Accumulate the full response
     try:
         logging.debug("Sending request to LLM service.")
-        response = await chat_logic(llm_request) 
-        logging.debug("Received response from LLM service.")
+        async for chunk in chat_logic(llm_request):  # Await the async generator
+            logging.debug(f"Received chunk: {chunk}")
+            response_chunks.append(chunk)
+            yield chunk  # Stream the chunk directly to the client
+        logging.debug("Received full response from LLM service.")
 
-        # Store message and response
+    except Exception as e:
+        logging.exception(f"Error during LLM processing: {e}")
+        error_message = f"LLM Error: {str(e)}" if language == "en" else f"LLM错误: {str(e)}"
+        yield error_message # Yield error message to avoid breaking the stream
+        raise HTTPException(status_code=500, detail=error_message)
+
+    full_response = "".join(response_chunks)
+
+    # Store message and response *after* receiving the full response
+    try:
         counsellor_message = CounsellorMessageHistory(
             user_id=user.id,
             session_id=session_id,
             user_message=request.message,
-            counsellor_response=response["response"]
+            counsellor_response=full_response  # Use the accumulated response
         )
         db.add(counsellor_message)
         db.commit()
@@ -119,11 +133,44 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
         await redis_client.delete(cache_key)
         logging.debug(f"Cache invalidated: {cache_key}")
 
-        return {
-            "message": "Response generated successfully" if language == "en" else "回应生成成功",
-            "response": response["response"]
-        }
-
     except Exception as e:
-        logging.exception(f"Error during LLM processing: {e}")
-        raise HTTPException(status_code=500, detail=f"LLM Error: {str(e)}" if language == "en" else f"LLM错误: {str(e)}")
+        logging.exception(f"Error during database operation: {e}")
+        error_message = f"Database Error: {str(e)}" if language == "en" else f"数据库错误: {str(e)}"
+        #  Don't re-raise if we've already sent a response
+        if not response_chunks: # Only raise if no response was sent
+            raise HTTPException(status_code=500, detail=error_message)
+
+
+
+    # # Prepare request for LLM
+    # llm_request = ChatRequest(session_id=session_id, prompt=prompt, language=language)
+
+    # try:
+    #     logging.debug("Sending request to LLM service.")
+    #     response = await chat_logic(llm_request) 
+    #     logging.debug("Received response from LLM service.")
+
+    #     # Store message and response
+    #     counsellor_message = CounsellorMessageHistory(
+    #         user_id=user.id,
+    #         session_id=session_id,
+    #         user_message=request.message,
+    #         counsellor_response=response["response"]
+    #     )
+    #     db.add(counsellor_message)
+    #     db.commit()
+    #     db.refresh(counsellor_message)
+
+    #     # Invalidate cache
+    #     cache_key = f"counsellor_history:{user.id}:{session_id}"
+    #     await redis_client.delete(cache_key)
+    #     logging.debug(f"Cache invalidated: {cache_key}")
+
+    #     return {
+    #         "message": "Response generated successfully" if language == "en" else "回应生成成功",
+    #         "response": response["response"]
+    #     }
+
+    # except Exception as e:
+    #     logging.exception(f"Error during LLM processing: {e}")
+    #     raise HTTPException(status_code=500, detail=f"LLM Error: {str(e)}" if language == "en" else f"LLM错误: {str(e)}")

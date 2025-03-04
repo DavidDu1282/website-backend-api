@@ -11,13 +11,15 @@ from app.core.config import Settings
 import json
 from datetime import datetime
 import logging
+from typing import AsyncGenerator
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-async def analyze_tarot_logic(request, db: Session, user):
+async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str, None]:
     """
     Analyze tarot cards with user context based on the spread type.
+    Streams the LLM response.
     """
     logger.info("Starting tarot service")
     logger.debug(f"Full Request: {request.__dict__}")
@@ -159,43 +161,49 @@ async def analyze_tarot_logic(request, db: Session, user):
 
     logger.info(prompt)
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
-    try:
-        response = await chat_logic(llm_request)
-        logger.info(response)
-        logger.info(f"User: {user}")  # Log the user
 
-        if user:
+    response_chunks = []  # Accumulate for database
+    try:
+        async for chunk in chat_logic(llm_request): # Await the async generator
+            # logger.info(f"Received chunk: {chunk}")
+            response_chunks.append(chunk)
+            yield chunk  # Stream the chunk directly
+    except Exception as e:
+        logger.error(f"Error during LLM processing: {e}", exc_info=True)
+        error_message = f"{prompt_data['error_llm']}{e}"
+        yield error_message #yield error to client
+        raise HTTPException(status_code=500, detail=error_message)
+    logger.info("Received full response from LLM service.")
+
+    full_response = "".join(response_chunks)
+
+    if user:
+        try:
             user_id_int = user.id
             cards_drawn_serialized = json.dumps([{"name": card.name, "orientation": card.orientation} for card in request.tarot_cards])
-            interpretation = response["response"]
+
 
             # --- LOGGING BEFORE DATABASE INTERACTION ---
             logger.info("--- Preparing to store Tarot Reading ---")
             logger.info(f"  user_id: {user_id_int} (type: {type(user_id_int)})")
             logger.info(f"  reading_date: {datetime.utcnow()} (type: {type(datetime.utcnow())})")
             logger.info(f"  cards_drawn: {cards_drawn_serialized} (type: {type(cards_drawn_serialized)})")
-            logger.info(f"  interpretation: {interpretation} (type: {type(interpretation)})")
+            logger.info(f"  interpretation: {full_response} (type: {type(full_response)})")
             logger.info(f"  spread: {request.spread} (type: {type(request.spread)})")
             logger.info(f"  user_context: {request.user_context} (type: {type(request.user_context)})")
             logger.info("----------------------------------------")
+
             tarot_reading = TarotReadingHistory(
                 user_id=user_id_int,
                 reading_date=datetime.utcnow(),
                 cards_drawn=cards_drawn_serialized,
-                interpretation=interpretation,
+                interpretation=full_response,  # Use accumulated response
                 spread=request.spread,
                 user_context=request.user_context
             )
 
             db.add(tarot_reading)
             db.commit()
-
-        return {
-            "message": prompt_data["message_success"],
-            "summary": response["response"]
-        }
-    except Exception as e:
-        logger.error(f"Error during LLM processing or database operation: {e}", exc_info=True)  # Log the full traceback
-        raise ValueError(f"{prompt_data['error_llm']}{e}")
-    except Exception as e:
-        raise ValueError(f"{prompt_data['error_llm']}{e}")
+        except Exception as e:
+            logger.exception(f"Error during database operation: {e}")
+            #  Don't re-raise if we've already streamed a response

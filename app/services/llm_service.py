@@ -1,5 +1,5 @@
 # app/services/llm_service.py
-import asyncio  # Import asyncio
+import asyncio
 from app.core.sessions import chat_sessions
 from vertexai.generative_models import GenerativeModel, ChatSession
 from datetime import datetime, timedelta
@@ -9,42 +9,36 @@ from typing import AsyncGenerator, Dict, Any
 MODEL_NAME = "gemini-2.0-flash-exp"  # "gemini-2.0-flash-thinking-exp-1219"
 SESSION_EXPIRY_TIME = timedelta(hours=1)  # Expire sessions after 1 hour
 
-
-async def chat_logic(request) -> Dict[str, Any]:
+async def chat_logic(request) -> AsyncGenerator[str, None]:  # Changed to AsyncGenerator
     """
-    Handle LLM chat sessions asynchronously.
+    Handle LLM chat sessions asynchronously and stream the response.
     """
     session_id = request.session_id
     prompt = request.prompt
 
-    # Retrieve or initialize chat session
     try:
         if session_id in chat_sessions:
             session_data = chat_sessions[session_id]
             chat_session = session_data["chat_session"]
-
-            # Check if session is expired
             if datetime.now() - session_data["last_used"] > SESSION_EXPIRY_TIME:
                 chat_session = await start_new_chat_session(session_id)
         else:
             chat_session = await start_new_chat_session(session_id)
 
-        # Update last used time
         chat_sessions[session_id]["last_used"] = datetime.now()
 
-        # Send prompt to LLM *in a separate thread*
-        def send_message_sync():  # Helper function for synchronous operation
+        # Send prompt to LLM and stream the response
+        async def send_message_stream():  # Now an async function
             responses = chat_session.send_message(prompt, stream=True)
-            return "".join(chunk.text for chunk in responses)
-        
-        response_text = await asyncio.to_thread(send_message_sync)
-        return {"response": response_text}
+            for chunk in responses:  # Iterate directly over responses
+                yield chunk.text  # Yield each chunk as it arrives
 
+        async for chunk_text in send_message_stream():
+            yield chunk_text
 
     except Exception as e:
-        # Log the error and return a failure response
         print(f"Error in chat_logic: {e}")
-        return {"error": "Failed to process request", "details": str(e)}
+        yield f"Error: {e}" # Yield error message to avoid breaking the stream
 
 
 async def start_new_chat_session(session_id):
@@ -72,10 +66,10 @@ async def start_new_chat_session(session_id):
         raise RuntimeError("Failed to initialize chat session")
 
 
+
 def cleanup_expired_sessions():
     """
-    Clean up expired chat sessions.  This could also be made async, but
-    it's likely less critical, as it's probably run periodically.
+    Clean up expired chat sessions.
     """
     try:
         current_time = datetime.now()
