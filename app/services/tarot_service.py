@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from fastapi import HTTPException, Request
 from jose import JWTError, jwt
-from app.models.tarot_reading_history import TarotReadingHistory
+from app.models.database_models.tarot_reading_history import TarotReadingHistory
 from app.core.config import Settings
 import json
 from datetime import datetime

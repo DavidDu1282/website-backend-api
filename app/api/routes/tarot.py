@@ -4,7 +4,7 @@ from app.models.tarot import TarotAnalysisRequest
 from app.services.tarot_service import analyze_tarot_logic
 from sqlalchemy.orm import Session
 from app.data.database import get_db
-from app.models.tarot_reading_history import TarotReadingHistory
+from app.models.database_models.tarot_reading_history import TarotReadingHistory
 from app.services.auth_service import get_current_user_from_cookie
 
 router = APIRouter()

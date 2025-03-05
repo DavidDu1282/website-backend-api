@@ -3,9 +3,9 @@ from sqlalchemy import Column, Integer, String, Boolean, LargeBinary
 from sqlalchemy.orm import relationship
 
 from app.data.database import Base
-from app.models.user_prompt import UserPrompt
-from app.models.tarot_reading_history import TarotReadingHistory
-from app.models.counsellor_message_history import CounsellorMessageHistory
+from app.models.database_models.user_prompt import UserPrompt
+from app.models.database_models.tarot_reading_history import TarotReadingHistory
+from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
 
 class User(Base):
     __tablename__ = "users"

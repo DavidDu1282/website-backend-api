@@ -18,10 +18,10 @@ sys.path.insert(0, PROJECT_ROOT)
 
 # --- Model Imports ---
 from app.data.database import Base
-from app.models.user import User
-from app.models.tarot_reading_history import TarotReadingHistory
-from app.models.counsellor_message_history import CounsellorMessageHistory
-from app.models.user_prompt import UserPrompt
+from app.models.database_models.user import User
+from app.models.database_models.tarot_reading_history import TarotReadingHistory
+from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
+from app.models.database_models.user_prompt import UserPrompt
 from app.core.config import settings
 
 # --- Print Metadata Tables ---

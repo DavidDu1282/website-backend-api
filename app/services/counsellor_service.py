@@ -8,9 +8,9 @@ from redis.asyncio import Redis
 from sqlalchemy.orm import Session
 
 from app.models.llm import ChatRequest  # Changed to correct import
-from app.models.counsellor_message_history import CounsellorMessageHistory
-from app.models.user import User
-from app.models.user_prompt import UserPrompt
+from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
+from app.models.database_models.user import User
+from app.models.database_models.user_prompt import UserPrompt
 from app.services.llm_service import chat_logic  # Import your LLM service
 
 # Configure logging (adjust level and format as needed)
