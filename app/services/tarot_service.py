@@ -188,9 +188,9 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             logger.info(f"  user_id: {user_id_int} (type: {type(user_id_int)})")
             logger.info(f"  reading_date: {datetime.utcnow()} (type: {type(datetime.utcnow())})")
             logger.info(f"  cards_drawn: {cards_drawn_serialized} (type: {type(cards_drawn_serialized)})")
-            logger.info(f"  interpretation: {full_response} (type: {type(full_response)})")
+            # logger.info(f"  interpretation: {full_response} (type: {type(full_response)})")
             logger.info(f"  spread: {request.spread} (type: {type(request.spread)})")
-            logger.info(f"  user_context: {request.user_context} (type: {type(request.user_context)})")
+            # logger.info(f"  user_context: {request.user_context} (type: {type(request.user_context)})")
             logger.info("----------------------------------------")
 
             tarot_reading = TarotReadingHistory(
