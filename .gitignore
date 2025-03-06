@@ -7,3 +7,4 @@ venv/
 secrets/
 docker-compose.override.yml
 __pycache__/
+testing_sandground.py

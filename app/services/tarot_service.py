@@ -182,7 +182,6 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             user_id_int = user.id
             cards_drawn_serialized = json.dumps([{"name": card.name, "orientation": card.orientation} for card in request.tarot_cards])
 
-
             # --- LOGGING BEFORE DATABASE INTERACTION ---
             logger.info("--- Preparing to store Tarot Reading ---")
             logger.info(f"  user_id: {user_id_int} (type: {type(user_id_int)})")

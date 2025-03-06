@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from app.data.tarot import load_tarot_data
 from app.services.llm_service import cleanup_expired_sessions
 from fastapi_limiter import FastAPILimiter
+import os
+
 import vertexai
 from app.core.config import settings
 from app.core.dependencies import get_redis_client
@@ -16,6 +18,8 @@ async def startup_event(app: FastAPI):
     Initialize resources on application startup.
     """
     global redis_client_instance  # Use the global variable
+    # global GEMINI_API_KEY
+    global gemini_client
 
     try:
         load_tarot_data("app/data/optimized_tarot_translated.json")
@@ -29,6 +33,7 @@ async def startup_event(app: FastAPI):
         )
         print(f"Vertex AI initialized for project: {settings.GOOGLE_PROJECT_ID} in {settings.GOOGLE_REGION}")
 
+    
         # Get the Redis client from the dependency
         # Use next(get_redis_client()) to get the value from the generator
         async for client in get_redis_client():
