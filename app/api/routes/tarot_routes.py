@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
-from app.models.tarot import TarotAnalysisRequest
-from app.services.tarot_service import analyze_tarot_logic
+from app.models.tarot_models import TarotAnalysisRequest
+from app.services.tarot_services import analyze_tarot_logic
 from sqlalchemy.orm import Session
 from app.data.database import get_db
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
-from app.services.auth_service import get_current_user_from_cookie
+from app.services.auth_services import get_current_user_from_cookie
 
 router = APIRouter()
 

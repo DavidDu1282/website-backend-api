@@ -12,8 +12,8 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.data.database import get_db
 from app.models.database_models.user import User
-from app.models.token import TokenData
-from app.models.password_validation import PasswordValidationError
+
+from app.models.auth_models import PasswordValidationError, TokenData
 
 
 def verify_password(plain_password, hashed_password):

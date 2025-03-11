@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:15
+    image: ankane/pgvector
     restart: always
     env_file:
       - .env
@@ -12,6 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
     networks:
       - backend_network
     healthcheck:

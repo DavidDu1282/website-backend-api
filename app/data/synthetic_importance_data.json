@@ -1,0 +1,430 @@
+[
+    {
+        "text": "Everything is working perfectly. No issues.",
+        "label": 1
+    },
+    {
+        "text": "Just checking in. All systems nominal.",
+        "label": 1
+    },
+    {
+        "text": "I have a quick question about the documentation.",
+        "label": 2
+    },
+    {
+        "text": "A very minor cosmetic issue on the website.",
+        "label": 2
+    },
+      {
+        "text": "Wondering if you could clarify something for me?",
+        "label": 2
+    },
+    {
+        "text": "I have a question about my account settings.",
+        "label": 3
+    },
+    {
+        "text": "Need some help understanding a feature.",
+        "label": 3
+    },
+     {
+        "text": "I'm not sure how to do something, can you assist?",
+        "label": 3
+    },
+    {
+        "text": "A small problem with the login page, but I found a workaround.",
+        "label": 4
+    },
+    {
+        "text": "Encountered a minor bug, but it's not blocking me.",
+        "label": 4
+    },
+    {
+        "text": "The UI is a bit confusing in this area.",
+        "label": 4
+    },
+    {
+        "text": "Some functionality is a little slow.",
+        "label": 5
+    },
+    {
+        "text": "I'm experiencing intermittent performance issues.",
+        "label": 5
+    },
+     {
+        "text": "Could be better, but it is working so far.",
+        "label": 5
+    },
+    {
+        "text": "I'm having trouble with a specific feature.",
+        "label": 6
+    },
+    {
+        "text": "This is causing some delays in my workflow.",
+        "label": 6
+    },
+     {
+        "text": "Need this resolved soon, but it's not a showstopper.",
+        "label": 6
+    },
+    {
+        "text": "I can't complete this task because of an error.",
+        "label": 7
+    },
+    {
+        "text": "This is impacting my ability to work effectively.",
+        "label": 7
+    },
+    {
+        "text":"Getting error messages, please help.",
+        "label": 7
+    },
+    {
+        "text": "Important: I'm unable to proceed with my work.",
+        "label": 8
+    },
+    {
+        "text": "This is a major issue preventing me from using the service.",
+        "label": 8
+    },
+     {
+        "text": "Need immediate assistance, this is very problematic.",
+        "label": 8
+    },
+    {
+        "text": "Urgent! I need help immediately!",
+        "label": 9
+    },
+    {
+        "text": "Critical error! System is unresponsive.",
+        "label": 9
+    },
+     {
+        "text": "High priority, this needs to be fixed ASAP!",
+        "label": 9
+    },
+    {
+        "text": "System down! Complete outage!",
+        "label": 10
+    },
+    {
+        "text": "Emergency! Cannot access anything!",
+        "label": 10
+    },
+    {
+       "text": "Critical failure! This is impacting all users!",
+        "label": 10
+    },
+    {
+        "text": "I'm feeling a little down today, but it's nothing serious.",
+        "label": 2
+    },
+    {
+        "text": "Just having a bit of a rough day. Work is stressful.",
+        "label": 3
+    },
+    {
+        "text": "I'm feeling anxious about an upcoming presentation.",
+        "label": 4
+    },
+    {
+        "text": "I'm having trouble sleeping lately.",
+        "label": 5
+    },
+    {
+        "text": "I've been feeling really lonely and isolated.",
+        "label": 6
+    },
+    {
+        "text": "I'm struggling with a difficult decision and don't know what to do.",
+        "label": 6
+    },
+    {
+        "text": "I'm having a lot of conflict with my partner.",
+        "label": 7
+    },
+    {
+        "text": "I'm feeling overwhelmed and like I can't cope.",
+        "label": 7
+    },
+      {
+        "text": "I just don't see the point in anything anymore.",
+        "label": 8
+    },
+    {
+        "text": "I'm having thoughts of self-harm.",
+        "label": 9
+    },
+    {
+        "text": "I feel like I'm going to hurt myself.",
+        "label": 9
+    },
+    {
+        "text": "I need to talk to someone right now, I'm in a crisis.",
+        "label": 9
+    },
+    {
+        "text": "I'm having a panic attack.",
+        "label": 8
+    },
+    {
+        "text": "I don't know who to turn to, I feel so lost.",
+        "label": 8
+    },
+    {
+        "text": "I'm having intrusive thoughts that I can't control.",
+        "label": 7
+    },
+    {
+        "text": "I'm worried about a friend who seems to be struggling.",
+        "label": 5
+    },
+        {
+        "text": "My friend said they wanted to die.",
+        "label": 9
+    },
+    {
+        "text": "I'm experiencing grief after a loss.",
+        "label": 6
+    },
+    {
+        "text": "I'm having trouble adjusting to a major life change.",
+        "label": 5
+    },
+    {
+        "text": "I just had a really bad fight with my family.",
+        "label": 6
+    },
+        {
+        "text": "I'm feeling okay, just exploring my feelings.",
+        "label": 1
+    },
+    {
+        "text": "Everything is pretty good. Just wanted to check in.",
+        "label": 1
+    },
+    {
+        "text": "I'm having some trouble with procrastination.",
+        "label": 4
+    },
+    {
+        "text": "I'm feeling a bit unmotivated today.",
+        "label": 3
+    },
+        {
+        "text": "I am constantly exhausted.",
+        "label": 5
+    },
+        {
+        "text": "I am having constant headaches.",
+        "label": 5
+    },
+    {
+        "text": "I am feeling constant dread.",
+        "label": 7
+    },
+    {
+        "text": "I'm worried about my finances.",
+        "label": 5
+    },
+    {
+        "text": "I'm struggling with my body image.",
+        "label": 6
+    },
+    {
+        "text": "I keep having nightmares.",
+        "label": 6
+    },
+    {
+        "text": "I think someone may be hurting me.",
+        "label": 9
+    },
+    {
+        "text": "I think I might hurt someone.",
+        "label": 9
+    },
+    {
+        "text": "I saw someone hurt someone else.",
+        "label": 8
+    },
+    {
+        "text": "I feel worthless.",
+        "label": 7
+    },
+    {
+        "text": "I can't do this anymore",
+        "label": 8
+    },
+    {
+        "text": "Having a mildly off day.",
+        "label": 2
+    },
+    {
+        "text": "I feel like I might hurt myself or others.",
+        "label": 9
+    },
+    {
+        "text": "I'm unsure how to configure permissions.",
+        "label": 3
+    },
+    {
+        "text": "Documentation for /auth could be clearer.",
+        "label": 2
+    },
+    {
+        "text": "I'm feeling good today.",
+        "label": 1
+    },
+    {
+        "text": "Getting an error when I try to send the message.",
+        "label": 6
+    },
+    {
+        "text": "I'm in immediate danger.",
+        "label": 10
+    },
+    {
+        "text": "Feeling consistently tired.",
+        "label": 5
+    },
+    {
+        "text": "The Submit button is slightly misaligned.",
+        "label": 4
+    },
+    {
+        "text": "Emergency: Service is unavailable.",
+        "label": 10
+    },
+    {
+        "text": "I need urgent help.",
+        "label": 9
+    },
+    {
+        "text": "Experiencing some anxiety.",
+        "label": 5
+    },
+    {
+        "text": "Major issue with the login server.",
+        "label": 8
+    },
+    {
+        "text": "A bit down, but I'll be okay.",
+        "label": 3
+    },
+    {
+        "text": "I'm having thoughts of self-harm.",
+        "label": 9
+    },
+        {
+        "text": "Feeling overwhelmed and unable to cope.",
+        "label": 7
+    },
+    {
+        "text": "Could you clarify the instructions for connect my account?",
+        "label": 3
+    },
+    {
+        "text": "Feeling content and relaxed.",
+        "label": 1
+    },
+    {
+        "text": "Encountered a minor bug, but I worked around it.",
+        "label": 4
+    },
+    {
+        "text": "Can't complete download the report due to an error.",
+        "label": 7
+    },
+    {
+        "text": "This is impacting my workflow slightly.",
+        "label": 6
+    },
+    {
+        "text": "Critical error affecting all users.",
+        "label": 9
+    },
+    {
+        "text": "Having conflict with a friend.",
+        "label": 6
+    },
+    {
+        "text": "All systems are green.",
+        "label": 1
+    },
+    {
+        "text": "I don't know what to do anymore.",
+        "label": 8
+    },
+    {
+        "text": "The Sharing is occasionally unresponsive.",
+        "label": 5
+    },
+        {
+        "text": "A small question about Filtering.",
+        "label": 2
+    },
+    {
+        "text": "Having a panic attack.",
+        "label": 8
+    },
+    {
+        "text": "Error message: 'Connection Timeout'.",
+        "label": 7
+    },
+        {
+        "text": "I think I might hurt someone.",
+        "label": 9
+    },
+    {
+        "text": "Having some trouble focusing.",
+        "label": 4
+    },
+        {
+        "text": "Minor cosmetic glitch on the Dashboard page.",
+        "label": 2
+    },
+    {
+        "text": "I'm having trouble accessing my account.",
+        "label": 6
+    },
+    {
+        "text": "I think someone may be hurting me",
+        "label": 9
+    },
+    {
+        "text": "Feeling a bit overwhelmed by my to-do list.",
+        "label": 4
+    },
+    {
+        "text": "Page load times are sometimes longer than expected.",
+        "label": 5
+    },
+    {
+        "text": "I feel worthless.",
+        "label": 7
+    },
+    {
+        "text": "A little stressed, but managing.",
+        "label": 2
+    },
+    {
+        "text": "Complete system outage.",
+        "label": 10
+    },
+    {
+        "text": "Unable to access the database at all.",
+        "label": 8
+    },
+    {
+        "text": "Just checking in, everything's fine.",
+        "label": 1
+    },
+    {
+        "text": "Work is a little overwhelming right now.",
+        "label": 3
+    },
+    {
+        "text": "My friend said they want to end their life.",
+        "label": 9
+    }
+]

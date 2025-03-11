@@ -1,4 +1,4 @@
 # gunicorn.conf.py
-workers = 2
+workers = 9
 worker_class = "uvicorn.workers.UvicornWorker"
 bind = "0.0.0.0:8000"

@@ -1,7 +1,7 @@
 # app/services/tarot_service.py
 from app.data.tarot import tarot_cards
-from app.models.llm import ChatRequest
-from app.services.llm_service import chat_logic
+from app.models.llm_models import ChatRequest
+from app.services.llm.llm_services import chat_logic
 from sqlalchemy.orm import Session
 
 from fastapi import HTTPException, Request
@@ -46,7 +46,8 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "present_label": "Present",
             "future_label": "Future",
             "message_success": "Analysis generated successfully",
-            "error_llm": "Error during LLM processing: "
+            "error_llm": "Error during LLM processing: ",
+            "system_instruction": "You are a highly insightful and experienced tarot reader.  You are skilled at interpreting the cards and connecting them to the user's life.  Provide clear, actionable advice, and answer in English.  Consider both the light and shadow aspects of each card. If the user provided a specific question or situation, address it directly. If not, provide a general fortune telling based on the cards drawn."
         },
         "zh": {
             "question": "用户提出了以下与他们的命运相关的问题：",
@@ -62,7 +63,8 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "present_label": "现在",
             "future_label": "未来",
             "message_success": "分析生成成功",
-            "error_llm": "LLM 处理时出错："
+            "error_llm": "LLM 处理时出错：",
+            "system_instruction": "你是一位非常有洞察力和经验丰富的塔罗牌解读师。你擅长解读塔罗牌并将它们与用户的生活联系起来。提供清晰、可行的建议，并用中文回答。同时考虑每张牌的光明和阴影方面。如果用户提供了具体的问题或情况，请直接回答。如果没有，请根据抽取的卡牌进行一般的运势预测。"
         },
         "zh_TW": {
             "question": "使用者提出了以下與他們的命運相關的問題：",
@@ -78,11 +80,13 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "present_label": "現在",
             "future_label": "未來",
             "message_success": "分析生成成功",
-            "error_llm": "LLM 處理時出錯："
-        }
+            "error_llm": "LLM 處理時出錯：",
+            "system_instruction": "你是一位非常有洞察力和經驗豐富的塔羅牌解讀師。你擅長解讀塔羅牌並將它們與使用者的生活聯繫起來。提供清晰、可行的建議，並用繁體中文回答。同時考慮每張牌的光明和陰影方面。如果使用者提供了具體的問題或情況，請直接回答。如果沒有，請根據抽取的卡牌進行一般的運勢預測。"
+       }
     }
 
     prompt_data = language_prompts.get(language, language_prompts["en"])
+    system_instruction = prompt_data["system_instruction"]
 
     # Generate a tarot analysis prompt based on spread type
     if request.spread in ["Three-Card Spread (Past, Present, Future)", "过去、现在、未来", "過去、現在、未來"]:
@@ -160,7 +164,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
         raise ValueError(f"Unsupported spread type: {request.spread}")
 
     logger.info(prompt)
-    llm_request = ChatRequest(session_id=request.session_id, prompt=prompt)
+    llm_request = ChatRequest(session_id=request.session_id, prompt=prompt, system_instruction=system_instruction) # Pass system_instruction
 
     response_chunks = []  # Accumulate for database
     try:

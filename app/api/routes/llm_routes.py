@@ -1,8 +1,8 @@
 # app/api/routes/llm.py
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import StreamingResponse
-from app.models.llm import ChatRequest
-from app.services.llm_service import chat_logic
+from app.models.llm_models import ChatRequest
+from app.services.llm.llm_services import chat_logic
 
 router = APIRouter()
 

@@ -1,9 +1,8 @@
 # app/api/routes/auth.py
-from datetime import timedelta, datetime
+from datetime import timedelta
 from typing import Dict
 
-from fastapi import APIRouter, Depends, HTTPException, status, Response
-from fastapi_limiter import FastAPILimiter
+from fastapi import APIRouter, Depends, HTTPException, status, Response, Request, Cookie
 from fastapi_limiter.depends import RateLimiter
 from jose import JWTError, jwt
 from pydantic import BaseModel
@@ -11,14 +10,14 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.data.database import get_db
-from app.models.database_models.user import User
-from app.models.token import Token, TokenData  # Keep TokenData for type hints
-from app.models.password_validation import (
+from app.models.auth_models import (
     PasswordValidationError,
     ValidationError,
-    ErrorResponse,
+    TokenData,
+    UserCreate,
+    LoginRequest
 )
-from app.services.auth_service import (
+from app.services.auth_services import (
     authenticate_user,
     create_access_token,
     create_refresh_token,
@@ -26,21 +25,12 @@ from app.services.auth_service import (
     hash_password,
     validate_password,
 )
+from app.models.database_models.user import User
+from app.services.database import database_services
+from app.services.database.user_database_services import create_user
 from email_validator import EmailNotValidError, validate_email
 
 router = APIRouter(tags=["Authentication"])
-
-# Pydantic Models
-class UserCreate(BaseModel):
-    username: str
-    email: str
-    password: str
-
-class LoginRequest(BaseModel):  # Added LoginRequest
-    username: str
-    password: str
-
-from fastapi import Request
 
 @router.post("/register", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def register(user_data: UserCreate, request: Request, db: Session = Depends(get_db)):
@@ -49,43 +39,37 @@ async def register(user_data: UserCreate, request: Request, db: Session = Depend
     print("Received Host Header:", request.headers.get("host"))
     print("Received Origin Header:", request.headers.get("origin"))
 
-    # Not Validating Passwords Yet
+    # Password Validation (Keep this here, as it's auth related)
+    try:
+        validate_password(user_data.password)
+    except PasswordValidationError as e:
+        errors = []
+        for error_message in e.messages:
+            errors.append(ValidationError(loc=["password"], msg=error_message, type= "value_error.password"))
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=[error.model_dump() for error in errors]
+        )
 
-    # try:
-    #     validate_password(user_data.password)
-    # except PasswordValidationError as e:
-    #     errors = []
-    #     for error_message in e.messages:
-    #         errors.append(ValidationError(loc=["password"], msg=error_message, type= "value_error.password"))
-    #     raise HTTPException(
-    #         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-    #         detail=[error.model_dump() for error in errors]
-    #     )
     try:
         validate_email(user_data.email)
     except EmailNotValidError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    user_by_username = db.query(User).filter(User.username == user_data.username).first()
-    if user_by_username:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Username already taken"
-        )
-    user_by_email = db.query(User).filter(User.email == user_data.email).first()
-    if user_by_email:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Email already registered"
-        )
-    hashed_password = hash_password(user_data.password)
-    user = User(
-        username=user_data.username,
-        email=user_data.email,
-        hashed_password=hashed_password,
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    return {"success": True, "message": "User registered successfully", "user_id": user.id}
+    # Use database_services.create_user (Corrected!)
+    try:
+        hashed_password = hash_password(user_data.password)  # Hash here
+        user = create_user(db, user_data.username, user_data.email, hashed_password)
+        return {"success": True, "message": "User registered successfully", "user_id": user.id}
+    except ValueError as e:  # Catch the *specific* exception
+        #  Now we provide more informative errors based on *our* checks
+        if "Username already taken" in str(e):
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Username already taken")
+        elif "Email already registered" in str(e):
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
+        else: # Some other DB Error
+            raise HTTPException(status_code=500, detail=f"Database error: {e}")
+
 
 @router.post("/login")  # Removed response_model=Token
 async def login(
@@ -127,8 +111,9 @@ async def login(
         expires=int(refresh_token_expires.total_seconds()),
         path="/"
     )
-    
+
     return {"success": True, "message": "Logged in successfully"}
+
 
 @router.post("/logout")
 async def logout(response: Response):
@@ -143,7 +128,6 @@ async def check_auth(user: User = Depends(get_current_user_from_cookie)):
     """Check if the user is authenticated."""
     return {"username": user.username, "email": user.email, "success": True}
 
-from fastapi import Cookie
 
 @router.post("/refresh")
 async def refresh_token_route(
@@ -173,7 +157,7 @@ async def refresh_token_route(
     except JWTError:
         raise credentials_exception
 
-    user = db.query(User).filter(User.username == token_data.username).first()
+    user = database_services.get_user_by_username(db, token_data.username) # Use DB Service
     if user is None:
         raise credentials_exception
 
