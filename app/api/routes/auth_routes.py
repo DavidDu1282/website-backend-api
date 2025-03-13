@@ -39,7 +39,6 @@ async def register(user_data: UserCreate, request: Request, db: Session = Depend
     print("Received Host Header:", request.headers.get("host"))
     print("Received Origin Header:", request.headers.get("origin"))
 
-    # Password Validation (Keep this here, as it's auth related)
     try:
         validate_password(user_data.password)
     except PasswordValidationError as e:

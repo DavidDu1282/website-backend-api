@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
-from app.api.routes import auth_routes, counsellor_routes, llm_routes, root_routes, tarot_routes
+from app.api.routes import auth_routes, counsellor_routes, llm_routes, root_routes, tarot_routes, bagua_routes
 from app.config import settings
 from app.core.startup import startup_event  # Import the startup event
 
@@ -41,6 +41,7 @@ app.include_router(tarot_routes.router, prefix="/api/tarot", tags=["Tarot"])
 app.include_router(llm_routes.router, prefix="/api/llm", tags=["LLM"])
 app.include_router(counsellor_routes.router, prefix="/api/counsellor")
 app.include_router(auth_routes.router, prefix="/api/auth")
+app.include_router(bagua_routes.router, prefix="/api/bagua")
 
 # Register startup event
 @app.on_event("startup")
