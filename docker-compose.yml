@@ -53,8 +53,10 @@ services:
       - "8000:8000"
     networks:
       - backend_network
+    # command: >
+    #   sh -c "chmod -R 777 /app && alembic upgrade head && gunicorn -c gunicorn.conf.py app.main:app"
     command: >
-      sh -c "chmod -R 777 /app && alembic upgrade head && gunicorn -c gunicorn.conf.py app.main:app"
+      sh -c "chmod -R 777 /app && alembic upgrade head && gunicorn -w 1 -k uvicorn.workers.UvicornWorker -c gunicorn.conf.py app.main:app"
 
 
 volumes:
