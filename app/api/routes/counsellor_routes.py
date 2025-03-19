@@ -23,7 +23,9 @@ async def chat(
     """
     try:
         # print(f"User:{user}")
-        return StreamingResponse(analyse_counsellor_request(request, db, redis_client, user), media_type="text/plain")
+        # return StreamingResponse(analyse_counsellor_request(request, db, redis_client, user), media_type="text/plain")
+        return StreamingResponse(analyse_counsellor_request(request, db, redis_client, user), media_type="text/event-stream")
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 

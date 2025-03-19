@@ -20,7 +20,10 @@ async def analyze_tarot(
     """
     try:
         print(request)
-        return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/plain")
+        # return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/plain")
+        return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/event-stream")
+
+        
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
