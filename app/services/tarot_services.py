@@ -3,7 +3,6 @@ from app.data.tarot import tarot_cards
 from app.models.llm_models import ChatRequest
 from app.services.llm.llm_services import chat_logic
 from sqlalchemy.orm import Session
-
 from fastapi import HTTPException, Request
 from jose import JWTError, jwt
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
@@ -12,19 +11,18 @@ import json
 from datetime import datetime
 import logging
 from typing import AsyncGenerator
-import time  # Import the time module
+import time
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str, None]:
     """
-    Analyze tarot cards with user context, streaming the LLM response.
+    Analyze tarot cards, stream LLM response, measure time to first chunk.
     """
+    request_received_time = time.time()  # Time when request enters the function
     logger.info("Starting tarot service")
     logger.debug(f"Full Request: {request.__dict__}")
-
-    start_time = time.time()  # Overall start time
 
     # Validate cards
     for card in request.tarot_cards:
@@ -90,11 +88,9 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
     prompt_data = language_prompts.get(language, language_prompts["en"])
     system_instruction = prompt_data["system_instruction"]
 
-    prompt_build_start = time.time()  # Timing for prompt construction
+    prompt_build_start = time.time()
 
-    # Generate a tarot analysis prompt based on spread type
     if request.spread in ["Three-Card Spread (Past, Present, Future)", "过去、现在、未来", "過去、現在、未來"]:
-        # ... (Your existing Three-Card Spread prompt logic) ...
         card_positions = [
             prompt_data["past_label"],
             prompt_data["present_label"],
@@ -117,7 +113,6 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             )
         prompt += f"\n{prompt_data['analyze_three']}"
     elif request.spread in ["Celtic Cross", "凯尔特十字牌阵", "凱爾特十字牌陣"]:
-        # ... (Your existing Celtic Cross prompt logic) ...
         card_positions = {
             "en": [
                 "Present Situation", "Challenge", "Subconscious", "Past Influence",
@@ -150,7 +145,6 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
         prompt += f"\n{prompt_data['analyze_celtic']}"
 
     elif request.spread in ["Custom (5 cards)", "自定义（5张牌）", "自定義（5張牌）"]:
-         # ... (Your existing Custom Spread prompt logic) ...
         prompt = (
             f"{prompt_data['question']}\n"
             f"\"{request.user_context}\"\n\n"
@@ -175,24 +169,27 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
     llm_request = ChatRequest(session_id=request.session_id, prompt=prompt, system_instruction=system_instruction)
 
     response_chunks = []
-    llm_start_time = time.time()  # Timing for LLM call
+    first_chunk_sent = False  # Flag to track if the first chunk has been sent
     try:
         async for chunk in chat_logic(llm_request):
             response_chunks.append(chunk)
+            if not first_chunk_sent:
+                first_chunk_time = time.time()
+                time_to_first_chunk = first_chunk_time - request_received_time
+                logger.info(f"Time to first chunk (tarot): {time_to_first_chunk:.4f} seconds")
+                first_chunk_sent = True  # Set the flag so we don't log again
             yield chunk
     except Exception as e:
         logger.error(f"Error during LLM processing: {e}", exc_info=True)
         error_message = f"{prompt_data['error_llm']}{e}"
         yield error_message
         raise HTTPException(status_code=500, detail=error_message)
-    llm_end_time = time.time()
-    logger.debug(f"LLM call time: {llm_end_time - llm_start_time:.4f} seconds")
     logger.info("Received full response from LLM service.")
+
 
     full_response = "".join(response_chunks)
 
     if user:
-        db_start_time = time.time()  # Timing for database operation
         try:
             user_id_int = user.id
             cards_drawn_serialized = json.dumps([{"name": card.name, "orientation": card.orientation} for card in request.tarot_cards])
@@ -210,11 +207,11 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             db.commit()
         except Exception as e:
             logger.exception(f"Error during database operation: {e}")
-        db_end_time = time.time()
-        logger.debug(f"Database operation time: {db_end_time - db_start_time:.4f} seconds")
+            #  Don't re-raise if we've already streamed a response
 
     end_time = time.time()  # Overall end time
-    logger.info(f"Total tarot service time: {end_time - start_time:.4f} seconds")
+    logger.info(f"Total tarot service time: {end_time - request_received_time:.4f} seconds")
+
 # # app/services/tarot_service.py
 # from app.data.tarot import tarot_cards
 # from app.models.llm_models import ChatRequest
