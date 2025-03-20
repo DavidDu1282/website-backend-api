@@ -9,6 +9,7 @@ from app.models.database_models.user import User
 from app.services.llm.llm_services import chat_logic
 from app.services.database.counsellor_database_services import get_latest_counsellor_prompt, create_counsellor_message, get_similar_importance_recent_counsellor_responses
 import time
+import asyncio
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -109,6 +110,7 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
                 time_to_first_chunk = first_chunk_time - request_received_time
                 logger.info(f"Time to first chunk (counsellor): {time_to_first_chunk:.4f} seconds")
             yield chunk
+            await asyncio.sleep(0.05)
         logging.debug("Received full response from LLM service.")
 
     except Exception as e:
