@@ -12,13 +12,16 @@ from datetime import datetime
 import logging
 from typing import AsyncGenerator
 import time
+import asyncio  # Import asyncio
+
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str, None]:
     """
-    Analyze tarot cards, stream LLM response, measure time to first chunk.
+    Analyze tarot cards, stream LLM response, measure time to first chunk,
+    and delay each chunk by 0.1 seconds.
     """
     request_received_time = time.time()  # Time when request enters the function
     logger.info("Starting tarot service")
@@ -178,10 +181,13 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
                 time_to_first_chunk = first_chunk_time - request_received_time
                 logger.info(f"Time to first chunk (tarot): {time_to_first_chunk:.4f} seconds")
                 first_chunk_sent = True  # Set the flag so we don't log again
+
+            await asyncio.sleep(0.1)  # Introduce the 0.1-second delay
             yield chunk
     except Exception as e:
         logger.error(f"Error during LLM processing: {e}", exc_info=True)
         error_message = f"{prompt_data['error_llm']}{e}"
+        await asyncio.sleep(0.1) #keep consistent with the delay
         yield error_message
         raise HTTPException(status_code=500, detail=error_message)
     logger.info("Received full response from LLM service.")

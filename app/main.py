@@ -11,9 +11,11 @@ app = FastAPI()
 
 # 🔹 Allow frontend access (Adjust IP based on your setup)
 origins = [
+    "http://localhost",
+    "http://0.0.0.0",
     "http://localhost:5173",  # Local frontend (dev mode)
     "http://127.0.0.1:5173",  # Another localhost variation
-    f"http://0.0.0.0:5173",  # External server IP
+    "http://0.0.0.0:5173",  # External server IP
     "http://host.docker.internal:5173",  # Access from Docker on Mac/Windows
     "https://140.245.56.252",
     "http://nginx",  # ✅ Add Nginx as a valid origin (Docker internal network)
