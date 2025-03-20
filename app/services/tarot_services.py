@@ -187,7 +187,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
     except Exception as e:
         logger.error(f"Error during LLM processing: {e}", exc_info=True)
         error_message = f"{prompt_data['error_llm']}{e}"
-        await asyncio.sleep(0.1) #keep consistent with the delay
+        # await asyncio.sleep(0.05) #keep consistent with the delay
         yield error_message
         raise HTTPException(status_code=500, detail=error_message)
     logger.info("Received full response from LLM service.")
