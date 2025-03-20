@@ -35,6 +35,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
     language = request.language if hasattr(request, 'language') else "en"
 
     language_prompts = {
+            
         "en": {
             "question": "The user has asked the following question regarding their fortune:",
             "cards_drawn": "To assist in answering, they have drawn the following tarot cards:",
@@ -50,7 +51,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "future_label": "Future",
             "message_success": "Analysis generated successfully",
             "error_llm": "Error during LLM processing: ",
-            "system_instruction": "You are a highly insightful and experienced tarot reader.  You are skilled at interpreting the cards and connecting them to the user's life.  Provide clear, actionable advice, and answer in English.  Consider both the light and shadow aspects of each card. If the user provided a specific question or situation, address it directly. If not, provide a general fortune telling based on the cards drawn."
+            "system_instruction": "You are a highly insightful and experienced tarot reader. Summarize and synthesize the card meanings, focusing on key insights. Briefly connect the interpretations to the user's life and question (if provided). Provide concise, actionable advice where relevant, considering both light and shadow aspects. If no specific question is given, provide a brief general fortune telling."
         },
         "zh": {
             "question": "用户提出了以下与他们的命运相关的问题：",
@@ -67,7 +68,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "future_label": "未来",
             "message_success": "分析生成成功",
             "error_llm": "LLM 处理时出错：",
-            "system_instruction": "你是一位非常有洞察力和经验丰富的塔罗牌解读师。你擅长解读塔罗牌并将它们与用户的生活联系起来。提供清晰、可行的建议，并用中文回答。同时考虑每张牌的光明和阴影方面。如果用户提供了具体的问题或情况，请直接回答。如果没有，请根据抽取的卡牌进行一般的运势预测。"
+            "system_instruction": "你是一位非常有洞察力和经验丰富的塔罗牌解读师。请总结并综合塔罗牌的含义，重点关注关键的解读。简要地将解读与用户的生活和问题（如果有提供）联系起来。在相关情况下，提供简洁、可行的建议，同时考虑光明和阴影两方面。如果用户没有提出具体问题，请提供简短的运势预测。"
         },
         "zh_TW": {
             "question": "使用者提出了以下與他們的命運相關的問題：",
@@ -84,8 +85,9 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "future_label": "未來",
             "message_success": "分析生成成功",
             "error_llm": "LLM 處理時出錯：",
-            "system_instruction": "你是一位非常有洞察力和經驗豐富的塔羅牌解讀師。你擅長解讀塔羅牌並將它們與使用者的生活聯繫起來。提供清晰、可行的建議，並用繁體中文回答。同時考慮每張牌的光明和陰影方面。如果使用者提供了具體的問題或情況，請直接回答。如果沒有，請根據抽取的卡牌進行一般的運勢預測。"
-       }
+            "system_instruction": "你是一位非常有洞察力和經驗豐富的塔羅牌解讀師。請總結並綜合塔羅牌的含義，重點關注關鍵的解讀。扼要地將解讀與使用者的生活和問題（如果有提供）聯繫起來。在相關情況下，提供簡潔、可行的建議，同時考慮光明和陰影兩方面。如果使用者沒有提出具體問題，請提供簡短的運勢預測。"
+        }
+        
     }
 
     prompt_data = language_prompts.get(language, language_prompts["en"])
