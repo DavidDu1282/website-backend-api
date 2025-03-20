@@ -34,6 +34,7 @@ async def chat_logic(request: ChatRequest) -> AsyncGenerator[str, None]:
     if user_selected_model:
         if user_selected_model in GEMINI_MODELS:
             async for chunk in query_genai_api(request=request, model_name=user_selected_model):
+                await asyncio.sleep(0)
                 yield chunk
             return
         else:  # Invalid model selection
@@ -44,6 +45,7 @@ async def chat_logic(request: ChatRequest) -> AsyncGenerator[str, None]:
     for model_name, _ in GEMINI_MODELS.items():
         try:
             async for chunk in query_genai_api(request=request, model_name=model_name):
+                await asyncio.sleep(0)
                 yield chunk
             return  # If successful, exit the function
         except Exception as e:

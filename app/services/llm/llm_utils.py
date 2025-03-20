@@ -7,7 +7,7 @@ from app.models.llm_models import ChatRequest
 from app.core.sessions import chat_sessions
 from app.core.startup import llm_clients
 from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, GoogleAPIError  # Import exceptions
-
+import asyncio
 # --- Configuration ---
 
 # Define available models and their configurations (combine both)
@@ -87,6 +87,7 @@ async def query_genai_api(request: ChatRequest, model_name: str) -> AsyncGenerat
         responses = chat_session.send_message_stream(request.prompt, config=types.GenerateContentConfig(system_instruction=request.system_instruction))
 
         for chunk in responses:
+            await asyncio.sleep(0)
             yield chunk.text
 
     except ResourceExhausted:
