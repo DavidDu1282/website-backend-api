@@ -30,7 +30,7 @@ async def analyse_counsellor_request(request: ChatRequest, db: Session, redis_cl
     language = request.language if request.language else "en"
     session_id = request.session_id if request.session_id else "default"
 
-    {
+    system_messages = {
         "en": "Provide concise, supportive advice as a helpful and empathetic counselor.",
         "zh": "你是一位乐于助人且富有同情心的咨询师。请提供简洁、支持性的建议。",
         "zh_TW": "你是一位樂於助人且具同理心的諮詢師。請提供簡潔、支持性的建議。"
