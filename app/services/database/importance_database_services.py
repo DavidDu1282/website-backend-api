@@ -3,25 +3,37 @@ from app.models.llm_models import ChatRequest
 from app.services.database.embedding_database_services import retrieve_similar_messages
 from app.services.llm.llm_services import chat_logic
 import re
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 
 def extract_first_rating(llm_response):
-    """Extracts the first number between 1 and 10 from a string.
-    """
+    """Extracts the first number between 1 and 10 from a string."""
+    if llm_response is None:  # Handle None case
+        logger.warning("LLM response is None. Returning None.")
+        return None
+
     match = re.search(r'\b([1-9]|10)\b', llm_response)
     if match:
         try:
             rating = int(match.group(1))
-            return rating  
+            return rating
         except ValueError:
+            logger.warning(f"Could not convert LLM response to integer: {llm_response}")
             return None
+    logger.warning(f"No rating found in LLM response: {llm_response}")
     return None
 
-def calculate_overall_importance(
+
+async def calculate_overall_importance(  # Make the function async
     db: Session,
     user_message: str,
-    similarity_threshold: float = 0.8,
+    similarity_threshold: float = 0.6,
     top_k: int = 10,
-    placeholder_value: float = 0.0,  # Add a placeholder value
+    placeholder_value: float = 0.0,
 ):
     """
     Calculates an overall importance score based on similar messages.
@@ -38,7 +50,7 @@ def calculate_overall_importance(
         or the placeholder_value if no sufficiently similar messages are found.
     """
     try:
-        similar_messages = retrieve_similar_messages(
+        similar_messages = await retrieve_similar_messages(  # Await the async function
             db=db,
             query_text=user_message,
             table_name="importance_sample_messages",
@@ -47,8 +59,6 @@ def calculate_overall_importance(
             top_k=top_k,
         )
 
-        if not similar_messages:  # Handle the case of no similar messages.
-            return placeholder_value
 
         scores_above_threshold = []
         for message_data in similar_messages:
@@ -56,13 +66,13 @@ def calculate_overall_importance(
             original_importance = message_data["importance_score"]
 
             if similarity_score >= similarity_threshold:
-                # Calculate the importance score for this *individual* message
                 individual_score = (
                     0.7 * similarity_score + 0.3 * original_importance / 100
                 )
                 scores_above_threshold.append(individual_score)
 
         if not scores_above_threshold:
+            logger.info(f"No messages above similarity threshold for: '{user_message}'.  Using LLM fallback.")
             prompt = f"""On the scale of 1 to 10, where 1 is purely mundane and 10 is extremely important, rate these messages. Output ONLY the numerical rating.
 
             Message: I'm feeling good today.
@@ -76,12 +86,16 @@ def calculate_overall_importance(
 
             Message: {user_message}
             Rating:"""
-        
-            return extract_first_rating(chat_logic(ChatRequest(session_id="extracting_importance_rating_session", prompt=prompt, model="gemini-1.5-flash-8b-latest")))
+
+            llm_response = await chat_logic(ChatRequest(session_id="extracting_importance_rating_session", prompt=prompt, model="gemini-1.5-flash-8b-latest"))  # Await chat_logic
+            llm_rating = extract_first_rating(llm_response) #Then get the llm_rating
+            logger.info(f"LLM-based importance rating for '{user_message}': {llm_rating}")
+            return llm_rating
 
         overall_score = sum(scores_above_threshold) / len(scores_above_threshold)
+        logger.info(f"Calculated overall importance score for '{user_message}': {overall_score}")
         return overall_score
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        logger.error(f"An error occurred: {e}")
         return placeholder_value

@@ -51,7 +51,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "future_label": "Future",
             "message_success": "Analysis generated successfully",
             "error_llm": "Error during LLM processing: ",
-            "system_instruction": "You are a highly insightful and experienced tarot reader. Summarize and synthesize the card meanings, focusing on key insights. Briefly connect the interpretations to the user's life and question (if provided). Provide concise, actionable advice where relevant, considering both light and shadow aspects. If no specific question is given, provide a brief general fortune telling."
+            "system_instruction": "You are a highly insightful and experienced tarot reader. Summarize and synthesize the card meanings and respond in English, focusing on key insights. Briefly connect the interpretations to the user's life and question (if provided). Provide concise, actionable advice where relevant, considering both light and shadow aspects. If no specific question is given, provide a brief general fortune telling."
         },
         "zh": {
             "question": "用户提出了以下与他们的命运相关的问题：",
@@ -68,7 +68,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "future_label": "未来",
             "message_success": "分析生成成功",
             "error_llm": "LLM 处理时出错：",
-            "system_instruction": "你是一位非常有洞察力和经验丰富的塔罗牌解读师。请总结并综合塔罗牌的含义，重点关注关键的解读。简要地将解读与用户的生活和问题（如果有提供）联系起来。在相关情况下，提供简洁、可行的建议，同时考虑光明和阴影两方面。如果用户没有提出具体问题，请提供简短的运势预测。"
+            "system_instruction": "你是一位非常有洞察力和经验丰富的塔罗牌解读师。请总结并综合塔罗牌的含义，并用中文回答，重点关注关键的解读。简要地将解读与用户的生活和问题（如果有提供）联系起来。在相关情况下，提供简洁、可行的建议，同时考虑光明和阴影两方面。如果用户没有提出具体问题，请提供简短的运势预测。"
         },
         "zh_TW": {
             "question": "使用者提出了以下與他們的命運相關的問題：",
@@ -85,7 +85,7 @@ async def analyze_tarot_logic(request, db: Session, user) -> AsyncGenerator[str,
             "future_label": "未來",
             "message_success": "分析生成成功",
             "error_llm": "LLM 處理時出錯：",
-            "system_instruction": "你是一位非常有洞察力和經驗豐富的塔羅牌解讀師。請總結並綜合塔羅牌的含義，重點關注關鍵的解讀。扼要地將解讀與使用者的生活和問題（如果有提供）聯繫起來。在相關情況下，提供簡潔、可行的建議，同時考慮光明和陰影兩方面。如果使用者沒有提出具體問題，請提供簡短的運勢預測。"
+            "system_instruction": "你是一位非常有洞察力和經驗豐富的塔羅牌解讀師。請總結並綜合塔羅牌的含義，並用繁體中文回答，重點關注關鍵的解讀。扼要地將解讀與使用者的生活和問題（如果有提供）聯繫起來。在相關情況下，提供簡潔、可行的建議，同時考慮光明和陰影兩方面。如果使用者沒有提出具體問題，請提供簡短的運勢預測。"
         }
         
     }

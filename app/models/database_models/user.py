@@ -1,11 +1,12 @@
-# app/models/user.py
+# app/models/database_models/user.py
 from sqlalchemy import Column, Integer, String, Boolean, LargeBinary
 from sqlalchemy.orm import relationship
 
 from app.data.database import Base
-from app.models.database_models.user_prompt import UserPrompt
+from app.models.database_models.user_plan import UserPlan
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
 from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
+from app.models.database_models.user_reflection import UserReflection
 
 class User(Base):
     __tablename__ = "users"
@@ -19,4 +20,5 @@ class User(Base):
     #  Add the relationship to TarotReading and CounsellorMessage
     tarot_readings_history = relationship("TarotReadingHistory", back_populates="user")
     counsellor_messages_history = relationship("CounsellorMessageHistory", back_populates="user")
-    user_prompts = relationship("UserPrompt", back_populates="user")  # Changed to user_prompts (plural)
+    user_plans = relationship("UserPlan", back_populates="user")
+    user_reflections = relationship("UserReflection", back_populates="user")

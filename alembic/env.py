@@ -21,7 +21,8 @@ from app.data.database import Base
 from app.models.database_models.user import User
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
 from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
-from app.models.database_models.user_prompt import UserPrompt
+from app.models.database_models.user_reflection import UserReflection
+from app.models.database_models.user_plan import UserPlan
 from app.models.database_models.importance_sample_messages import ImportanceSampleMessages
 
 from app.core.config import settings

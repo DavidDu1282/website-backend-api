@@ -69,22 +69,24 @@ async def _llm_query_helper(prompt: str, model: Optional[str] = None) -> str:
 
     return full_response
 
-async def generate_summary(request: SummaryRequest) -> str:
-    """Generates a summary of the conversation history."""
-    prompt = f"""Summarize the following conversation:
+# async def generate_summary(request: SummaryRequest) -> str:
+#     """Generates a summary of the conversation history."""
+#     prompt = f"""Summarize the following conversation:
 
-    Conversation History:
-    {request.conversation_history}
+#     Conversation History:
+#     {request.conversation_history}
 
-    Summary:"""
-    return await _llm_query_helper(prompt, request.model)
+#     Summary:"""
+#     return await _llm_query_helper(prompt, request.model)
 
 
 async def generate_reflection(request: ReflectionRequest) -> str:
-    """Generates a reflection based on the conversation summary."""
-    prompt = f"""Based on the following summary of a user's interactions with an AI counsellor, generate a thoughtful reflection:
+    """Generates a reflection directly from the conversation history."""
+    prompt = f"""Based on the following conversation history of a user's interactions with an AI counsellor, generate a thoughtful reflection:
 
-      Summary: {request.summary}
+      Conversation History:
+      {request.conversation_history}
+
       User ID: {request.user_id}
       Reflection:
       """

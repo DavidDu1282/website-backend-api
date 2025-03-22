@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import desc, asc
 from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
-from app.models.database_models.user_prompt import UserPrompt
+from app.models.database_models.user_plan import UserPlan
 from app.services.database.embedding_database_services import generate_embedding, retrieve_similar_messages, retrieve_similar_importance_recent_messages
 from app.services.database.importance_database_services import calculate_overall_importance
 from app.models.llm_models import ChatRequest
@@ -55,7 +55,7 @@ def create_counsellor_message(
     session_id: str,
     user_message: Optional[str] = None,
     counsellor_response: Optional[str] = None,
-    similarity_threshold: float = 0.8,
+    similarity_threshold: float = 0.6,
     top_k: int = 10,
     placeholder_value: float = 0.0,
 ) -> CounsellorMessageHistory:
@@ -131,7 +131,7 @@ def get_similar_importance_recent_counsellor_responses(db: Session, user_id: int
         embedding_column_name=embedding_column,
         return_column_names=return_columns,
         top_k=top_n,
-        recency_days=90,  # Example recency filter
+        # recency_days=90, 
         similarity_weight=0.3,
         importance_weight=0.5,
         recency_weight=0.2,
@@ -146,9 +146,9 @@ def delete_counsellor_message(db: Session, message_id: int) -> None:
         db.delete(message)
         db.commit()
 
-def get_latest_counsellor_prompt(db: Session, user_id: int) -> Optional[UserPrompt]:
+def get_latest_counsellor_prompt(db: Session, user_id: int) -> Optional[UserPlan]:
     """Retrieves the latest counsellor prompt for a user."""
-    return db.query(UserPrompt).filter(
-        UserPrompt.user_id == user_id,
-        UserPrompt.prompt_type == "counsellor"
-    ).order_by(UserPrompt.timestamp.desc()).first()
+    return db.query(UserPlan).filter(
+        UserPlan.user_id == user_id,
+        UserPlan.plan_type == "counsellor"
+    ).order_by(UserPlan.updated_at.desc()).first()
