@@ -1,5 +1,5 @@
 # app/core/dependencies.py
-import redis.asyncio as redis  # Use asyncio Redis client
+import redis.asyncio as redis
 from app.core.config import settings
 
 async def get_redis_client():
@@ -8,4 +8,4 @@ async def get_redis_client():
     try:
         yield redis_client
     finally:
-        await redis_client.close()  # Close the connection when done
+        await redis_client.close()

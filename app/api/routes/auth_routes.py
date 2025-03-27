@@ -7,7 +7,7 @@ from fastapi_limiter.depends import RateLimiter
 from jose import JWTError, jwt
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-
+from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.data.database import get_db
 from app.models.auth_models import (
@@ -26,14 +26,13 @@ from app.services.auth_services import (
     validate_password,
 )
 from app.models.database_models.user import User
-from app.services.database import database_services
-from app.services.database.user_database_services import create_user
+from app.services.database import user_database_services 
 from email_validator import EmailNotValidError, validate_email
 
 router = APIRouter(tags=["Authentication"])
 
 @router.post("/register", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def register(user_data: UserCreate, request: Request, db: Session = Depends(get_db)):
+async def register(user_data: UserCreate, request: Request, db: AsyncSession = Depends(get_db)):
     """Register a new user."""
 
     print("Received Host Header:", request.headers.get("host"))
@@ -55,24 +54,23 @@ async def register(user_data: UserCreate, request: Request, db: Session = Depend
     except EmailNotValidError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    # Use database_services.create_user (Corrected!)
+
     try:
-        hashed_password = hash_password(user_data.password)  # Hash here
-        user = create_user(db, user_data.username, user_data.email, hashed_password)
+        hashed_password = hash_password(user_data.password)
+        user = user_database_services.create_user(db, user_data.username, user_data.email, hashed_password)
         return {"success": True, "message": "User registered successfully", "user_id": user.id}
-    except ValueError as e:  # Catch the *specific* exception
-        #  Now we provide more informative errors based on *our* checks
+    except ValueError as e:
         if "Username already taken" in str(e):
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Username already taken")
         elif "Email already registered" in str(e):
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
-        else: # Some other DB Error
+        else:
             raise HTTPException(status_code=500, detail=f"Database error: {e}")
 
 
-@router.post("/login")  # Removed response_model=Token
+@router.post("/login")
 async def login(
-    login_data: LoginRequest, response: Response, db: Session = Depends(get_db)
+    login_data: LoginRequest, response: Response, db: AsyncSession = Depends(get_db)
 ):
     """Login a user and set access and refresh tokens as HTTP-only cookies."""
     user = await authenticate_user(db, login_data.username, login_data.password)
@@ -91,13 +89,13 @@ async def login(
         data={"sub": user.username}, expires_delta=refresh_token_expires
     )
 
-    # Set cookies
+
     response.set_cookie(
         key="access_token",
         value=access_token,
         httponly=True,
-        secure=True,  #  HTTPS only
-        samesite="lax",  # Or "strict" depending on your needs
+        secure=True,
+        samesite="lax",
         expires=int(access_token_expires.total_seconds()),
         path="/"
     )
@@ -105,7 +103,7 @@ async def login(
         key="refresh_token",
         value=refresh_token,
         httponly=True,
-        secure=True,  #  HTTPS only
+        secure=True,
         samesite="lax",
         expires=int(refresh_token_expires.total_seconds()),
         path="/"
@@ -132,7 +130,7 @@ async def check_auth(user: User = Depends(get_current_user_from_cookie)):
 async def refresh_token_route(
     response: Response,
     refresh_token: str | None = Cookie(default=None),
-    db: Session = Depends(get_db),
+    db: AsyncSession = Depends(get_db),
 ):
     """
     Refreshes the access token using the refresh token (provided as a cookie).
@@ -156,17 +154,15 @@ async def refresh_token_route(
     except JWTError:
         raise credentials_exception
 
-    user = database_services.get_user_by_username(db, token_data.username) # Use DB Service
+    user = user_database_services.get_user_by_username(db, token_data.username)
     if user is None:
         raise credentials_exception
 
-    # Create new access token
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     new_access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
 
-    # Set new access token cookie
     response.set_cookie(
         key="access_token",
         value=new_access_token,

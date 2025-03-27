@@ -1,32 +1,61 @@
-from typing import List, Optional
-from sqlalchemy.orm import Session
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import StreamingResponse
+from app.models.tarot_models import TarotAnalysisRequest
+from app.services.tarot_services import analyze_tarot_logic
+from app.data.database import get_db
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
+from app.services.auth_services import get_current_user_from_cookie
 
-def get_tarot_readings(db: Session, user_id: int) -> List[TarotReadingHistory]:
-    """Retrieves a user's tarot reading history."""
-    return db.query(TarotReadingHistory).filter(TarotReadingHistory.user_id == user_id).order_by(TarotReadingHistory.date.desc()).all()
+router = APIRouter()
 
-def get_tarot_reading_by_id(db: Session, reading_id: int, user_id: int) -> Optional[TarotReadingHistory]:
-    """Retrieves a specific tarot reading by ID and user ID."""
-    return db.query(TarotReadingHistory).filter(TarotReadingHistory.id == reading_id, TarotReadingHistory.user_id == user_id).first()
+@router.post("/analyze")
+async def analyze_tarot(
+    request: TarotAnalysisRequest,
+    user: str | None = Depends(get_current_user_from_cookie),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Analyze the tarot draw results in the context of the user's query.
+    """
+    try:
+        print(request)
+        return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/event-stream")
 
-def create_tarot_reading(db: Session, user_id: int, spread: str, cards: str, user_context: str, analysis: str) -> TarotReadingHistory:
-    """Creates a new tarot reading record."""
-    new_reading = TarotReadingHistory(
-        user_id=user_id,
-        spread=spread,
-        cards=cards,
-        user_context=user_context,
-        analysis=analysis
-    )
-    db.add(new_reading)
-    db.commit()
-    db.refresh(new_reading)
-    return new_reading
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
-def delete_tarot_reading(db: Session, reading_id: int, user_id: int) -> None:
-    """Deletes a specific tarot reading, checking for user ownership."""
-    reading = get_tarot_reading_by_id(db, reading_id, user_id)  # Use helper
-    if reading:
-        db.delete(reading)
-        db.commit()
+@router.get("/history")
+async def get_tarot_history(user_id: str = Depends(get_current_user_from_cookie), db: AsyncSession = Depends(get_db)):
+    """Fetch a user's tarot reading history."""
+    result = await db.execute(select(TarotReadingHistory).where(TarotReadingHistory.user_id == user_id).order_by(TarotReadingHistory.date.desc()))
+    readings = result.scalars().all()
+
+    return [
+        {
+            "id": reading.id,
+            "date": reading.date.strftime("%Y-%m-%d %H:%M"),
+            "spread": reading.spread,
+            "cards": reading.cards,
+            "user_context": reading.user_context,
+            "analysis": reading.analysis
+        }
+        for reading in readings
+    ]
+
+@router.delete("/history/{reading_id}")
+async def delete_tarot_reading(reading_id: int, user_id: str = Depends(get_current_user_from_cookie), db: AsyncSession = Depends(get_db)):
+    """Delete a specific tarot reading."""
+    result = await db.execute(select(TarotReadingHistory).where(TarotReadingHistory.id == reading_id, TarotReadingHistory.user_id == user_id))
+    reading = result.scalars().first()
+
+    if not reading:
+        raise HTTPException(status_code=404, detail="Reading not found")
+    await db.delete(reading)
+    await db.commit()
+    
+    return {"message": "Reading deleted successfully"}

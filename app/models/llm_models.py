@@ -8,19 +8,17 @@ class ChatRequest(BaseModel):
     model: str = None
     system_instruction: str | None = None
     temperature: float = 0.7
-
+    user_id: str | None = None
 
 class SummaryRequest(BaseModel):
     conversation_history: str
     model: Optional[str] = None
 
 class ReflectionRequest(BaseModel):
-    summary: str
+    conversation_history: str
     user_id: int
     model: Optional[str] = None
 
 class PlanRequest(BaseModel):
-    summary: str
     reflection: str
     model: Optional[str] = None
-

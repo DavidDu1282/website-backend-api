@@ -12,8 +12,7 @@ async def chat(request: ChatRequest):
     Handle user chat with LLM session management, streaming the response.
     """
     try:
-        # return StreamingResponse(chat_logic(request), media_type="text/plain")
-        return StreamingResponse(chat_logic(request), media_type="text/event-stream")
+        return StreamingResponse(chat_logic(request, "dummy_user_id"), media_type="text/event-stream")
         
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

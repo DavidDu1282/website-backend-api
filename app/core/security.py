@@ -2,10 +2,8 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 import secrets
 
-# Rate Limiting
 limiter = Limiter(key_func=get_remote_address)
 
-# CSRF Token Management
 csrf_tokens = {}
 
 def generate_csrf_token():
@@ -16,5 +14,5 @@ def generate_csrf_token():
 def validate_csrf_token(token):
     if token not in csrf_tokens:
         return False
-    del csrf_tokens[token]  # One-time use
+    del csrf_tokens[token]
     return True

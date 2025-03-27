@@ -1,10 +1,10 @@
 # app/core/config.py
-from pydantic_settings import BaseSettings  # Corrected import
+from pydantic_settings import BaseSettings
 import os
 from google import genai
 
 class Settings(BaseSettings):
-    SECRET_KEY: str  # !!! CHANGE THIS TO A STRONG, RANDOM SECRET !!!
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
@@ -23,15 +23,15 @@ class Settings(BaseSettings):
 
     GOOGLE_PROJECT_ID: str
     GOOGLE_REGION: str
+    DEBUG: bool = False
+    
     class Config:
         env_file = ".env"
-        extra = "allow"  # This ensures extra env variables won't break validation
+        extra = "allow"
 
 
 settings = Settings()
 print(f"Loaded SERVER_IP: {settings.SERVER_IP}")
-
-# settings.REDIS_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}"
 print(f"Loaded REDIS_URL: {settings.REDIS_URL}")
 print(f"Loaded DATABASE_URL: {settings.DATABASE_URL}")
 
@@ -42,9 +42,8 @@ def load_gemini_api_key():
     try:
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         secrets_path = os.path.join(base_dir, "secrets", "Google-ai-studio-gemini-key.txt")
-        # print(secrets_path)
         with open(secrets_path, "r") as file:
-            return file.read().strip()  # Read and strip whitespace
+            return file.read().strip()
     except FileNotFoundError:
         raise RuntimeError(f"API key file not found at {secrets_path}. Please check the file path.")
     except Exception as e:

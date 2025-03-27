@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List
 
 class TarotCard(BaseModel):
     name: str
-    orientation: str  # "upright" or "reversed"
+    orientation: str
 
 class TarotAnalysisRequest(BaseModel):
     session_id: str
@@ -11,4 +11,3 @@ class TarotAnalysisRequest(BaseModel):
     tarot_cards: List[TarotCard]
     user_context: str
     language: str
-    # test_constant: str

@@ -1,88 +1,93 @@
 # app/services/llm/llm_service.py
-import asyncio
-from typing import AsyncGenerator, Optional, Dict, Union
-import httpx
-# from app.services.llm.gemini_services import (  # Remove gemini-specific imports
-#     query_gemini_api,
-#     get_available_gemini_model,
-#     reset_gemini_rate_limits,
-#     GEMINI_MODELS,
-#     is_gemini_model_available,
-# )
-# from app.services.llm.vertex_services import (  # Remove vertex-specific imports
-#     query_vertex_ai_api,
-#     cleanup_expired_vertex_sessions,
-# )
-from app.services.llm.llm_utils import ( # Import from the new file
-    query_genai_api,
-    cleanup_expired_sessions,
-    GEMINI_MODELS,
-)
-from app.models.llm_models import ChatRequest, SummaryRequest, ReflectionRequest, PlanRequest  # Import request models
+# import asyncio
+from typing import AsyncGenerator, Optional
+from datetime import datetime, timedelta
+from google import genai
+from google.genai import types
+
+from app.models.llm_models import ChatRequest
+from app.core.sessions import chat_sessions
+from app.core.startup import llm_clients
+# from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, GoogleAPIError
+from app.models.llm_models import ChatRequest, ReflectionRequest, PlanRequest
+from app.services.database.user_database_services import create_user_plan, create_or_update_user_reflection, get_user_reflections, get_active_user_plan
+# from app.services.database.reflection_database_services import create_or_update_user_reflection, get_user_reflections
+from app.services.llm.llm_utils import query_genai_api, _llm_query_helper, GEMINI_MODELS, SESSION_EXPIRY_TIME
+from redis.asyncio import Redis
+from sqlalchemy.ext.asyncio import AsyncSession
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
-async def chat_logic(request: ChatRequest) -> AsyncGenerator[str, None]:
+async def chat_logic(request: ChatRequest, user_id: str, db: AsyncSession) -> AsyncGenerator[str, None]:
     """
     Handles LLM chat sessions, allowing the use of both Vertex AI and Gemini APIs.
-    Prioritizes based on user selection, then availability.
+    Prioritizes based on user selection, then availability. This function manages
+    session creation, retrieval, expiry, and delegates the actual query to query_genai_api.
     """
-    user_selected_model = request.model
 
-    cleanup_expired_sessions()  # Centralized cleanup
+    # cleanup_expired_sessions()
 
-    # --- Model Selection Logic ---
-    if user_selected_model:
-        if user_selected_model in GEMINI_MODELS:
-            async for chunk in query_genai_api(request=request, model_name=user_selected_model):
-                await asyncio.sleep(0)
-                yield chunk
-            return
-        else:  # Invalid model selection
-            yield f"Error: Invalid model selected: {user_selected_model}. Trying other models..."
+    if request.model:
+        if request.model in GEMINI_MODELS:
+            try:
+                async for chunk in _query_with_session(request, user_id, db):
+                    yield chunk
+                return
+            except Exception as e:
+                yield f"Error with selected model {request.model}: {e}. Trying other models..."
+        else:
+            yield f"Error: Invalid model selected: {request.model}. Trying other models..."
 
     # --- Fallback Logic (if no user selection or selected model fails) ---
-    # Iterate through available models, trying each one
     for model_name, _ in GEMINI_MODELS.items():
         try:
-            async for chunk in query_genai_api(request=request, model_name=model_name):
-                await asyncio.sleep(0)
+            request.model = model_name
+            async for chunk in _query_with_session(request, user_id, db):
                 yield chunk
-            return  # If successful, exit the function
+            return
         except Exception as e:
-            print(f"Model {model_name} failed: {e}")  # Log the failure
-            continue # Try the next model
+            print(f"Model {model_name} failed: {e}")
+            continue
 
-    # --- All models failed ---
     yield "Error: All models are unavailable or have exceeded their rate limits. Try again later."
 
+async def _query_with_session(request: ChatRequest, user_id: str, db: AsyncSession) -> AsyncGenerator[str, None]:
+    """
+    Manages the chat session lifecycle and calls the underlying query_genai_api.
+    """
+    if request.model not in GEMINI_MODELS:
+        yield f"Error: Model '{request.model}' not found."
+        return
 
-async def _llm_query_helper(prompt: str, model: Optional[str] = None) -> str:
-    """Helper function to query LLMs, reusing chat_logic's model selection."""
+    model_config = GEMINI_MODELS[request.model]
+    model_type = model_config["type"]
 
-    # Create a dummy ChatRequest
-    request = ChatRequest(session_id="dummy_session", prompt=prompt, model=model)
-    response_generator = chat_logic(request)
+    try:
+        if request.session_id in chat_sessions:
+            session_data = chat_sessions[request.session_id]
+            chat_session = session_data["chat_session"]
+            if datetime.now() - session_data["last_used"] > SESSION_EXPIRY_TIME:
+                await close_session(request.session_id)
+                chat_session = await start_new_chat_session(request, llm_clients[model_type], user_id, db)
+        else:
+            chat_session = await start_new_chat_session(request, llm_clients[model_type], user_id, db)
 
-    full_response = ""
-    async for chunk in response_generator:
-        full_response += chunk  # Accumulate the chunks
+        chat_sessions[request.session_id]["last_used"] = datetime.now()
 
-    return full_response
+        async for chunk in query_genai_api(chat_session, request, request.model, model_config):
+            yield chunk
 
-# async def generate_summary(request: SummaryRequest) -> str:
-#     """Generates a summary of the conversation history."""
-#     prompt = f"""Summarize the following conversation:
-
-#     Conversation History:
-#     {request.conversation_history}
-
-#     Summary:"""
-#     return await _llm_query_helper(prompt, request.model)
+    except Exception as e:
+        print(f"Error in _query_with_session: {e}")
+        yield f"An error occurred during processing: {e}"
 
 
 async def generate_reflection(request: ReflectionRequest) -> str:
     """Generates a reflection directly from the conversation history."""
-    prompt = f"""Based on the following conversation history of a user's interactions with an AI counsellor, generate a thoughtful reflection:
+    prompt = f"""Based on the following conversation history of a user's interactions with an AI counsellor, generate a thoughtful reflection. Please use a third person's perspective.:
 
       Conversation History:
       {request.conversation_history}
@@ -93,178 +98,104 @@ async def generate_reflection(request: ReflectionRequest) -> str:
     return await _llm_query_helper(prompt, request.model)
 
 
-async def generate_plan(request: PlanRequest) -> str:
+async def generate_plan(request: PlanRequest, db, user_id) -> str:
     """Generates a plan for the next conversation."""
-    prompt = f"""Based on the following reflection and summary, create a plan for the AI counsellor's next conversation with the user.
+    previous_plan = get_active_user_plan(db, user_id)
+    prompt = f"""Based on the following reflection and previous plan, create a plan for the AI counsellor's next conversation with the user.
 
+        Previous Plan: {previous_plan}
         Reflection: {request.reflection}
-        Summary: {request.summary}
 
         Plan for Next Conversation:
-        - Topics to Explore:
-        - Questions to Ask:
-        - Techniques to Consider:
-        - Goals for the session:"""
+        - Priority Topics to Explore: (List of 1-3 key topics, prioritized based on urgency, emotional impact, or overall goals)
+        - Specific Questions to Ask: (Open-ended questions designed to encourage deeper exploration of the prioritized topics)
+        - Techniques to Consider: (Specific counseling techniques that might be helpful, e.g., active listening, summarizing, reframing, validation, cognitive restructuring)
+        - Potential Challenges and Mitigation Strategies: (Anticipate potential roadblocks and brainstorm ways to overcome them)
+        - Goals for the session: (What the user hopes to achieve or gain from the conversation - be as specific as possible.)
+        """
     return await _llm_query_helper(prompt, request.model)
 
 
-
-async def generate_reflection_and_plan(conversation_history: str, user_id: int, model: Optional[str] = None) -> Dict[str, str]:
-    """Generates a reflection and plan, handling potential errors."""
+async def start_new_chat_session(request: ChatRequest, client: genai.Client, user_id: str, db: AsyncSession):
+    """Starts a new chat session."""
     try:
-        summary_request = SummaryRequest(conversation_history=conversation_history, model=model)
-        summary = await generate_summary(summary_request)
-
-        reflection_request = ReflectionRequest(summary=summary, user_id=user_id, model=model)
-        reflection = await generate_reflection(reflection_request)
-
-        plan_request = PlanRequest(summary=summary, reflection=reflection, model=model)
-        plan = await generate_plan(plan_request)
-
-        return {"reflection": reflection, "plan": plan}
-
+        plan = get_active_user_plan(db, user_id)
+        chat_session = client.chats.create(model=request.model)
+        client.chats.create(config=types.GenerateContentConfig(system_instruction=request.system_instruction))
+        chat_sessions[request.session_id] = {
+            "chat_session": chat_session,
+            "last_used": datetime.now(),
+            "user_id": user_id
+        }
+        return chat_session
     except Exception as e:
-        print(f"Error during reflection/plan generation: {e}")
-        return {"error": str(e)}
+        print(f"Error starting session: {e}")
+        raise
 
 
-# # app/services/llm/llm_service.py
-# import asyncio
-# from typing import AsyncGenerator, Optional, Dict, Union
-# import httpx
-# from app.services.llm.gemini_services import (
-#     query_gemini_api,
-#     get_available_gemini_model,
-#     reset_gemini_rate_limits,
-#     GEMINI_MODELS,
-#     is_gemini_model_available,
-# )
-# from app.services.llm.vertex_services import (
-#     query_vertex_ai_api,
-#     cleanup_expired_vertex_sessions,
-# )
-# from app.models.llm_models import ChatRequest, SummaryRequest, ReflectionRequest, PlanRequest  # Import request models
+async def close_session(session_id: str, db: AsyncSession, redis_client: Redis):
+    """Closes a chat session, generates a reflection based on the conversation history, and generates a new plan for the user."""
+    if session_id in chat_sessions:
+        session_data = chat_sessions[session_id]
+        user_id = session_data['user_id']
+        logger.debug(f"Closing session {session_id} for user {user_id}")
+
+        cache_key = f"counsellor_history:{user_id}:{session_id}"
+        history_list = await redis_client.lrange(cache_key, 0, -1)
+        conversation_history = "\n".join(history_list)
+
+        if conversation_history:
+            try:
+                reflection_request = ReflectionRequest(
+                    conversation_history=conversation_history,
+                    user_id=user_id,
+                    model="gemini-2.0-flash-lite"
+                )
+                reflection = await generate_reflection(reflection_request)
+                logger.debug(f"Generated reflection for session {session_id}")
+
+                if reflection:
+                   await create_or_update_user_reflection(db, user_id, reflection)
+                   logger.debug(f"Reflection for session {session_id} saved to database.")
+                else:
+                    logger.warning(f"Reflection generation returned None for session {session_id}")
+
+            except Exception as e:
+                logger.exception(f"Error generating or saving reflection for session {session_id}: {e}")
+        else:
+            logger.info(f"No conversation history found for session {session_id}, skipping reflection.")
+        
+        recent_reflections = await get_user_reflections(db, user_id, limit=5)
+        combined_reflections = "\n\n".join(
+            [ref.reflection_text for ref in recent_reflections]
+        )
+
+        plan_request = PlanRequest(reflection=combined_reflections, model="gemini-2.0-flash-lite")  # Choose model.  Could be a user preference.
+        plan_text = await generate_plan(plan_request, db, user_id)
+
+        if not plan_text:
+            return None
+
+        await create_user_plan(db, user_id, plan_text, plan_type="Session End")
+
+        del chat_sessions[session_id]
+        logger.debug(f"Session {session_id} closed.")
+        return
+    else:
+        logger.warning(f"Attempted to close non-existent session: {session_id}")
 
 
-# async def chat_logic(request: ChatRequest) -> AsyncGenerator[str, None]:
-#     """
-#     Handles LLM chat sessions, allowing the use of both Vertex AI and Gemini APIs.
-#     Prioritizes based on user selection, then availability.
-#     """
-#     session_id = request.session_id
-#     prompt = request.prompt
-#     user_selected_model = request.model
+async def cleanup_expired_sessions(db: AsyncSession, redis_client: Redis):
+    """Removes expired chat sessions, triggering reflection and plan generation."""
+    now = datetime.now()
+    expired_sessions = [
+        session_id
+        for session_id, session_data in chat_sessions.items()
+        if now - session_data["last_used"] > SESSION_EXPIRY_TIME
+    ]
 
-#     reset_gemini_rate_limits()  # Now uses the gemini-specific function
-#     cleanup_expired_vertex_sessions()
+    for session_id in expired_sessions:
+        await close_session(session_id, db, redis_client)
 
-#     # --- Model Selection Logic ---
-#     if user_selected_model:
-#         if user_selected_model == "vertex-ai":
-#             try:
-#                 async for chunk in query_vertex_ai_api(request=request):
-#                     yield chunk
-#                 return
-#             except Exception as e:
-#                 yield f"Vertex AI Error: {e}.  Falling back to Gemini."
-
-#         elif user_selected_model in GEMINI_MODELS:
-#             if is_gemini_model_available(user_selected_model):
-#                 async for chunk in query_gemini_api(request=request, model_name=user_selected_model):
-#                     yield chunk
-#                 return
-#             else:
-#                 yield f"Error: Model '{user_selected_model}' has exceeded its rate limit.  Trying other models..."
-
-#         else:  # Invalid model selection
-#             yield f"Error: Invalid model selected: {user_selected_model}. Trying other models..."
-
-#     # --- Fallback Logic (if no user selection or selected model fails) ---
-
-#     # Try Vertex AI first (if no specific model was requested)
-#     if not user_selected_model or (user_selected_model == "vertex-ai"):
-#         try:
-#             async for chunk in query_vertex_ai_api(request=request):
-#                 yield chunk
-#             return  # success
-#         except Exception as e:
-#             print(f"Vertex AI failed: {e}")  # Log the specific error
-
-#     # Try Gemini models (prioritize those not exceeding limits)
-#     available_gemini_model = get_available_gemini_model()
-#     if available_gemini_model:
-#         async for chunk in query_gemini_api(request=request, model_name=available_gemini_model):
-#             yield chunk
-#         return  # success
-
-#     # --- All models failed ---
-#     yield "Error: All models are unavailable or have exceeded their rate limits. Try again later."
-
-# async def _llm_query_helper(prompt: str, model: Optional[str] = None) -> str:
-#     """Helper function to query LLMs, reusing chat_logic's model selection."""
-
-#     # Create a dummy ChatRequest
-#     request = ChatRequest(session_id="dummy_session", prompt=prompt, model=model)
-#     response_generator = chat_logic(request)
-
-#     full_response = ""
-#     async for chunk in response_generator:
-#         full_response += chunk  # Accumulate the chunks
-
-#     return full_response
-
-# async def generate_summary(request: SummaryRequest) -> str:
-#     """Generates a summary of the conversation history."""
-#     prompt = f"""Summarize the following conversation:
-
-#     Conversation History:
-#     {request.conversation_history}
-
-#     Summary:"""
-#     return await _llm_query_helper(prompt, request.model)
-
-
-# async def generate_reflection(request: ReflectionRequest) -> str:
-#     """Generates a reflection based on the conversation summary."""
-#     prompt = f"""Based on the following summary of a user's interactions with an AI counsellor, generate a thoughtful reflection:
-
-#       Summary: {request.summary}
-#       User ID: {request.user_id}
-#       Reflection:
-#       """
-#     return await _llm_query_helper(prompt, request.model)
-
-
-# async def generate_plan(request: PlanRequest) -> str:
-#     """Generates a plan for the next conversation."""
-#     prompt = f"""Based on the following reflection and summary, create a plan for the AI counsellor's next conversation with the user.
-
-#         Reflection: {request.reflection}
-#         Summary: {request.summary}
-
-#         Plan for Next Conversation:
-#         - Topics to Explore:
-#         - Questions to Ask:
-#         - Techniques to Consider:
-#         - Goals for the session:"""
-#     return await _llm_query_helper(prompt, request.model)
-
-
-
-# async def generate_reflection_and_plan(conversation_history: str, user_id: int, model: Optional[str] = None) -> Dict[str, str]:
-#     """Generates a reflection and plan, handling potential errors."""
-#     try:
-#         summary_request = SummaryRequest(conversation_history=conversation_history, model=model)
-#         summary = await generate_summary(summary_request)
-
-#         reflection_request = ReflectionRequest(summary=summary, user_id=user_id, model=model)
-#         reflection = await generate_reflection(reflection_request)
-
-#         plan_request = PlanRequest(summary=summary, reflection=reflection, model=model)
-#         plan = await generate_plan(plan_request)
-
-#         return {"reflection": reflection, "plan": plan}
-
-#     except Exception as e:
-#         print(f"Error during reflection/plan generation: {e}")
-#         return {"error": str(e)}
+    if expired_sessions:
+        print(f"Cleaned up {len(expired_sessions)} expired sessions.")

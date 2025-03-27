@@ -4,21 +4,20 @@ from typing import AsyncGenerator
 from fastapi import HTTPException
 from app.models.llm_models import ChatRequest
 from app.services.llm.llm_services import chat_logic
-from sqlalchemy.orm import Session  # Keep this, it's good practice to pass db even if unused
-from app.models.database_models.user import User # keep too
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.models.database_models.user import User
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-async def analyze_bagua_request(request: ChatRequest, db: Session, user: User) -> AsyncGenerator[str, None]:
+async def analyze_bagua_request(request: ChatRequest, db: AsyncSession, user: User) -> AsyncGenerator[str, None]:
     """
     Analyzes a Bagua request, generates an LLM response, and streams it.
     """
     logger.info("Starting Bagua service")
     logger.debug(f"Full Request: {request.__dict__}")
 
-    # Validate request (adjust as needed for Bagua-specific validation)
     if not request.message or not request.message.strip():
         logger.warning("Invalid input: Message cannot be empty")
         raise HTTPException(status_code=400, detail="Message cannot be empty")
@@ -27,7 +26,6 @@ async def analyze_bagua_request(request: ChatRequest, db: Session, user: User) -
     language = request.language if request.language else "en"
     session_id = request.session_id or "default"
 
-    # Language-specific prompt data
     language_prompts = {
         "en": {
             "question": "The user has asked the following question regarding their Bagua analysis:",
@@ -58,23 +56,20 @@ async def analyze_bagua_request(request: ChatRequest, db: Session, user: User) -
     prompt_data = language_prompts.get(language, language_prompts["en"])
     system_instruction = prompt_data["system_instruction"]
 
-
-    #  "Spread" concept adaptation for Bagua (Directional vs. General)
-    if hasattr(request, 'direction') and request.direction:  # Check for a 'direction' attribute
+    if hasattr(request, 'direction') and request.direction:
         prompt = (
             f"{prompt_data['question']}\n"
             f"\"{request.message}\"\n\n"
             f"{prompt_data['context']}\n"
-            f"\"{request.user_context if hasattr(request, 'user_context') and request.user_context else ''}\"\n\n"  # Handle optional user_context
+            f"\"{request.user_context if hasattr(request, 'user_context') and request.user_context else ''}\"\n\n"
             f"{prompt_data['analyze_direction'].format(direction=request.direction)}"
         )
     else:
-        # General Bagua analysis (no specific direction)
         prompt = (
             f"{prompt_data['question']}\n"
             f"\"{request.message}\"\n\n"
              f"{prompt_data['context']}\n"
-            f"\"{request.user_context if hasattr(request, 'user_context') and request.user_context else ''}\"\n\n"  # Handle optional user_context
+            f"\"{request.user_context if hasattr(request, 'user_context') and request.user_context else ''}\"\n\n" 
             f"{prompt_data['analyze_general']}"
         )
     
@@ -84,7 +79,7 @@ async def analyze_bagua_request(request: ChatRequest, db: Session, user: User) -
 
     response_chunks = []
     try:
-        async for chunk in chat_logic(llm_request):
+        async for chunk in chat_logic(llm_request, user.id, db):
             response_chunks.append(chunk)
             yield chunk
     except Exception as e:

@@ -10,9 +10,9 @@ class TarotReadingHistory(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     reading_date = Column(DateTime)
-    cards_drawn = Column(String)  #  Can still use String for JSON
-    interpretation = Column(Text)  # Changed to Text for potentially long interpretations
+    cards_drawn = Column(String)
+    interpretation = Column(Text)
     spread = Column(String)
-    user_context = Column(Text) # Changed to Text for potentially long context
+    user_context = Column(Text)
 
     user = relationship("User", back_populates="tarot_readings_history")

@@ -1,10 +1,9 @@
 # app/models/database_models/counsellor_message_history.py
-
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from app.data.database import Base  # Make sure this import is correct
-from pgvector.sqlalchemy import Vector  # Import the Vector type
+from app.data.database import Base
+from pgvector.sqlalchemy import Vector
 
 class CounsellorMessageHistory(Base):
     __tablename__ = "counsellor_message_history"

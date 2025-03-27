@@ -17,7 +17,6 @@ class User(Base):
     hashed_password = Column(LargeBinary, nullable=False)
     is_active = Column(Boolean, default=True)
 
-    #  Add the relationship to TarotReading and CounsellorMessage
     tarot_readings_history = relationship("TarotReadingHistory", back_populates="user")
     counsellor_messages_history = relationship("CounsellorMessageHistory", back_populates="user")
     user_plans = relationship("UserPlan", back_populates="user")

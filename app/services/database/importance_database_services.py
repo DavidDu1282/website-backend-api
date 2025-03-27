@@ -1,18 +1,17 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.llm_models import ChatRequest
 from app.services.database.embedding_database_services import retrieve_similar_messages
-from app.services.llm.llm_services import chat_logic
+from app.services.llm.llm_utils import _llm_query_helper
 import re
 import logging
 
-# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
 def extract_first_rating(llm_response):
     """Extracts the first number between 1 and 10 from a string."""
-    if llm_response is None:  # Handle None case
+    if llm_response is None:
         logger.warning("LLM response is None. Returning None.")
         return None
 
@@ -28,8 +27,8 @@ def extract_first_rating(llm_response):
     return None
 
 
-async def calculate_overall_importance(  # Make the function async
-    db: Session,
+async def calculate_overall_importance(
+    db: AsyncSession,
     user_message: str,
     similarity_threshold: float = 0.6,
     top_k: int = 10,
@@ -50,7 +49,7 @@ async def calculate_overall_importance(  # Make the function async
         or the placeholder_value if no sufficiently similar messages are found.
     """
     try:
-        similar_messages = await retrieve_similar_messages(  # Await the async function
+        similar_messages = await retrieve_similar_messages(
             db=db,
             query_text=user_message,
             table_name="importance_sample_messages",
@@ -87,8 +86,8 @@ async def calculate_overall_importance(  # Make the function async
             Message: {user_message}
             Rating:"""
 
-            llm_response = await chat_logic(ChatRequest(session_id="extracting_importance_rating_session", prompt=prompt, model="gemini-1.5-flash-8b-latest"))  # Await chat_logic
-            llm_rating = extract_first_rating(llm_response) #Then get the llm_rating
+            llm_response = await _llm_query_helper(ChatRequest(session_id="extracting_importance_rating_session", prompt=prompt, model="gemini-2.0-flash-lite"))
+            llm_rating = extract_first_rating(llm_response)
             logger.info(f"LLM-based importance rating for '{user_message}': {llm_rating}")
             return llm_rating
 

@@ -1,18 +1,15 @@
 # app/services/database/counsellor_database_services.py
 from typing import List, Optional
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, asc, select
 from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
 from app.models.database_models.user_plan import UserPlan
 from app.services.database.embedding_database_services import generate_embedding, retrieve_similar_messages, retrieve_similar_importance_recent_messages
 from app.services.database.importance_database_services import calculate_overall_importance
-from app.models.llm_models import ChatRequest
-from app.services.llm.llm_services import chat_logic
 import logging
 import numpy as np
 
-import re
 
 # # Configure logging
 # log = logging.getLogger(__name__)
@@ -20,8 +17,8 @@ import re
 # # If you've already configured logging at the top level, you can omit this:
 # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-def get_counsellor_messages(
-    db: Session, user_id: int, session_id: Optional[str] = None, limit: int = 10, order_by: str = "desc"
+async def get_counsellor_messages(
+    db: AsyncSession, user_id: int, session_id: Optional[str] = None, limit: int = 10, order_by: str = "desc"
 ) -> List[CounsellorMessageHistory]:
     """
     Retrieves counsellor messages for a user.
@@ -36,21 +33,21 @@ def get_counsellor_messages(
     Returns:
         A list of CounsellorMessageHistory objects.
     """
-    """Retrieves counsellor messages for a user."""
-    query = db.query(CounsellorMessageHistory).filter(CounsellorMessageHistory.user_id == user_id)
+    query = select(CounsellorMessageHistory).where(CounsellorMessageHistory.user_id == user_id)
 
     if session_id:
-        query = query.filter(CounsellorMessageHistory.session_id == session_id)
+        query = query.where(CounsellorMessageHistory.session_id == session_id)
 
     if order_by == "asc":
         query = query.order_by(asc(CounsellorMessageHistory.timestamp))
-    else:  # Default to descending
+    else:
         query = query.order_by(desc(CounsellorMessageHistory.timestamp))
 
-    return query.limit(limit).all()
+    result = await db.execute(query.limit(limit))
+    return result.scalars().all()
 
-def create_counsellor_message(
-    db: Session,
+async def create_counsellor_message(
+    db: AsyncSession,
     user_id: int,
     session_id: str,
     user_message: Optional[str] = None,
@@ -66,9 +63,9 @@ def create_counsellor_message(
         raise ValueError("At least one of user_message or counsellor_response must be provided.")
     
     try:
-        embedding = generate_embedding(user_message) if user_message else None
+        embedding = await generate_embedding(user_message) if user_message else None
         importance_score = (
-            calculate_overall_importance(db, user_message, similarity_threshold, top_k, placeholder_value)
+            await calculate_overall_importance(db, user_message, similarity_threshold, top_k, placeholder_value)
             if user_message else None
         )
         
@@ -82,20 +79,20 @@ def create_counsellor_message(
         )
         
         db.add(new_message)
-        db.flush()
-        db.commit()
-        db.refresh(new_message)
+        await db.flush()
+        await db.commit()
+        await db.refresh(new_message)
         
         return new_message
     
     except SQLAlchemyError:
-        db.rollback()
+        await db.rollback()
         raise
     except Exception:
-        db.rollback()
+        await db.rollback()
         raise
 
-def get_similar_counsellor_responses(db: Session, user_id: int, user_message: str, top_n: int = 5):
+async def get_similar_counsellor_responses(db: AsyncSession, user_id: int, user_message: str, top_n: int = 5):
     """
     Gets similar counsellor message history based on a user's message.
     """
@@ -103,9 +100,9 @@ def get_similar_counsellor_responses(db: Session, user_id: int, user_message: st
     embedding_column = "embedding"
     return_columns = ["user_message", "counsellor_response"]
 
-    similar_messages = retrieve_similar_messages(
+    similar_messages = await retrieve_similar_messages(
         db=db,
-        user_id=user_id,  # Filter by user ID
+        user_id=user_id,
         query_text=user_message,
         table_name=table_name,
         embedding_column_name=embedding_column,
@@ -115,7 +112,7 @@ def get_similar_counsellor_responses(db: Session, user_id: int, user_message: st
 
     return similar_messages
 
-def get_similar_importance_recent_counsellor_responses(db: Session, user_id: int, user_message: str, top_n: int = 5):
+async def get_similar_importance_recent_counsellor_responses(db: AsyncSession, user_id: int, user_message: str, top_n: int = 5):
     """
     Gets similar messages based on importance, similarity, and recency.
     """
@@ -123,15 +120,14 @@ def get_similar_importance_recent_counsellor_responses(db: Session, user_id: int
     embedding_column = "embedding"
     return_columns = ["user_message", "counsellor_response", "importance_score"]
 
-    similar_messages = retrieve_similar_importance_recent_messages(
+    similar_messages = await retrieve_similar_importance_recent_messages(
         db=db,
-        user_id=user_id,  # Filter by user ID
+        user_id=user_id,
         query_text=user_message,
         table_name=table_name,
         embedding_column_name=embedding_column,
         return_column_names=return_columns,
-        top_k=top_n,
-        # recency_days=90, 
+        top_k=top_n, 
         similarity_weight=0.3,
         importance_weight=0.5,
         recency_weight=0.2,
@@ -139,16 +135,18 @@ def get_similar_importance_recent_counsellor_responses(db: Session, user_id: int
 
     return similar_messages
 
-def delete_counsellor_message(db: Session, message_id: int) -> None:
+async def delete_counsellor_message(db: AsyncSession, message_id: int) -> None:
     """Deletes a specific counsellor message by its ID."""
-    message = db.query(CounsellorMessageHistory).filter(CounsellorMessageHistory.id == message_id).first()
+    result = await db.execute(select(CounsellorMessageHistory).where(CounsellorMessageHistory.id == message_id))
+    message = result.scalars().first()
     if message:
-        db.delete(message)
-        db.commit()
+        await db.delete(message)
+        await db.commit()
 
-def get_latest_counsellor_prompt(db: Session, user_id: int) -> Optional[UserPlan]:
+async def get_latest_counsellor_prompt(db: AsyncSession, user_id: int) -> Optional[UserPlan]:
     """Retrieves the latest counsellor prompt for a user."""
-    return db.query(UserPlan).filter(
+    result = await db.execute(select(UserPlan).where(
         UserPlan.user_id == user_id,
         UserPlan.plan_type == "counsellor"
-    ).order_by(UserPlan.updated_at.desc()).first()
+    ).order_by(UserPlan.updated_at.desc()))
+    return result.scalars().first()

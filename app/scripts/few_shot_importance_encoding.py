@@ -11,7 +11,6 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from data.database import Base
-from models.database_models.importance_sample_messages import ImportanceSampleMessages
 from core.config import settings
 
 load_dotenv()
@@ -28,25 +27,21 @@ def create_embeddings_and_store(filepath: str, db_url: str):
 
     examples = load_few_shot_data(filepath)
 
-    # Initialize Sentence Transformer model
     model = SentenceTransformer('all-MiniLM-L6-v2')
 
-    # Create database engine and session
     engine = create_engine(db_url)
-    Base.metadata.create_all(engine)  # Ensure tables exist
+    Base.metadata.create_all(engine)
 
     session = Session(engine)
 
     try:
         values_to_insert = []
         for ex in examples:
-            text_content = ex["text"]  # Ensure no conflict with `text()`
+            text_content = ex["text"]
             label = ex["label"]
 
-            # Create embedding
             embedding = model.encode(text_content, convert_to_tensor=False).tolist()
 
-            # Store parameters for bulk insertion
             values_to_insert.append({
                 "sample_message": text_content,
                 "importance_score": label,
@@ -54,14 +49,12 @@ def create_embeddings_and_store(filepath: str, db_url: str):
             })
 
         if values_to_insert:
-            # ✅ Fix: Use individual row insertion with `ON CONFLICT DO NOTHING`
             insert_query = text("""
                 INSERT INTO importance_sample_messages (sample_message, importance_score, embedding)
                 VALUES (:sample_message, :importance_score, :embedding)
                 ON CONFLICT (sample_message) DO NOTHING;
             """)
 
-            # 🔥 Correct execution: Execute query **for each row** to avoid bulk conflict
             for entry in values_to_insert:
                 session.execute(insert_query, entry)
 
@@ -72,10 +65,10 @@ def create_embeddings_and_store(filepath: str, db_url: str):
 
     except IntegrityError as ie:
         session.rollback()
-        print(f"Integrity Error: {ie}")  # Logs only integrity-related issues
+        print(f"Integrity Error: {ie}")
     except Exception as e:
         session.rollback()
-        print(f"Unexpected error: {e}")  # Catches unexpected issues
+        print(f"Unexpected error: {e}")
     finally:
         session.close()
 

@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from app.models.tarot_models import TarotAnalysisRequest
 from app.services.tarot_services import analyze_tarot_logic
-from sqlalchemy.orm import Session
 from app.data.database import get_db
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
 from app.services.auth_services import get_current_user_from_cookie
 
@@ -13,14 +14,13 @@ router = APIRouter()
 async def analyze_tarot(
     request: TarotAnalysisRequest,
     user: str | None = Depends(get_current_user_from_cookie),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Analyze the tarot draw results in the context of the user's query.
     """
     try:
         print(request)
-        # return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/plain")
         return StreamingResponse(analyze_tarot_logic(request, db=db, user=user), media_type="text/event-stream")
 
         
@@ -30,9 +30,10 @@ async def analyze_tarot(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 @router.get("/history")
-def get_tarot_history(user_id: str = Depends(get_current_user_from_cookie), db: Session = Depends(get_db)):
+async def get_tarot_history(user_id: str = Depends(get_current_user_from_cookie), db: AsyncSession = Depends(get_db)):
     """Fetch a user's tarot reading history."""
-    readings = db.query(TarotReadingHistory).filter(TarotReadingHistory.user_id == user_id).order_by(TarotReadingHistory.date.desc()).all()
+    result = await db.execute(select(TarotReadingHistory).where(TarotReadingHistory.user_id == user_id).order_by(TarotReadingHistory.date.desc()))
+    readings = result.scalars().all()
     
     return [
         {
@@ -47,14 +48,15 @@ def get_tarot_history(user_id: str = Depends(get_current_user_from_cookie), db: 
     ]
 
 @router.delete("/history/{reading_id}")
-def delete_tarot_reading(reading_id: int, user_id: str = Depends(get_current_user_from_cookie), db: Session = Depends(get_db)):
+async def delete_tarot_reading(reading_id: int, user_id: str = Depends(get_current_user_from_cookie), db: AsyncSession = Depends(get_db)):
     """Delete a specific tarot reading."""
-    reading = db.query(TarotReadingHistory).filter(TarotReadingHistory.id == reading_id, TarotReadingHistory.user_id == user_id).first()
+    result = await db.execute(select(TarotReadingHistory).where(TarotReadingHistory.id == reading_id, TarotReadingHistory.user_id == user_id))
+    reading = result.scalars().first()
     
     if not reading:
         raise HTTPException(status_code=404, detail="Reading not found")
 
-    db.delete(reading)
-    db.commit()
+    await db.delete(reading)
+    await db.commit()
     
     return {"message": "Reading deleted successfully"}

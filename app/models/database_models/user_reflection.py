@@ -15,9 +15,8 @@ class UserReflection(Base):
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     reflection_text = Column(Text, nullable=False)
-    # Optional: Add a type or category for reflections
     reflection_type = Column(String, nullable=True)
-    importance_score = Column(Integer, nullable=True)  # Optional: Importance rating
+    importance_score = Column(Integer, nullable=True)
     embedding = Column(Vector(384), nullable=True)
 
     user = relationship("User", back_populates="user_reflections")

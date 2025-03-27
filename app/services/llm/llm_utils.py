@@ -1,55 +1,44 @@
-# app/services/llm/llm_utils.py
+import asyncio
+from typing import AsyncGenerator, Optional
 from datetime import datetime, timedelta
-from typing import AsyncGenerator
 from google import genai
 from google.genai import types
 from app.models.llm_models import ChatRequest
 from app.core.sessions import chat_sessions
 from app.core.startup import llm_clients
-from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, GoogleAPIError  # Import exceptions
-import asyncio
-# --- Configuration ---
+from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, GoogleAPIError
+from app.models.llm_models import ChatRequest
 
-# Define available models and their configurations (combine both)
 GEMINI_MODELS = {
-    # Vertex AI Models (using Vertex AI project/location)
-    "gemini-2.0-flash-exp": {"rpm": 10, "type": "vertex"},  # Example Vertex AI model
-    # Gemini API Models (using API Key)
+    # Vertex AI Models
+    "gemini-2.0-flash-exp": {"rpm": 10, "type": "vertex"},
+    # "gemini-2.5-pro-exp-03-25": {"rpm": 10, "type": "vertex"},
+    # Gemini API Models
+    "gemini-2.5-pro-exp-03-25": {"rpm": 2, "type": "gemini"},
     "gemini-1.5-pro-latest": {"rpm": 2, "type": "gemini"},
     "gemini-1.5-flash-latest": {"rpm": 15, "type": "gemini"},
     "gemini-1.5-flash-8b-latest": {"rpm": 15, "type": "gemini"},
     "gemini-2.0-flash": {"rpm": 15, "type": "gemini"},
     "gemini-2.0-flash-lite": {"rpm": 30, "type": "gemini"},
     "gemini-2.0-pro-exp": {"rpm": 2, "type": "gemini"},
+    "gemini-2.5-pro-exp-03-25": {"rpm": 2, "type": "gemini"},
 }
 
 SESSION_EXPIRY_TIME = timedelta(hours=1)
 
-# --- Client Initialization ---
-# We'll initialize clients as needed, based on the request type
+last_request_times = {}
+request_counts = {}
 
-# --- Rate Limiting (Simplified, Per-Model) ---
-last_request_times = {}  # Track last request time *per model*
-request_counts = {}  # Track request count *per model*
-
-# --- Main Query Function ---
-
-async def query_genai_api(request: ChatRequest, model_name: str) -> AsyncGenerator[str, None]:
+async def query_genai_api(chat_session, request: ChatRequest, model_name: str, model_config) -> AsyncGenerator[str, None]:
     """
-    Queries either the Gemini API or Vertex AI, handling sessions and rate limiting.
+    Queries the Gemini API (or Vertex AI), handling rate limiting.
 
     Args:
+        chat_session: The active chat session object.
         request: The ChatRequest object.
-        model_name: The name of the model to use (must be in GEMINI_MODELS).
+        model_name: The name of the model being used.
+        model_config: The configuration dictionary for the model.
     """
-    if model_name not in GEMINI_MODELS:
-        yield f"Error: Model '{model_name}' not found."
-        return
-
-    model_config = GEMINI_MODELS[model_name]
-    model_type = model_config["type"]
-
-    # --- Rate Limiting Check (Simplified) ---
     now = datetime.now()
     if model_name in last_request_times:
         time_since_last_request = (now - last_request_times[model_name]).total_seconds()
@@ -58,30 +47,15 @@ async def query_genai_api(request: ChatRequest, model_name: str) -> AsyncGenerat
                 yield "Rate limit exceeded. Please wait and try again."
                 return
         else:
-            request_counts[model_name] = 0  # Reset count
+            request_counts[model_name] = 0
 
-    # Initialize if this is the first request for this model
     if model_name not in request_counts:
         request_counts[model_name] = 0
     if model_name not in last_request_times:
         last_request_times[model_name] = now
 
-
     try:
-        # --- Session Management ---
-        if request.session_id in chat_sessions:
-            session_data = chat_sessions[request.session_id]
-            chat_session = session_data["chat_session"]
-            if datetime.now() - session_data["last_used"] > SESSION_EXPIRY_TIME:
-                await close_session(request.session_id)
-                chat_session = await start_new_chat_session(request.session_id, model_name, llm_clients[model_type])
-        else:
-            chat_session = await start_new_chat_session(request.session_id, model_name, llm_clients[model_type])
-
-        chat_sessions[request.session_id]["last_used"] = datetime.now()
-
-        # --- API Call ---
-        request_counts[model_name] += 1  # Increment *before* API call
+        request_counts[model_name] += 1
         last_request_times[model_name] = now
 
         responses = chat_session.send_message_stream(request.prompt, config=types.GenerateContentConfig(system_instruction=request.system_instruction))
@@ -101,38 +75,15 @@ async def query_genai_api(request: ChatRequest, model_name: str) -> AsyncGenerat
         print(f"Unexpected Error: {e}")
         yield f"An unexpected error occurred: {e}"
 
-# --- Session Management Functions ---
 
-async def start_new_chat_session(session_id: str, model_name:str, client: genai.Client):
-    """Starts a new chat session."""
-    try:
-        chat_session = client.chats.create(model=model_name)
-        # model = client.get_model(model_name)  # Use get_model for both
-        # chat_session = model.start_chat()
-        chat_sessions[session_id] = {
-            "chat_session": chat_session,
-            "last_used": datetime.now(),
-        }
-        return chat_session
-    except Exception as e:
-        print(f"Error starting session: {e}")
-        raise
+async def _llm_query_helper(prompt: str, model: Optional[str] = None) -> str:
+    """Helper function to query LLMs, reusing chat_logic's model selection."""
 
-async def close_session(session_id: str):
-    """Closes a chat session."""
-    if session_id in chat_sessions:
-        del chat_sessions[session_id]
+    request = ChatRequest(session_id="dummy_session", prompt=prompt, model=model)
+    response_generator = query_genai_api(request=request, model_name=model or list(GEMINI_MODELS.keys())[0], user_id="dummy_user_id")  # Default to the first model if none specified
 
-def cleanup_expired_sessions():
-    """Removes expired chat sessions."""
-    global chat_sessions
-    now = datetime.now()
-    expired_sessions = [
-        session_id
-        for session_id, session_data in chat_sessions.items()
-        if now - session_data["last_used"] > SESSION_EXPIRY_TIME
-    ]
-    for session_id in expired_sessions:
-        del chat_sessions[session_id]
-    if expired_sessions:
-        print(f"Cleaned up {len(expired_sessions)} expired sessions.")
+    full_response = ""
+    async for chunk in response_generator:
+        full_response += chunk
+
+    return full_response
