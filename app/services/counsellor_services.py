@@ -8,6 +8,7 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.database_models.user import User
+from app.models.counsellor_models import CounsellorChatRequest
 from app.models.llm_models import ChatRequest
 from app.services.database.counsellor_database_services import (
     create_counsellor_message,
@@ -16,13 +17,14 @@ from app.services.database.counsellor_database_services import (
 )
 from app.services.database.user_database_services import (
     create_or_update_user_reflection,
+    get_active_user_plan
 )
 from app.services.llm.llm_services import chat_logic, generate_reflection
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-async def analyse_counsellor_request(request: ChatRequest, db: AsyncSession, redis_client: Redis, user: User) -> AsyncGenerator[str, None]:
+async def analyse_counsellor_request(request: CounsellorChatRequest, db: AsyncSession, redis_client: Redis, user: User) -> AsyncGenerator[str, None]:
     """
     Analyzes user input, generates LLM response, manages caching,
     and generates/stores reflections. Streams the response. Reflection
@@ -40,11 +42,18 @@ async def analyse_counsellor_request(request: ChatRequest, db: AsyncSession, red
     session_id = request.session_id if request.session_id else "default"
 
     system_messages = {
-        "en": "You are a helpful and empathetic counselor. Provide concise, supportive advice, and respond in English.",
-        "zh": "你是一位乐于助人且富有同情心的咨询师。请提供简洁、支持性的建议，并用中文回答。",
-        "zh_TW": "你是一位樂於助人且具同理心的諮詢師。請提供簡潔、支持性的建議，並用繁體中文回答。"
+        "en": "You are a helpful and empathetic counselor. Provide concise, supportive advice, and respond in English.\n",
+        "zh": "你是一位乐于助人且富有同情心的咨询师。请提供简洁、支持性的建议，并用中文回答。\n",
+        "zh_TW": "你是一位樂於助人且具同理心的諮詢師。請提供簡潔、支持性的建議，並用繁體中文回答。\n"
     }
-    system_instruction = system_messages.get(language, system_messages["en"])
+
+    user_plan = await get_active_user_plan(db=db, user_id=user.id)
+    if user_plan:
+        system_instruction = system_messages.get(language, system_messages["en"]) + user_plan
+    else:
+        system_instruction = system_messages.get(language, system_messages["en"])
+        
+    logging.debug(f"System instruction: {system_instruction}")
 
     async def build_counsellor_prompt(user: User, session_id: str, new_message: str, db: AsyncSession, redis_client: Redis) -> str:
         """Builds the complete prompt, using embedding-based retrieval and Redis."""

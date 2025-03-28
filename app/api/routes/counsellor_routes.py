@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from redis.asyncio import Redis
 from app.data.database import get_db
 from app.core.dependencies import get_redis_client
-from app.models.counsellor_models import ChatRequest
+from app.models.counsellor_models import CounsellorChatRequest
 from app.services.counsellor_services import analyse_counsellor_request
 from app.services.auth_services import get_current_user_from_cookie
 from app.models.database_models.user import User
@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.post("/chat")
 async def chat(
-    request: ChatRequest,
+    request: CounsellorChatRequest,
     db: AsyncSession = Depends(get_db), 
     redis_client: Redis = Depends(get_redis_client),
     user: User | None = Depends(get_current_user_from_cookie),

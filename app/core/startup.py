@@ -5,16 +5,20 @@ from fastapi_limiter import FastAPILimiter
 from google import genai
 from app.core.config import settings, GEMINI_API_KEY
 from app.core.dependencies import get_redis_client
+from app.core.sessions import chat_sessions
 from redis.asyncio import Redis
+from datetime import datetime
 
 redis_client_instance: Redis = None
 llm_clients = {}
+
 async def startup_event(app: FastAPI):
     """
     Initialize resources on application startup.
     """
     global redis_client_instance
     global llm_clients
+    global chat_sessions
 
     try:
         load_tarot_data("app/data/optimized_tarot_translated.json")
@@ -23,6 +27,11 @@ async def startup_event(app: FastAPI):
         llm_clients["gemini"] = genai.Client(api_key=GEMINI_API_KEY)
         llm_clients["vertex"] = genai.Client(vertexai=True, project=settings.GOOGLE_PROJECT_ID, location=settings.GOOGLE_REGION)
 
+        chat_sessions["dummy_session"] = {
+            "chat_session": llm_clients["gemini"].chats.create(model="gemini-2.0-flash-lite"),
+            "last_used": datetime.now(),
+            "user_id": "dummy_user_id"
+        }
         async for client in get_redis_client():
             redis_client_instance = client
             break 

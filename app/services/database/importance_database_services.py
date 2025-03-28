@@ -86,7 +86,7 @@ async def calculate_overall_importance(
             Message: {user_message}
             Rating:"""
 
-            llm_response = await _llm_query_helper(ChatRequest(session_id="extracting_importance_rating_session", prompt=prompt, model="gemini-2.0-flash-lite"))
+            llm_response = await _llm_query_helper(prompt, model="gemini-2.0-flash-lite")
             llm_rating = extract_first_rating(llm_response)
             logger.info(f"LLM-based importance rating for '{user_message}': {llm_rating}")
             return llm_rating

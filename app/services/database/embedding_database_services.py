@@ -35,6 +35,7 @@ async def retrieve_similar_messages(
             ORDER BY similarity_score ASC
             LIMIT :top_k;
         """)
+        # sql_query = text(f"SELECT 1 FROM importance_sample_messages LIMIT 1;")
 
         results = await db.execute(sql_query, {"top_k": top_k})
         all_results = results.fetchall()

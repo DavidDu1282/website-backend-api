@@ -29,36 +29,32 @@ SESSION_EXPIRY_TIME = timedelta(hours=1)
 last_request_times = {}
 request_counts = {}
 
-async def query_genai_api(chat_session, request: ChatRequest, model_name: str, model_config) -> AsyncGenerator[str, None]:
+async def query_genai_api(request: ChatRequest) -> AsyncGenerator[str, None]:
     """
     Queries the Gemini API (or Vertex AI), handling rate limiting.
 
     Args:
-        chat_session: The active chat session object.
         request: The ChatRequest object.
-        model_name: The name of the model being used.
-        model_config: The configuration dictionary for the model.
     """
     now = datetime.now()
-    if model_name in last_request_times:
-        time_since_last_request = (now - last_request_times[model_name]).total_seconds()
+    if request.model in last_request_times:
+        time_since_last_request = (now - last_request_times[request.model]).total_seconds()
         if time_since_last_request < 60:
-            if request_counts[model_name] >= model_config["rpm"]:
+            if request_counts[request.model] >= GEMINI_MODELS[request.model]["rpm"]:
                 yield "Rate limit exceeded. Please wait and try again."
                 return
         else:
-            request_counts[model_name] = 0
+            request_counts[request.model] = 0
 
-    if model_name not in request_counts:
-        request_counts[model_name] = 0
-    if model_name not in last_request_times:
-        last_request_times[model_name] = now
+    if request.model not in request_counts:
+        request_counts[request.model] = 0
+    if request.model not in last_request_times:
+        last_request_times[request.model] = now
 
     try:
-        request_counts[model_name] += 1
-        last_request_times[model_name] = now
-
-        responses = chat_session.send_message_stream(request.prompt, config=types.GenerateContentConfig(system_instruction=request.system_instruction))
+        request_counts[request.model] += 1
+        last_request_times[request.model] = now
+        responses = chat_sessions[request.session_id]["chat_session"].send_message_stream(request.prompt, config=types.GenerateContentConfig(system_instruction=request.system_instruction))
 
         for chunk in responses:
             await asyncio.sleep(0)
@@ -80,7 +76,7 @@ async def _llm_query_helper(prompt: str, model: Optional[str] = None) -> str:
     """Helper function to query LLMs, reusing chat_logic's model selection."""
 
     request = ChatRequest(session_id="dummy_session", prompt=prompt, model=model)
-    response_generator = query_genai_api(request=request, model_name=model or list(GEMINI_MODELS.keys())[0], user_id="dummy_user_id")  # Default to the first model if none specified
+    response_generator = query_genai_api(request=request)
 
     full_response = ""
     async for chunk in response_generator:

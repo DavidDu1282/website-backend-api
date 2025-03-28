@@ -1,7 +1,7 @@
 # app/services/llm/llm_service.py
 # import asyncio
-from typing import AsyncGenerator, Optional
-from datetime import datetime, timedelta
+from typing import AsyncGenerator
+from datetime import datetime
 from google import genai
 from google.genai import types
 
@@ -77,7 +77,7 @@ async def _query_with_session(request: ChatRequest, user_id: str, db: AsyncSessi
 
         chat_sessions[request.session_id]["last_used"] = datetime.now()
 
-        async for chunk in query_genai_api(chat_session, request, request.model, model_config):
+        async for chunk in query_genai_api(request):
             yield chunk
 
     except Exception as e:
@@ -119,9 +119,10 @@ async def generate_plan(request: PlanRequest, db, user_id) -> str:
 async def start_new_chat_session(request: ChatRequest, client: genai.Client, user_id: str, db: AsyncSession):
     """Starts a new chat session."""
     try:
-        plan = get_active_user_plan(db, user_id)
-        chat_session = client.chats.create(model=request.model)
-        client.chats.create(config=types.GenerateContentConfig(system_instruction=request.system_instruction))
+        logger.debug(f"Starting new chat session for user {user_id}, with model {request.model}")
+        plan = await get_active_user_plan(db, user_id)
+        logger.debug(f"Plan for new chat session: {plan}")
+        chat_session = client.chats.create(model=request.model, config=types.GenerateContentConfig(system_instruction=plan))
         chat_sessions[request.session_id] = {
             "chat_session": chat_session,
             "last_used": datetime.now(),
@@ -172,6 +173,8 @@ async def close_session(session_id: str, db: AsyncSession, redis_client: Redis):
 
         plan_request = PlanRequest(reflection=combined_reflections, model="gemini-2.0-flash-lite")  # Choose model.  Could be a user preference.
         plan_text = await generate_plan(plan_request, db, user_id)
+
+        logger.debug(f"Generated plan is: {plan_text}")
 
         if not plan_text:
             return None

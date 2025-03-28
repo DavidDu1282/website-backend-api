@@ -13,7 +13,7 @@ if not async_database_url.startswith("postgresql+asyncpg://"):
     print(f"Warning: Adapted database URL to: {async_database_url}.  Please update your configuration.")
 
 
-engine = create_async_engine(async_database_url, echo=settings.DEBUG)
+engine = create_async_engine(async_database_url)#, echo=settings.DEBUG)
 
 AsyncSessionLocal = sessionmaker(
     autocommit=False, autoflush=False, bind=engine, class_=AsyncSession, expire_on_commit=False
