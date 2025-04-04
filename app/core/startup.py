@@ -1,13 +1,16 @@
 # app/core/startup.py
+from datetime import datetime  # Corrected import
+
 from fastapi import FastAPI
-from app.data.tarot import load_tarot_data
 from fastapi_limiter import FastAPILimiter
+
 from google import genai
-from app.core.config import settings, GEMINI_API_KEY
+from redis.asyncio import Redis
+
+from app.core.config import GEMINI_API_KEY, settings
 from app.core.dependencies import get_redis_client
 from app.core.sessions import chat_sessions
-from redis.asyncio import Redis
-from datetime import datetime
+from app.data.tarot import load_tarot_data
 
 redis_client_instance: Redis = None
 llm_clients = {}

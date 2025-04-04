@@ -2,7 +2,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
-from app.api.routes import auth_routes, counsellor_routes, llm_routes, root_routes, tarot_routes, bagua_routes
+
+from app.api.routes import (
+    auth_routes,
+    bagua_routes,
+    counsellor_routes,
+    llm_routes,
+    root_routes,
+    tarot_routes,
+)
 from app.config import settings
 from app.core.startup import startup_event
 

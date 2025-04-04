@@ -1,5 +1,6 @@
 # app/core/dependencies.py
 import redis.asyncio as redis
+
 from app.core.config import settings
 
 async def get_redis_client():

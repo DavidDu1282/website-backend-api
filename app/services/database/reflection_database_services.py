@@ -1,11 +1,19 @@
-from app.models.database_models.user_reflection import UserReflection
-from app.services.database.embedding_database_services import generate_embedding, retrieve_similar_importance_recent_messages
-from app.services.database.importance_database_services import calculate_overall_importance
-from sqlalchemy import exists, desc, func, select
+# app/services/database_services/reflection_database_services.py
+from typing import List, Optional
+
+import numpy as np
+from sqlalchemy import desc, exists, func, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from typing import List, Optional
-import numpy as np
+
+from app.models.database_models.user_reflection import UserReflection
+from app.services.database.embedding_database_services import (
+    generate_embedding,
+    retrieve_similar_importance_recent_messages,
+)
+from app.services.database.importance_database_services import (
+    calculate_overall_importance,
+)
 
 async def create_or_update_user_reflection(db: AsyncSession, user_id: int, reflection_text: str, reflection_type: str = "Counsellor", similarity_threshold: float = 0.6, top_k: int = 10, placeholder_value:float=0.0) -> UserReflection:  
     """Creates or updates a user reflection, calculating and storing importance."""

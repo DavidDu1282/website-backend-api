@@ -1,9 +1,12 @@
+# app/services/database_services/importance_database_services.py
+import logging
+import re
+
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.models.llm_models import ChatRequest
 from app.services.database.embedding_database_services import retrieve_similar_messages
 from app.services.llm.llm_utils import _llm_query_helper
-import re
-import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)

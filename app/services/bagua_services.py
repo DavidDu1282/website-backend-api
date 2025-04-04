@@ -1,17 +1,21 @@
 # app/services/bagua_services.py
 import logging
 from typing import AsyncGenerator
+
 from fastapi import HTTPException
-from app.models.llm_models import ChatRequest
-from app.services.llm.llm_services import chat_logic
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.models.database_models.user import User
+from app.models.llm_models import ChatRequest
+
+from app.services.llm.llm_services import chat_logic
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-async def analyze_bagua_request(request: ChatRequest, db: AsyncSession, user: User) -> AsyncGenerator[str, None]:
+async def analyze_bagua_request(request: ChatRequest, db: AsyncSession, redis_client: Redis, user: User) -> AsyncGenerator[str, None]:
     """
     Analyzes a Bagua request, generates an LLM response, and streams it.
     """
@@ -79,7 +83,7 @@ async def analyze_bagua_request(request: ChatRequest, db: AsyncSession, user: Us
 
     response_chunks = []
     try:
-        async for chunk in chat_logic(llm_request, user.id, db):
+        async for chunk in chat_logic(llm_request, db, redis_client, user.id):
             response_chunks.append(chunk)
             yield chunk
     except Exception as e:

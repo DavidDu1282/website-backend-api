@@ -7,6 +7,7 @@ from typing import AsyncGenerator
 
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
+from redis.asyncio import Redis
 
 from app.data.tarot import tarot_cards
 from app.models.database_models.tarot_reading_history import TarotReadingHistory
@@ -18,7 +19,7 @@ from app.services.llm.llm_services import chat_logic
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-async def analyze_tarot_logic(request, db: AsyncSession, user: User) -> AsyncGenerator[str, None]:
+async def analyze_tarot_logic(request, db: AsyncSession, redis_client: Redis, user: User) -> AsyncGenerator[str, None]:
     """
     Analyze tarot cards, stream LLM response, measure time to first chunk,
     and delay each chunk by 0.05 seconds.
@@ -175,7 +176,7 @@ async def analyze_tarot_logic(request, db: AsyncSession, user: User) -> AsyncGen
     response_chunks = []
     first_chunk_sent = False
     try:
-        async for chunk in chat_logic(llm_request, user.id, db):
+        async for chunk in chat_logic(llm_request, db, redis_client, user.id):
             response_chunks.append(chunk)
             if not first_chunk_sent:
                 first_chunk_time = time.time()

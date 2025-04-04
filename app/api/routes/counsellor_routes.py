@@ -1,13 +1,18 @@
-from fastapi import APIRouter, HTTPException, Depends, Request 
+# app/api/routes/counsellor_routes.py
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
-from sqlalchemy.ext.asyncio import AsyncSession
+
 from redis.asyncio import Redis
-from app.data.database import get_db
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.core.dependencies import get_redis_client
+from app.data.database import get_db
+
 from app.models.counsellor_models import CounsellorChatRequest
-from app.services.counsellor_services import analyse_counsellor_request
-from app.services.auth_services import get_current_user_from_cookie
 from app.models.database_models.user import User
+
+from app.services.auth_services import get_current_user_from_cookie
+from app.services.counsellor_services import analyse_counsellor_request
 
 
 router = APIRouter()

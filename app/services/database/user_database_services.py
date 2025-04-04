@@ -1,14 +1,21 @@
 # app/services/database/user_database_services.py
 from typing import List, Optional
+
+import numpy as np
+from sqlalchemy import desc, exists, func, select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import exists, desc, func, select
+
 from app.models.database_models.user import User
 from app.models.database_models.user_plan import UserPlan
 from app.models.database_models.user_reflection import UserReflection
-from app.services.database.embedding_database_services import generate_embedding, retrieve_similar_importance_recent_messages
-from app.services.database.importance_database_services import calculate_overall_importance
-from sqlalchemy.exc import SQLAlchemyError
-import numpy as np
+from app.services.database.embedding_database_services import (
+    generate_embedding,
+    retrieve_similar_importance_recent_messages,
+)
+from app.services.database.importance_database_services import (
+    calculate_overall_importance,
+)
 
 async def get_user_by_id(db: AsyncSession, user_id: int) -> Optional[User]:
     result = await db.execute(select(User).filter(User.id == user_id))

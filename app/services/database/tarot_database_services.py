@@ -1,12 +1,17 @@
-from app.models.database_models.tarot_reading_history import TarotReadingHistory
+# app/services/database/tarot_database_services.py
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
-from app.models.tarot_models import TarotAnalysisRequest
-from app.services.tarot_services import analyze_tarot_logic
-from app.data.database import get_db
-from sqlalchemy.ext.asyncio import AsyncSession
+
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.data.database import get_db
+
+from app.models.database_models.tarot_reading_history import TarotReadingHistory
+from app.models.tarot_models import TarotAnalysisRequest
+
 from app.services.auth_services import get_current_user_from_cookie
+from app.services.tarot_services import analyze_tarot_logic
 
 router = APIRouter()
 

@@ -1,9 +1,10 @@
-# app/models/database_models/user_reflection.py
-
-from sqlalchemy import Column, Integer, DateTime, ForeignKey, Text, String
+# app/models/database_models/user_reflection.pyfrom sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from pgvector.sqlalchemy import Vector
+
 from app.data.database import Base
 
 

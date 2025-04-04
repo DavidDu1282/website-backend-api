@@ -1,27 +1,36 @@
 # app/services/llm/llm_service.py
-# import asyncio
-from typing import AsyncGenerator
+import logging
 from datetime import datetime
+from typing import AsyncGenerator
+
 from google import genai
 from google.genai import types
 
-from app.models.llm_models import ChatRequest
-from app.core.sessions import chat_sessions
-from app.core.startup import llm_clients
-# from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, GoogleAPIError
-from app.models.llm_models import ChatRequest, ReflectionRequest, PlanRequest
-from app.services.database.user_database_services import create_user_plan, create_or_update_user_reflection, get_user_reflections, get_active_user_plan
-# from app.services.database.reflection_database_services import create_or_update_user_reflection, get_user_reflections
-from app.services.llm.llm_utils import query_genai_api, _llm_query_helper, GEMINI_MODELS, SESSION_EXPIRY_TIME
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
-import logging
+
+from app.core.sessions import chat_sessions
+from app.core.startup import llm_clients
+
+from app.models.llm_models import ChatRequest, PlanRequest, ReflectionRequest
+from app.services.database.user_database_services import (
+    create_user_plan,
+    create_or_update_user_reflection,
+    get_active_user_plan,
+    get_user_reflections,
+)
+from app.services.llm.llm_utils import (
+    GEMINI_MODELS,
+    SESSION_EXPIRY_TIME,
+    _llm_query_helper,
+    query_genai_api,
+)
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-async def chat_logic(request: ChatRequest, user_id: str, db: AsyncSession) -> AsyncGenerator[str, None]:
+async def chat_logic(request: ChatRequest, db: AsyncSession, redis_client: Redis, user_id: str) -> AsyncGenerator[str, None]:
     """
     Handles LLM chat sessions, allowing the use of both Vertex AI and Gemini APIs.
     Prioritizes based on user selection, then availability. This function manages
@@ -45,7 +54,7 @@ async def chat_logic(request: ChatRequest, user_id: str, db: AsyncSession) -> As
     for model_name, _ in GEMINI_MODELS.items():
         try:
             request.model = model_name
-            async for chunk in _query_with_session(request, user_id, db):
+            async for chunk in _query_with_session(request, db, redis_client, user_id):
                 yield chunk
             return
         except Exception as e:
@@ -54,7 +63,7 @@ async def chat_logic(request: ChatRequest, user_id: str, db: AsyncSession) -> As
 
     yield "Error: All models are unavailable or have exceeded their rate limits. Try again later."
 
-async def _query_with_session(request: ChatRequest, user_id: str, db: AsyncSession) -> AsyncGenerator[str, None]:
+async def _query_with_session(request: ChatRequest, db: AsyncSession, redis_client: Redis, user_id: str) -> AsyncGenerator[str, None]:
     """
     Manages the chat session lifecycle and calls the underlying query_genai_api.
     """
@@ -64,16 +73,16 @@ async def _query_with_session(request: ChatRequest, user_id: str, db: AsyncSessi
 
     model_config = GEMINI_MODELS[request.model]
     model_type = model_config["type"]
-
+    global redis
     try:
         if request.session_id in chat_sessions:
             session_data = chat_sessions[request.session_id]
             chat_session = session_data["chat_session"]
             if datetime.now() - session_data["last_used"] > SESSION_EXPIRY_TIME:
-                await close_session(request.session_id)
-                chat_session = await start_new_chat_session(request, llm_clients[model_type], user_id, db)
+                await close_session(request.session_id, db, redis_client)
+                chat_session = await start_new_chat_session(request, llm_clients[model_type], db, user_id)
         else:
-            chat_session = await start_new_chat_session(request, llm_clients[model_type], user_id, db)
+            chat_session = await start_new_chat_session(request, llm_clients[model_type], db, user_id)
 
         chat_sessions[request.session_id]["last_used"] = datetime.now()
 
@@ -116,7 +125,7 @@ async def generate_plan(request: PlanRequest, db, user_id) -> str:
     return await _llm_query_helper(prompt, request.model)
 
 
-async def start_new_chat_session(request: ChatRequest, client: genai.Client, user_id: str, db: AsyncSession):
+async def start_new_chat_session(request: ChatRequest, client: genai.Client, db: AsyncSession, user_id: str):
     """Starts a new chat session."""
     try:
         logger.debug(f"Starting new chat session for user {user_id}, with model {request.model}")

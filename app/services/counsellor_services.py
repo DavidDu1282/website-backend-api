@@ -101,7 +101,7 @@ async def analyse_counsellor_request(request: CounsellorChatRequest, db: AsyncSe
     response_chunks = []
     try:
         logging.debug("Sending request to LLM service.")
-        async for chunk in chat_logic(llm_request, user.id, db):
+        async for chunk in chat_logic(llm_request, db, redis_client, user.id):
             response_chunks.append(chunk)
             if len(response_chunks) == 1:
                 first_chunk_time = time.time()

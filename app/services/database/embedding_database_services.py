@@ -1,11 +1,12 @@
 # app/services/database_services/embedding_database_services.py
-from typing import List, Optional, Dict, Any
+from typing import Any, Dict, List, Optional
+
+import numpy as np
+from sentence_transformers import SentenceTransformer
+from sqlalchemy import MetaData, Table, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import text
-from pgvector.sqlalchemy import Vector 
-from sqlalchemy import MetaData, Table, func, and_
-from sentence_transformers import SentenceTransformer
-import numpy as np
+from pgvector.sqlalchemy import Vector
 
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 

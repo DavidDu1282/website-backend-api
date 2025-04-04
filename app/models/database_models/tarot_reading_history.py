@@ -1,7 +1,8 @@
 # app/models/database_models/tarot_reading_history.py
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
-from app.data.database import Base  # Corrected import
+
+from app.data.database import Base
 
 
 class TarotReadingHistory(Base):

@@ -1,12 +1,19 @@
+# app/services/llm/llm_utils.py
 import asyncio
-from typing import AsyncGenerator, Optional
 from datetime import datetime, timedelta
+from typing import AsyncGenerator, Optional
+
 from google import genai
+from google.api_core.exceptions import (
+    GoogleAPIError,
+    InternalServerError,
+    ResourceExhausted,
+    ServiceUnavailable,
+)
 from google.genai import types
-from app.models.llm_models import ChatRequest
+
 from app.core.sessions import chat_sessions
 from app.core.startup import llm_clients
-from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, GoogleAPIError
 from app.models.llm_models import ChatRequest
 
 GEMINI_MODELS = {

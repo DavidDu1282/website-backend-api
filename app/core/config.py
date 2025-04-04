@@ -1,7 +1,8 @@
 # app/core/config.py
-from pydantic_settings import BaseSettings
 import os
+
 from google import genai
+from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     SECRET_KEY: str

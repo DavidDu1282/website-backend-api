@@ -1,15 +1,24 @@
 # app/services/database/counsellor_database_services.py
-from typing import List, Optional
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy import desc, asc, select
-from app.models.database_models.counsellor_message_history import CounsellorMessageHistory
-from app.models.database_models.user_plan import UserPlan
-from app.services.database.embedding_database_services import generate_embedding, retrieve_similar_messages, retrieve_similar_importance_recent_messages
-from app.services.database.importance_database_services import calculate_overall_importance
 import logging
-import numpy as np
+from typing import List, Optional
 
+import numpy as np
+from sqlalchemy import asc, desc, select
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.models.database_models.counsellor_message_history import (
+    CounsellorMessageHistory,
+)
+from app.models.database_models.user_plan import UserPlan
+from app.services.database.embedding_database_services import (
+    generate_embedding,
+    retrieve_similar_importance_recent_messages,
+    retrieve_similar_messages,
+)
+from app.services.database.importance_database_services import (
+    calculate_overall_importance,
+)
 
 # # Configure logging
 # log = logging.getLogger(__name__)
