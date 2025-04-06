@@ -73,7 +73,7 @@ async def _query_with_session(request: ChatRequest, db: AsyncSession, redis_clie
 
     model_config = GEMINI_MODELS[request.model]
     model_type = model_config["type"]
-    global redis
+    
     try:
         if request.session_id in chat_sessions:
             session_data = chat_sessions[request.session_id]

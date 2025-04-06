@@ -62,9 +62,6 @@ async def delete_user(db: AsyncSession, user_id: int) -> None:
 
 async def create_user_plan(db: AsyncSession, user_id: int, plan_text: str, plan_type: Optional[str] = None) -> UserPlan:  
     await db.execute(
-        select(UserPlan).filter(UserPlan.user_id == user_id).update({UserPlan.active_plan: False})
-    )
-    await db.execute(
         UserPlan.__table__.update().where(UserPlan.user_id == user_id).values({UserPlan.active_plan: False})
     )
 
