@@ -1,3 +1,4 @@
+name: hao123.ddns.net
 services:
   db:
     image: ankane/pgvector
@@ -66,3 +67,4 @@ volumes:
 networks:
   backend_network:
     external: true
+    driver: bridge
