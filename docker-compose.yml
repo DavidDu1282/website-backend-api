@@ -1,4 +1,4 @@
-name: hao123.ddns.net
+# name: hao123.ddns.net
 services:
   db:
     image: ankane/pgvector
