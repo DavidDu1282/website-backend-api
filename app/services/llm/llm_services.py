@@ -109,7 +109,7 @@ async def generate_reflection(request: ReflectionRequest) -> str:
 
 async def generate_plan(request: PlanRequest, db, user_id) -> str:
     """Generates a plan for the next conversation."""
-    previous_plan = get_active_user_plan(db, user_id)
+    previous_plan = await get_active_user_plan(db, user_id)
     prompt = f"""Based on the following reflection and previous plan, create a plan for the AI counsellor's next conversation with the user.
 
         Previous Plan: {previous_plan}
