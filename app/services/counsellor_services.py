@@ -49,7 +49,7 @@ async def analyse_counsellor_request(request: CounsellorChatRequest, db: AsyncSe
 
     user_plan = await get_active_user_plan(db=db, user_id=user.id)
     if user_plan:
-        system_instruction = system_messages.get(language, system_messages["en"]) + user_plan
+        system_instruction = system_messages.get(language, system_messages["en"]) + user_plan.plan_text
     else:
         system_instruction = system_messages.get(language, system_messages["en"])
         
