@@ -1,5 +1,5 @@
 # app/models/database_models/counsellor_message_history.py
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -19,5 +19,6 @@ class CounsellorMessageHistory(Base):
     session_id = Column(String)
     importance_score = Column(Integer, nullable=True)
     embedding = Column(Vector(384), nullable=True)
+    private_message = Column(Boolean, default=False)
 
     user = relationship("User", back_populates="counsellor_messages_history")

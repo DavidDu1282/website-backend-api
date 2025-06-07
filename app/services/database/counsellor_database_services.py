@@ -121,7 +121,7 @@ async def get_similar_counsellor_responses(db: AsyncSession, user_id: int, user_
 
     return similar_messages
 
-async def get_similar_importance_recent_counsellor_responses(db: AsyncSession, user_id: int, user_message: str, top_n: int = 5):
+async def get_similar_importance_recent_counsellor_responses(db: AsyncSession, user_id: int, user_message: str, top_n: int = 5, private_session: bool = False, session_id: str = None):
     """
     Gets similar messages based on importance, similarity, and recency.
     """
@@ -129,18 +129,35 @@ async def get_similar_importance_recent_counsellor_responses(db: AsyncSession, u
     embedding_column = "embedding"
     return_columns = ["user_message", "counsellor_response", "importance_score"]
 
-    similar_messages = await retrieve_similar_importance_recent_messages(
-        db=db,
-        user_id=user_id,
-        query_text=user_message,
-        table_name=table_name,
-        embedding_column_name=embedding_column,
-        return_column_names=return_columns,
-        top_k=top_n, 
-        similarity_weight=0.3,
-        importance_weight=0.5,
-        recency_weight=0.2,
-    )
+    if private_session:
+        similar_messages = await retrieve_similar_importance_recent_messages(
+            db=db,
+            user_id=user_id,
+            query_text=user_message,
+            table_name=table_name,
+            embedding_column_name=embedding_column,
+            return_column_names=return_columns,
+            top_k=top_n, 
+            similarity_weight=0.3,
+            importance_weight=0.5,
+            recency_weight=0.2,
+            additional_filters={"session_id": session_id}
+        )
+        
+    else:
+        similar_messages = await retrieve_similar_importance_recent_messages(
+            db=db,
+            user_id=user_id,
+            query_text=user_message,
+            table_name=table_name,
+            embedding_column_name=embedding_column,
+            return_column_names=return_columns,
+            top_k=top_n, 
+            similarity_weight=0.3,
+            importance_weight=0.5,
+            recency_weight=0.2,
+            additional_filters={"private_message": False}
+        )
 
     return similar_messages
 

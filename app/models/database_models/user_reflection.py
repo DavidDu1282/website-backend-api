@@ -19,5 +19,6 @@ class UserReflection(Base):
     reflection_type = Column(String, nullable=True)
     importance_score = Column(Integer, nullable=True)
     embedding = Column(Vector(384), nullable=True)
+    
 
     user = relationship("User", back_populates="user_reflections")

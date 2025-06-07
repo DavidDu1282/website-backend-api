@@ -47,27 +47,33 @@ async def analyse_counsellor_request(request: CounsellorChatRequest, db: AsyncSe
         "zh_TW": "你是一位樂於助人且具同理心的諮詢師。請提供簡潔、支持性的建議，並用繁體中文回答。\n"
     }
 
-    user_plan = await get_active_user_plan(db=db, user_id=user.id)
-    if user_plan:
-        system_instruction = system_messages.get(language, system_messages["en"]) + user_plan.plan_text
-    else:
-        system_instruction = system_messages.get(language, system_messages["en"])
+    system_instruction = system_messages.get(language, system_messages["en"])
+
+    if not request.private_session:
+        user_plan = await get_active_user_plan(db=db, user_id=user.id)
+        if user_plan:
+            system_instruction = system_messages.get(language, system_messages["en"]) + user_plan.plan_text
         
     logging.debug(f"System instruction: {system_instruction}")
 
-    async def build_counsellor_prompt(user: User, session_id: str, new_message: str, db: AsyncSession, redis_client: Redis) -> str:
+    async def build_counsellor_prompt(request: CounsellorChatRequest, user: User, db: AsyncSession, redis_client: Redis) -> str:
         """Builds the complete prompt, using embedding-based retrieval and Redis."""
         try:
-            logging.debug(f"Building counsellor prompt for user: {user.username}, session: {session_id}")
+            logging.debug(f"Building counsellor prompt for user: {user.username}, session: {request.session_id}")
 
-            custom_prompt_obj = await get_latest_counsellor_prompt(db, user.id)
-            custom_prompt = custom_prompt_obj.prompt_text if custom_prompt_obj else ""
+            if not request.private_session:
+                custom_prompt_obj = await get_latest_counsellor_prompt(db, user.id)
+                custom_prompt = custom_prompt_obj.prompt_text if custom_prompt_obj else ""
+            else:
+                custom_prompt = ""
 
             relevant_messages = await get_similar_importance_recent_counsellor_responses(
                 db=db,
                 user_id=user.id,
-                user_message=new_message,
-                top_n=5)
+                user_message=request.message,
+                top_n=5,
+                private_session=request.private_session
+                session_id=request.session_id)
             logging.debug(f"Number of relevant messages found: {len(relevant_messages)}")
 
             history_string_db = "\n".join(
@@ -91,7 +97,7 @@ async def analyse_counsellor_request(request: CounsellorChatRequest, db: AsyncSe
             raise
 
     try:
-        prompt = await build_counsellor_prompt(user, session_id, request.message, db, redis_client)
+        prompt = await build_counsellor_prompt(request, user, db, redis_client)
     except Exception as e:
         logging.error(f"❌ build_counsellor_prompt failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
