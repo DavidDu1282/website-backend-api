@@ -72,7 +72,7 @@ async def analyse_counsellor_request(request: CounsellorChatRequest, db: AsyncSe
                 user_id=user.id,
                 user_message=request.message,
                 top_n=5,
-                private_session=request.private_session
+                private_session=request.private_session,
                 session_id=request.session_id)
             logging.debug(f"Number of relevant messages found: {len(relevant_messages)}")
 
