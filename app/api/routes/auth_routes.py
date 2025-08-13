@@ -57,7 +57,7 @@ async def register(user_data: UserCreate, request: Request, db: AsyncSession = D
 
     try:
         hashed_password = hash_password(user_data.password)
-        user = user_database_services.create_user(db, user_data.username, user_data.email, hashed_password)
+        user = await user_database_services.create_user(db, user_data.username, user_data.email, hashed_password)
         return {"success": True, "message": "User registered successfully", "user_id": user.id}
     except ValueError as e:
         if "Username already taken" in str(e):
@@ -154,7 +154,7 @@ async def refresh_token_route(
     except JWTError:
         raise credentials_exception
 
-    user = user_database_services.get_user_by_username(db, token_data.username)
+    user = await user_database_services.get_user_by_username(db, token_data.username)
     if user is None:
         raise credentials_exception
 
